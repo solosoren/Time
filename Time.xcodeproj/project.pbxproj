@@ -11,7 +11,6 @@
 		AC16DBC81EC96CF8000A0D02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */; };
 		AC16DBD31EC96CF8000A0D02 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBD21EC96CF8000A0D02 /* TimeTests.swift */; };
 		AC16DBDE1EC96CF8000A0D02 /* TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBDD1EC96CF8000A0D02 /* TimeUITests.swift */; };
-		AC16DBEC1EC96D16000A0D02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBEB1EC96D16000A0D02 /* Main.storyboard */; };
 		AC16DBF61EC96DCB000A0D02 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */; };
 		AC16DBFA1EC96E0B000A0D02 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF71EC96E0B000A0D02 /* Session.swift */; };
 		AC16DBFB1EC96E0B000A0D02 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */; };
@@ -20,7 +19,9 @@
 		AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */; };
 		AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC011EC96EBA000A0D02 /* Project.swift */; };
 		AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */; };
-		AC16DC061EC96EEE000A0D02 /* AddTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC051EC96EEE000A0D02 /* AddTableViewController.swift */; };
+		AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */; };
+		AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC081ECA3381000A0D02 /* SessionController.swift */; };
+		AC16DC0C1ECA73C2000A0D02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,16 +52,17 @@
 		AC16DBD91EC96CF8000A0D02 /* TimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC16DBDD1EC96CF8000A0D02 /* TimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUITests.swift; sourceTree = "<group>"; };
 		AC16DBDF1EC96CF8000A0D02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC16DBEB1EC96D16000A0D02 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "../../../../Downloads/Timer-master/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectViewController.swift; path = "../../../../Downloads/Timer-master/ProjectViewController.swift"; sourceTree = "<group>"; };
-		AC16DBF71EC96E0B000A0D02 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = "../../../../Downloads/Timer-master/Session.swift"; sourceTree = "<group>"; };
-		AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = "../../../../Downloads/Timer-master/TabBarController.swift"; sourceTree = "<group>"; };
-		AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerTableViewCell.swift; path = "../../../../Downloads/Timer-master/TimerTableViewCell.swift"; sourceTree = "<group>"; };
-		AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectTimer.swift; path = "../../../../Downloads/Timer-master/ProjectTimer.swift"; sourceTree = "<group>"; };
-		AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectController.swift; path = "../../../../Downloads/Timer-master/ProjectController.swift"; sourceTree = "<group>"; };
-		AC16DC011EC96EBA000A0D02 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Project.swift; path = "../../../../Downloads/Timer-master/Project.swift"; sourceTree = "<group>"; };
-		AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../../../../Downloads/Timer-master/AppDelegate.swift"; sourceTree = "<group>"; };
-		AC16DC051EC96EEE000A0D02 /* AddTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddTableViewController.swift; path = "../../../../Downloads/Timer-master/AddTableViewController.swift"; sourceTree = "<group>"; };
+		AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		AC16DBF71EC96E0B000A0D02 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTableViewCell.swift; sourceTree = "<group>"; };
+		AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectTimer.swift; path = "../Timer-master/ProjectTimer.swift"; sourceTree = "<group>"; };
+		AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
+		AC16DC011EC96EBA000A0D02 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AddTableViewController copy.swift"; sourceTree = "<group>"; };
+		AC16DC081ECA3381000A0D02 /* SessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		AC16DC0B1ECA73C2000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,14 +115,13 @@
 			children = (
 				AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */,
 				AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */,
-				AC16DC051EC96EEE000A0D02 /* AddTableViewController.swift */,
-				AC16DBF71EC96E0B000A0D02 /* Session.swift */,
-				AC16DC011EC96EBA000A0D02 /* Project.swift */,
-				AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */,
-				AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */,
-				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
 				AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */,
-				AC16DBEB1EC96D16000A0D02 /* Main.storyboard */,
+				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
+				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
+				AC16DC071ECA3316000A0D02 /* Model */,
+				AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */,
+				AC16DC081ECA3381000A0D02 /* SessionController.swift */,
+				AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */,
 				AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */,
 				AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */,
 				AC16DBC91EC96CF8000A0D02 /* Info.plist */,
@@ -144,6 +145,16 @@
 				AC16DBDF1EC96CF8000A0D02 /* Info.plist */,
 			);
 			path = TimeUITests;
+			sourceTree = "<group>";
+		};
+		AC16DC071ECA3316000A0D02 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC16DBF71EC96E0B000A0D02 /* Session.swift */,
+				AC16DC011EC96EBA000A0D02 /* Project.swift */,
+				AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,9 +267,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC16DC0C1ECA73C2000A0D02 /* Main.storyboard in Resources */,
 				AC16DBC81EC96CF8000A0D02 /* LaunchScreen.storyboard in Resources */,
 				AC16DBC51EC96CF8000A0D02 /* Assets.xcassets in Resources */,
-				AC16DBEC1EC96D16000A0D02 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,8 +298,9 @@
 				AC16DBF61EC96DCB000A0D02 /* ProjectViewController.swift in Sources */,
 				AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */,
 				AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */,
+				AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */,
 				AC16DBFB1EC96E0B000A0D02 /* TabBarController.swift in Sources */,
-				AC16DC061EC96EEE000A0D02 /* AddTableViewController.swift in Sources */,
+				AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */,
 				AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */,
@@ -333,6 +345,14 @@
 				AC16DBC71EC96CF8000A0D02 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC16DC0B1ECA73C2000A0D02 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
