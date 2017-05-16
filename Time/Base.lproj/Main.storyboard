@@ -305,7 +305,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="215"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="viv-aq-iBb" id="DiQ-nh-s8e">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="214.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 14 Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEn-MO-BFq">
@@ -395,7 +395,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="endSessionButtonPressed:" destination="viv-aq-iBb" eventType="touchUpInside" id="Ewi-TE-sev"/>
+                                                        <action selector="endSessionButtonPressed:" destination="viv-aq-iBb" eventType="touchUpInside" id="lsL-GC-39v"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignments" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qku-aF-Jw3">
@@ -463,7 +463,7 @@
                                         <rect key="frame" x="0.0" y="243" width="375" height="39"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HcS-Vx-HyR" id="7td-cX-I15">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-qQ-gng">
@@ -494,7 +494,7 @@
                                         <rect key="frame" x="0.0" y="282" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X8S-Rf-5mq" id="3HY-VH-Wlc">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="76.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wireframe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIt-gk-0gO">
@@ -552,6 +552,376 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LargeTimerCell" rowHeight="617" id="gbq-la-ye8" customClass="LargeTimerTableViewCell" customModule="Time" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="359" width="375" height="617"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gbq-la-ye8" id="DcM-7j-gna">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVI-uK-05u">
+                                                    <rect key="frame" x="20" y="54" width="144" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="25"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbt-Vt-ZWV">
+                                                    <rect key="frame" x="0.0" y="195.5" width="375" height="2"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="0gE-RU-dve"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 14 Min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23j-Cj-lCR">
+                                                    <rect key="frame" x="31" y="127.5" width="312" height="44"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="43"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Running" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc2-pp-JzF">
+                                                    <rect key="frame" x="284" y="62" width="66" height="15"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5N1-4u-ePo">
+                                                    <rect key="frame" x="20" y="92" width="109" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeC-Su-K1d">
+                                                    <rect key="frame" x="25" y="217" width="92.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="19"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRS-Fk-qmB">
+                                                    <rect key="frame" x="25" y="268" width="60" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="19"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsA-OB-oA6">
+                                                    <rect key="frame" x="25" y="319" width="84" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="19"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sessions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Eg-Gd-1W5">
+                                                    <rect key="frame" x="25" y="370" width="91.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="19"/>
+                                                    <color key="textColor" white="0.70735212053571428" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-0w-q6W">
+                                                    <rect key="frame" x="25" y="421" width="74.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="19"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 16 Mins " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fI8-9F-rsF">
+                                                    <rect key="frame" x="204" y="217.5" width="146" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 14 Mins" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIR-re-nFp">
+                                                    <rect key="frame" x="209" y="268.5" width="141" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Hours" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANt-5F-42S">
+                                                    <rect key="frame" x="275" y="319.5" width="75" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBS-iR-YMQ">
+                                                    <rect key="frame" x="344" y="370.5" width="6" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
+                                                    <color key="textColor" white="0.70735212053571428" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjW-1b-uOV">
+                                                    <rect key="frame" x="275.5" y="421.5" width="74.5" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I41-5Z-kX4">
+                                                    <rect key="frame" x="0.0" y="458.5" width="375" height="2"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="JpR-8V-cZx"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F6D-6S-f2L">
+                                                    <rect key="frame" x="11" y="481" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0g-oi-gJx">
+                                                    <rect key="frame" x="266" y="480" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W70-0w-L2u">
+                                                    <rect key="frame" x="138" y="481" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMI-wH-nG6">
+                                                    <rect key="frame" x="138" y="542.5" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="InL-A9-Ujs">
+                                                    <rect key="frame" x="267" y="481" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="62u-Rj-Kdo"/>
+                                                        <constraint firstAttribute="width" constant="96" id="Yes-Ha-UhZ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <state key="normal" title="Notes">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="notesButtonPressed:" destination="gbq-la-ye8" eventType="touchUpInside" id="fkH-M9-1kf"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gBb-BX-2pj">
+                                                    <rect key="frame" x="139" y="543.5" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="F50-TB-iEF"/>
+                                                        <constraint firstAttribute="width" constant="96" id="ggl-py-OCB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                                    <state key="normal" title="   End  Session">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="endSessionPressed:" destination="gbq-la-ye8" eventType="touchUpInside" id="Upf-Md-QiE"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="og5-qK-0Wh">
+                                                    <rect key="frame" x="12" y="482" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="96" id="VER-5g-guP"/>
+                                                        <constraint firstAttribute="height" constant="40" id="eI0-0Y-84I"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                                    <state key="normal" title="   Cancel       Timer">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="cancelTimer:" destination="gbq-la-ye8" eventType="touchUpInside" id="fRL-sF-1I9"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XbD-qu-YUA">
+                                                    <rect key="frame" x="139" y="482" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="2nD-Fs-xMw"/>
+                                                        <constraint firstAttribute="width" constant="96" id="W7n-SZ-zjM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <state key="normal" title="Update">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="updateTimer:" destination="gbq-la-ye8" eventType="touchUpInside" id="udq-qT-sCL"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RN2-Ba-nn3">
+                                                    <rect key="frame" x="12" y="542.5" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XxN-T8-0lu">
+                                                    <rect key="frame" x="13" y="543.5" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="oOE-tG-ITe"/>
+                                                        <constraint firstAttribute="width" constant="96" id="rPc-4a-eZy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <state key="normal" title="Break">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="breakButtonPressed:" destination="gbq-la-ye8" eventType="touchUpInside" id="6Yv-My-0dG"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zm-eN-3nO">
+                                                    <rect key="frame" x="266" y="543" width="98" height="42"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UYe-Sh-ekl">
+                                                    <rect key="frame" x="267" y="544" width="96" height="40"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="96" id="HRc-Kx-BaH"/>
+                                                        <constraint firstAttribute="height" constant="40" id="hwA-19-bn7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <state key="normal" title="Done">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="doneButtonPressed:" destination="gbq-la-ye8" eventType="touchUpInside" id="4Mc-ey-O5C"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="InL-A9-Ujs" firstAttribute="leading" secondItem="P0g-oi-gJx" secondAttribute="leading" constant="1" id="0W7-VF-qis"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UIR-re-nFp" secondAttribute="trailing" constant="17" id="1G5-pc-FjX"/>
+                                                <constraint firstItem="2Eg-Gd-1W5" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="71.25" id="1pC-5s-wof"/>
+                                                <constraint firstItem="tPI-0w-q6W" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="122.25" id="1qg-O9-7lV"/>
+                                                <constraint firstItem="InL-A9-Ujs" firstAttribute="trailing" secondItem="P0g-oi-gJx" secondAttribute="trailing" constant="-1" id="2Sh-dO-fNa"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="I41-5Z-kX4" secondAttribute="trailing" constant="-8" id="3eE-OW-6FO"/>
+                                                <constraint firstItem="InL-A9-Ujs" firstAttribute="bottom" secondItem="P0g-oi-gJx" secondAttribute="bottom" constant="-1" id="4oM-wq-zcP"/>
+                                                <constraint firstItem="ANt-5F-42S" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="20.5" id="88R-aF-4DO"/>
+                                                <constraint firstItem="XbD-qu-YUA" firstAttribute="trailing" secondItem="W70-0w-L2u" secondAttribute="trailing" constant="-1" id="C6U-r8-SdT"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="top" secondItem="gBb-BX-2pj" secondAttribute="top" constant="-1" id="CJv-62-QxR"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="trailing" secondItem="gBb-BX-2pj" secondAttribute="trailing" constant="1" id="HDw-a4-Xf2"/>
+                                                <constraint firstItem="SBS-iR-YMQ" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="71.5" id="IQz-uT-Vus"/>
+                                                <constraint firstItem="5N1-4u-ePo" firstAttribute="leading" secondItem="KVI-uK-05u" secondAttribute="leading" id="J6H-uc-okK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ANt-5F-42S" secondAttribute="trailing" constant="17" id="Jh7-2h-Ieu"/>
+                                                <constraint firstItem="XxN-T8-0lu" firstAttribute="leading" secondItem="RN2-Ba-nn3" secondAttribute="leading" constant="1" id="JpO-YL-VrH"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="193.75" id="LWU-qq-ym9"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="leading" secondItem="RN2-Ba-nn3" secondAttribute="trailing" priority="500" constant="28" id="Mp0-Mw-mdN"/>
+                                                <constraint firstItem="tPI-0w-q6W" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="17" id="O2D-wb-NiT"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="leading" secondItem="og5-qK-0Wh" secondAttribute="leading" constant="-1" id="O6Y-BP-RkB"/>
+                                                <constraint firstItem="xeC-Su-K1d" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="17" id="OWM-BQ-aUr"/>
+                                                <constraint firstItem="InL-A9-Ujs" firstAttribute="top" secondItem="P0g-oi-gJx" secondAttribute="top" constant="1" id="OgW-rG-fXw"/>
+                                                <constraint firstItem="KVI-uK-05u" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="12" id="Orr-vs-RKi"/>
+                                                <constraint firstItem="XxN-T8-0lu" firstAttribute="trailing" secondItem="RN2-Ba-nn3" secondAttribute="trailing" constant="-1" id="Q20-92-ZlX"/>
+                                                <constraint firstItem="XxN-T8-0lu" firstAttribute="bottom" secondItem="RN2-Ba-nn3" secondAttribute="bottom" constant="-1" id="QST-wE-IZT"/>
+                                                <constraint firstItem="XxN-T8-0lu" firstAttribute="top" secondItem="RN2-Ba-nn3" secondAttribute="top" constant="1" id="RFR-WS-Xas"/>
+                                                <constraint firstItem="I41-5Z-kX4" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="-8" id="S8R-T7-955"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="centerY" secondItem="RN2-Ba-nn3" secondAttribute="centerY" id="TrH-gP-3Mh"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fI8-9F-rsF" secondAttribute="trailing" constant="17" id="Usu-Ee-QLa"/>
+                                                <constraint firstItem="XbD-qu-YUA" firstAttribute="top" secondItem="W70-0w-L2u" secondAttribute="top" constant="1" id="V9Y-fQ-9eh"/>
+                                                <constraint firstItem="FsA-OB-oA6" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="20.25" id="Vtm-RU-7o9"/>
+                                                <constraint firstItem="P0g-oi-gJx" firstAttribute="leading" secondItem="W70-0w-L2u" secondAttribute="trailing" priority="500" constant="30" id="YIG-oc-xnX"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="bottom" secondItem="og5-qK-0Wh" secondAttribute="bottom" constant="1" id="Z3l-nh-nB7"/>
+                                                <constraint firstItem="I41-5Z-kX4" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="151.25" id="Z4I-T6-O5T"/>
+                                                <constraint firstItem="Mc2-pp-JzF" firstAttribute="centerY" secondItem="KVI-uK-05u" secondAttribute="centerY" constant="2.5" id="Zdq-M0-w1c"/>
+                                                <constraint firstItem="23j-Cj-lCR" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-158.75" id="Ztf-tJ-Sw6"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9zm-eN-3nO" secondAttribute="trailing" priority="750" constant="3" id="asl-Dq-9eC"/>
+                                                <constraint firstItem="xeC-Su-K1d" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-81.75" id="cKX-kg-73N"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="top" secondItem="og5-qK-0Wh" secondAttribute="top" constant="-1" id="dGz-9t-3wD"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="trailing" secondItem="og5-qK-0Wh" secondAttribute="trailing" constant="1" id="ddR-D9-ha4"/>
+                                                <constraint firstItem="P0g-oi-gJx" firstAttribute="centerY" secondItem="W70-0w-L2u" secondAttribute="centerY" constant="-1" id="efj-Wv-W26"/>
+                                                <constraint firstItem="UYe-Sh-ekl" firstAttribute="trailing" secondItem="9zm-eN-3nO" secondAttribute="trailing" constant="-1" id="elm-xQ-hgI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Mc2-pp-JzF" secondAttribute="trailing" constant="17" id="fIC-cS-88h"/>
+                                                <constraint firstItem="UYe-Sh-ekl" firstAttribute="top" secondItem="9zm-eN-3nO" secondAttribute="top" constant="1" id="gIg-9m-fem"/>
+                                                <constraint firstItem="9zm-eN-3nO" firstAttribute="leading" secondItem="jMI-wH-nG6" secondAttribute="trailing" priority="500" constant="30" id="hdI-aQ-tcL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="P0g-oi-gJx" secondAttribute="trailing" priority="750" constant="3" id="i14-BK-RtH"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SBS-iR-YMQ" secondAttribute="trailing" constant="17" id="ioJ-xi-JxN"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="leading" secondItem="gBb-BX-2pj" secondAttribute="leading" constant="-1" id="jIL-qX-vcF"/>
+                                                <constraint firstItem="jMI-wH-nG6" firstAttribute="bottom" secondItem="gBb-BX-2pj" secondAttribute="bottom" constant="1" id="k0v-ra-MM3"/>
+                                                <constraint firstItem="F6D-6S-f2L" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" priority="750" constant="3" id="k4c-68-xhN"/>
+                                                <constraint firstItem="5N1-4u-ePo" firstAttribute="top" secondItem="KVI-uK-05u" secondAttribute="bottom" constant="12" id="lbJ-SH-bRm"/>
+                                                <constraint firstItem="IRS-Fk-qmB" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="17" id="lja-G1-3Mk"/>
+                                                <constraint firstItem="23j-Cj-lCR" firstAttribute="centerX" secondItem="DcM-7j-gna" secondAttribute="centerX" id="mqc-tk-1Bw"/>
+                                                <constraint firstItem="FsA-OB-oA6" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="17" id="msW-EE-Kh0"/>
+                                                <constraint firstItem="fI8-9F-rsF" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-81.5" id="n6X-Kl-YvF"/>
+                                                <constraint firstItem="KVI-uK-05u" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-241.25" id="nNr-1B-0kM"/>
+                                                <constraint firstItem="XbD-qu-YUA" firstAttribute="leading" secondItem="W70-0w-L2u" secondAttribute="leading" constant="1" id="qNW-3U-kQ6"/>
+                                                <constraint firstItem="W70-0w-L2u" firstAttribute="leading" secondItem="F6D-6S-f2L" secondAttribute="trailing" priority="500" constant="29" id="s4g-Id-TeG"/>
+                                                <constraint firstItem="UYe-Sh-ekl" firstAttribute="leading" secondItem="9zm-eN-3nO" secondAttribute="leading" constant="1" id="s9o-RE-GXS"/>
+                                                <constraint firstItem="hjW-1b-uOV" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="122.5" id="uun-Hf-7W0"/>
+                                                <constraint firstItem="2Eg-Gd-1W5" firstAttribute="leading" secondItem="DcM-7j-gna" secondAttribute="leadingMargin" constant="17" id="vRN-yF-fWy"/>
+                                                <constraint firstItem="UIR-re-nFp" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-30.5" id="wC0-6W-QML"/>
+                                                <constraint firstItem="IRS-Fk-qmB" firstAttribute="centerY" secondItem="DcM-7j-gna" secondAttribute="centerY" constant="-30.75" id="wQU-QZ-hdQ"/>
+                                                <constraint firstItem="XbD-qu-YUA" firstAttribute="bottom" secondItem="W70-0w-L2u" secondAttribute="bottom" constant="-1" id="x5i-nR-QbS"/>
+                                                <constraint firstItem="9zm-eN-3nO" firstAttribute="centerY" secondItem="RN2-Ba-nn3" secondAttribute="centerY" id="xRh-9I-THC"/>
+                                                <constraint firstItem="W70-0w-L2u" firstAttribute="centerY" secondItem="F6D-6S-f2L" secondAttribute="centerY" id="yEx-kB-s0K"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hjW-1b-uOV" secondAttribute="trailing" constant="17" id="z4g-w3-SgY"/>
+                                                <constraint firstItem="UYe-Sh-ekl" firstAttribute="bottom" secondItem="9zm-eN-3nO" secondAttribute="bottom" constant="-1" id="zA1-gl-S4H"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="nbt-Vt-ZWV" firstAttribute="centerY" secondItem="gbq-la-ye8" secondAttribute="centerY" constant="-112" id="0Hb-Da-dQs"/>
+                                            <constraint firstItem="RN2-Ba-nn3" firstAttribute="leading" secondItem="gbq-la-ye8" secondAttribute="leading" priority="750" constant="12" id="6qU-c7-xIh"/>
+                                            <constraint firstItem="nbt-Vt-ZWV" firstAttribute="leading" secondItem="gbq-la-ye8" secondAttribute="leading" id="7pd-IW-Bbg"/>
+                                            <constraint firstItem="RN2-Ba-nn3" firstAttribute="centerY" secondItem="gbq-la-ye8" secondAttribute="centerY" constant="255" id="Mhu-hE-Gok"/>
+                                            <constraint firstAttribute="trailing" secondItem="nbt-Vt-ZWV" secondAttribute="trailing" id="bEW-qG-Nlq"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="activeLabel" destination="Mc2-pp-JzF" id="WDm-77-3u7"/>
+                                            <outlet property="averageTimeLabel" destination="ANt-5F-42S" id="Vt8-Eq-rVY"/>
+                                            <outlet property="categoryName" destination="5N1-4u-ePo" id="Akf-xo-7w8"/>
+                                            <outlet property="deadlineTimeLabel" destination="fI8-9F-rsF" id="i3l-n5-bJS"/>
+                                            <outlet property="sessionsTimeLabel" destination="SBS-iR-YMQ" id="hk8-kD-PlP"/>
+                                            <outlet property="timeLabel" destination="23j-Cj-lCR" id="sa6-JD-gTd"/>
+                                            <outlet property="timerName" destination="KVI-uK-05u" id="vWs-86-mwR"/>
+                                            <outlet property="totalTimeLabel" destination="UIR-re-nFp" id="03v-JY-bwW"/>
+                                            <outlet property="weightNameLabel" destination="hjW-1b-uOV" id="Kp4-vn-ADs"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="LBB-ka-tm6" id="ENH-OY-xKU"/>
@@ -574,259 +944,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MU-jM-drS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="-442"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="gQ4-mS-o06">
-            <objects>
-                <tableViewController id="O3J-vr-cq9" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="52" sectionHeaderHeight="28" sectionFooterHeight="28" id="zPA-X9-gZ0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="52" id="k6M-TJ-GBn">
-                                <rect key="frame" x="0.0" y="28" width="375" height="52"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k6M-TJ-GBn" id="XSQ-Ny-b5o">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Math" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="772-d9-nR3">
-                                            <rect key="frame" x="19" y="26" width="231" height="24"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="25"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Running" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bw-jR-xM7">
-                                            <rect key="frame" x="241" y="28" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="43" id="d2S-Zw-zNv">
-                                <rect key="frame" x="0.0" y="80" width="375" height="43"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d2S-Zw-zNv" id="vjJ-H4-jEy">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Assignments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s27-Ma-4ch">
-                                            <rect key="frame" x="19" y="10" width="284" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="Xec-k6-tAy">
-                                <rect key="frame" x="0.0" y="123" width="375" height="70"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xec-k6-tAy" id="yK0-0C-d27">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 14 Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fG-5E-5Wf">
-                                            <rect key="frame" x="19" y="6" width="336" height="44"/>
-                                            <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="43"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="3fG-5E-5Wf" firstAttribute="centerY" secondItem="yK0-0C-d27" secondAttribute="centerY" constant="-7" id="Ade-je-AUr"/>
-                                        <constraint firstItem="3fG-5E-5Wf" firstAttribute="centerX" secondItem="yK0-0C-d27" secondAttribute="centerX" id="TEq-CL-INl"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="10" id="37I-Ph-bwT">
-                                <rect key="frame" x="0.0" y="193" width="375" height="10"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="37I-Ph-bwT" id="4Ia-7Y-lpX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PvC-DN-nnf">
-                                            <rect key="frame" x="0.0" y="4.5" width="375" height="2"/>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="PvC-DN-nnf" firstAttribute="leading" secondItem="4Ia-7Y-lpX" secondAttribute="leadingMargin" constant="-8" id="fcV-Fe-Oku"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="PvC-DN-nnf" secondAttribute="trailing" constant="-8" id="s9C-VO-pdz"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="W3X-tC-Xv0">
-                                <rect key="frame" x="0.0" y="203" width="375" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W3X-tC-Xv0" id="ZJ0-eP-mdk">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rz0-zD-CuJ">
-                                            <rect key="frame" x="26" y="15" width="105" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsN-g3-lib">
-                                            <rect key="frame" x="245" y="15" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="pGa-OV-v4J">
-                                <rect key="frame" x="0.0" y="254" width="375" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pGa-OV-v4J" id="FL6-93-XTD">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyH-8l-bxy">
-                                            <rect key="frame" x="26" y="15" width="105" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOc-tL-cXi">
-                                            <rect key="frame" x="245" y="15" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="vjn-LC-mT4">
-                                <rect key="frame" x="0.0" y="305" width="375" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vjn-LC-mT4" id="Q79-1f-Wrf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtx-cx-tFO">
-                                            <rect key="frame" x="26" y="15" width="105" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWn-Hp-zMA">
-                                            <rect key="frame" x="245" y="15" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="Yg4-E0-ifZ">
-                                <rect key="frame" x="0.0" y="356" width="375" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yg4-E0-ifZ" id="DIC-vc-aRB">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cci-Tu-6Wt">
-                                            <rect key="frame" x="26" y="15" width="105" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0s-L3-alh">
-                                            <rect key="frame" x="245" y="15" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="FwM-YO-AYg">
-                                <rect key="frame" x="0.0" y="407" width="375" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FwM-YO-AYg" id="m4Z-0u-FT4">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0oK-Ys-zbR">
-                                            <rect key="frame" x="26" y="15" width="105" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOy-Hq-WHa">
-                                            <rect key="frame" x="245" y="15" width="109" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="10" id="xCt-wQ-lRt">
-                                <rect key="frame" x="0.0" y="458" width="375" height="10"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xCt-wQ-lRt" id="umC-18-9Tt">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-o2-mYY">
-                                            <rect key="frame" x="0.0" y="4.5" width="375" height="2"/>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="IcF-o2-mYY" secondAttribute="trailing" constant="-8" id="9GH-qr-ErI"/>
-                                        <constraint firstItem="IcF-o2-mYY" firstAttribute="leading" secondItem="umC-18-9Tt" secondAttribute="leadingMargin" constant="-8" id="Fi3-61-rP6"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="82" id="iKH-df-lif">
-                                <rect key="frame" x="0.0" y="468" width="375" height="82"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iKH-df-lif" id="rSp-Wi-Zu1">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Jl-5tZ">
-                                            <rect key="frame" x="43" y="29" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="O3J-vr-cq9" id="xvK-MG-Oom"/>
-                            <outlet property="delegate" destination="O3J-vr-cq9" id="OWl-wr-qam"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zdb-v7-6rg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1048.8" y="-442.12893553223392"/>
+            <point key="canvasLocation" x="133.59999999999999" y="-442.12893553223392"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gPJ-mo-W9W">

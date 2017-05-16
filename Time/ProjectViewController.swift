@@ -11,6 +11,8 @@ import UIKit
 class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
+	var selectedRowIndex = -1
+	var isSelected = false
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -28,6 +30,12 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		
+		if isSelected {
+			//TODO: figure out which timer is being pressed on
+			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
+			return timerCell
+		}
         
         if indexPath.row == 0 {
             let timerCell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath) as! TimerTableViewCell
@@ -43,11 +51,19 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if isSelected {
+			return 1
+		}
+		
         return 5
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+		
+		if isSelected {
+			return view.frame.size.height
+		}
+		
         if indexPath.row == 0 {
             return 215
         } else if indexPath.row == 1 {
@@ -60,12 +76,33 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cell = tableView.cellForRow(at: indexPath)
-        
-        if indexPath.row == 1 {
-            cell?.selectionStyle = UITableViewCellSelectionStyle.none
-        }
+		
+		if indexPath.row != 1 {
+			selectedRowIndex = indexPath.row
+			isSelected = true
+			tableView.beginUpdates()
+			tableView.endUpdates()
+		} else {
+			cell?.selectionStyle = UITableViewCellSelectionStyle.none
+		}
+		
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
