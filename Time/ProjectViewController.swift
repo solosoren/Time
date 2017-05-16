@@ -77,14 +77,21 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let cell = tableView.cellForRow(at: indexPath)
 		
-		if indexPath.row != 1 {
+		if isSelected {
+			isSelected = false
+			tableView.reloadData()
+			
+		} else if indexPath.row != 1 && !isSelected {
 			selectedRowIndex = indexPath.row
 			isSelected = true
-			tableView.beginUpdates()
-			tableView.endUpdates()
+			tableView.reloadData()
+			
 		} else {
 			cell?.selectionStyle = UITableViewCellSelectionStyle.none
 		}
+			
+			
+		
 		
         tableView.deselectRow(at: indexPath, animated: true)
     }
