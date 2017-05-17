@@ -1,0 +1,6 @@
+framework module Pods_TimeUITests {
+  umbrella header "Pods-TimeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
