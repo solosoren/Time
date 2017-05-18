@@ -7,19 +7,36 @@
 //
 
 import UIKit
+import Firebase
 
 class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
 	var isSelected = false
-    
+	var checked = false
+	
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+		
+		if checked == false {
+			FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
+				self.checked = true
+				if let user = user {
+					print("User up and running")
+					//TODO: Current user
+				} else {
+					let view = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+					self.present(view, animated: true, completion: nil)
+				}
+				
+			}
+		}
+		
         tableView.reloadData()
     }
 

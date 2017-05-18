@@ -1,5 +1,7 @@
 pod ‘Firebase/Core’
 pod 'Firebase/Database'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn'
 # platform :ios, '9.0'
 
 target 'Time' do

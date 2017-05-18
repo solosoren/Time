@@ -465,7 +465,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-qQ-gng">
-                                                    <rect key="frame" x="113.5" y="8.5" width="93" height="22.5"/>
+                                                    <rect key="frame" x="141" y="8.5" width="93" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="22"/>
                                                     <color key="textColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -925,6 +925,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MU-jM-drS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="-442.12893553223392"/>
+        </scene>
+        <!--Sign In View Controller-->
+        <scene sceneID="RSO-dV-qse">
+            <objects>
+                <viewController storyboardIdentifier="SignInViewController" id="R6p-J3-w4I" customClass="SignInViewController" customModule="Time" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CJo-18-GfD"/>
+                        <viewControllerLayoutGuide type="bottom" id="NSW-s7-zLh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hAI-wk-Zah">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eph-bb-iBA" customClass="GIDSignInButton">
+                                <rect key="frame" x="67" y="310" width="240" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="3hQ-K2-IU6"/>
+                                    <constraint firstAttribute="height" constant="47" id="jsK-hQ-gks"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="googleSignInPressed:" destination="R6p-J3-w4I" eventType="touchUpInside" id="SLn-5s-I8X"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Eph-bb-iBA" firstAttribute="centerY" secondItem="hAI-wk-Zah" secondAttribute="centerY" id="aOx-gt-xCm"/>
+                            <constraint firstItem="Eph-bb-iBA" firstAttribute="centerX" secondItem="hAI-wk-Zah" secondAttribute="centerX" id="fYA-pV-CC9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="signInButton" destination="Eph-bb-iBA" id="jRb-7O-QVq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kop-wU-2kz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1639.2" y="250.52473763118442"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gPJ-mo-W9W">
