@@ -131,7 +131,20 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadline = nil
         }
         
-        projectController.newProject(name: nameTextField.text!, category: categoryTextField.text!, deadline: deadline, weight: self.weight)
+        if CategoryContoller.sharedInstance.checkForCategory(categoryName: categoryTextField.text!) {
+            projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight, completion: { (success) in
+                if !success {
+                    // Throw an error
+                }
+            })
+        } else {
+            CategoryContoller.sharedInstance.newCategory(name: categoryTextField.text!, projectName: nameTextField.text!, weight: self.weight, deadline: deadline, completion: { (success) in
+                if !success {
+                    // Throw an error
+                }
+            })
+        }
+        
         
         self.dismiss(animated: true, completion: nil)
     }

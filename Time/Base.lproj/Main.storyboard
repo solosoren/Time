@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of Timer" textAlignment="center" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="UTS-YH-xcY">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of Timer" textAlignment="center" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="UTS-YH-xcY">
                                                     <rect key="frame" x="96" y="64.5" width="183" height="25"/>
                                                     <color key="textColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="24"/>
@@ -408,7 +408,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Math" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rJ-bd-82O">
-                                                    <rect key="frame" x="18" y="26" width="68.5" height="25.5"/>
+                                                    <rect key="frame" x="18" y="26" width="166" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="166" id="9VP-32-44o"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="25"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -920,6 +923,7 @@
                     <tabBarItem key="tabBarItem" title="Projects" id="6IC-Ft-g9p" userLabel="Projects"/>
                     <connections>
                         <outlet property="tableView" destination="14G-if-ZHY" id="jCL-ZG-Agh"/>
+                        <segue destination="R6p-J3-w4I" kind="show" identifier="SignIn" id="7dn-Na-Mh1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MU-jM-drS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -961,7 +965,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kop-wU-2kz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1639.2" y="250.52473763118442"/>
+            <point key="canvasLocation" x="-815" y="-442"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gPJ-mo-W9W">

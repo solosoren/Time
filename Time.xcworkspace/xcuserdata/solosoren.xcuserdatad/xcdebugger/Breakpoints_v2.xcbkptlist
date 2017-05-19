@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Time/AppDelegate.swift"
-            timestampString = "516776848.177791"
+            filePath = "Time/ProjectController.swift"
+            timestampString = "516860098.955573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "sign(_:didSignInFor:withError:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "newProject(name:categoryName:deadline:weight:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Time/AppDelegate.swift"
-            timestampString = "516776865.909747"
+            filePath = "Time/CategoryController.swift"
+            timestampString = "516872423.745328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "sign(_:didSignInFor:withError:)"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "newCategory(name:projectName:weight:deadline:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

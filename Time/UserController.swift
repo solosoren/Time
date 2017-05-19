@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import FirebaseDatabase
+import Firebase
 
 class UserController {
     
     static let sharedInstance = UserController()
     var currentUser: User?
+    var userRef = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child((FIRAuth.auth()?.currentUser?.displayName)!)
     
     
     

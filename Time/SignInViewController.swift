@@ -10,22 +10,23 @@ import UIKit
 import GoogleSignIn
 import Firebase
 
-class SignInViewController: UIViewController, GIDSignInUIDelegate {
+class SignInViewController: UIViewController {
     
     @IBOutlet weak var signInButton: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GIDSignIn.sharedInstance().uiDelegate = self
-        
-        signInButton.colorScheme = .dark
-        signInButton.style = .wide
+        //		signInButton.colorScheme = .dark
+        //		signInButton.style = .wide
         
     }
     
     @IBAction func googleSignInPressed(_ sender: Any) {
-        GIDSignIn.sharedInstance().signIn()
+//        self.dismiss(animated: true) { 
+        
+//        }
+        
     }
     
     

@@ -16,20 +16,30 @@ class ProjectController {
     var activeProjects = [Project]()
     
     // Creates a brand new project
-    func newProject(name: String, category: String, deadline: Date?, weight: Double) {
+    // Check to see if their is a category prior to calling
+    func newProject(name: String, categoryName: String, deadline: Date?, weight: Double, completion:@escaping (Bool) -> Void) {
         
-        let timer = ProjectTimer.init(deadline: deadline, weight: 0.5)
-        
-        var project = Project.init(name: name, category: category, weight: weight)
-        
-        project.activeTimer = timer
-        project.timers.append(timer)
-        
+        let project = Project.init(name: name, category: categoryName, weight: weight, deadline: deadline)
+
         projects.append(project)
         activeProjects.append(project)
         currentProject = project
+        
+        completion(true)
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
+    
+    // Creates a new timer to an existing project
+    func newTimer(project: Project, weight: Double, deadline: Date?, completion:@escaping (Bool) -> Void) {
+        let timer = ProjectTimer.init(deadline: deadline, weight: weight)
+        
+        currentProject = project
+        currentProject?.activeTimer = timer
+        currentProject?.timers.append(timer)
+        activeProjects.append(currentProject!)
+        
+    }
+    
     
     func endTimer(project: Project) {
         

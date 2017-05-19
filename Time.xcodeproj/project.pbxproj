@@ -14,7 +14,6 @@
 		AC16DBDE1EC96CF8000A0D02 /* TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBDD1EC96CF8000A0D02 /* TimeUITests.swift */; };
 		AC16DBF61EC96DCB000A0D02 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */; };
 		AC16DBFA1EC96E0B000A0D02 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF71EC96E0B000A0D02 /* Session.swift */; };
-		AC16DBFB1EC96E0B000A0D02 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */; };
 		AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */; };
 		AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */; };
 		AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */; };
@@ -26,6 +25,9 @@
 		AC1E537D1ECBED6E00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
 		AC1E537E1ECBED8A00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
 		AC1E537F1ECBED8A00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
+		AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30D1ECE89C00090A3FE /* TabBarController.swift */; };
+		AC76C3101ECE952B0090A3FE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30F1ECE952B0090A3FE /* Category.swift */; };
+		AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */; };
 		AC83731E1ECD35D9000CD47B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83731D1ECD35D9000CD47B /* User.swift */; };
 		AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83731F1ECD4188000CD47B /* SignInViewController.swift */; };
 		AC8373261ECD4E39000CD47B /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8373251ECD4E39000CD47B /* UserController.swift */; };
@@ -70,7 +72,6 @@
 		AC16DBDF1EC96CF8000A0D02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		AC16DBF71EC96E0B000A0D02 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTableViewCell.swift; sourceTree = "<group>"; };
 		AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTimer.swift; sourceTree = "<group>"; };
 		AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
@@ -80,6 +81,9 @@
 		AC16DC081ECA3381000A0D02 /* SessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		AC16DC0B1ECA73C2000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC76C30D1ECE89C00090A3FE /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AC76C30F1ECE952B0090A3FE /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
 		AC83731D1ECD35D9000CD47B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC83731F1ECD4188000CD47B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		AC8373251ECD4E39000CD47B /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
@@ -166,8 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */,
-				AC8373251ECD4E39000CD47B /* UserController.swift */,
-				AC16DBF81EC96E0B000A0D02 /* TabBarController.swift */,
+				AC76C30D1ECE89C00090A3FE /* TabBarController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
@@ -205,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				AC83731D1ECD35D9000CD47B /* User.swift */,
+				AC76C30F1ECE952B0090A3FE /* Category.swift */,
 				AC16DC011EC96EBA000A0D02 /* Project.swift */,
 				AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */,
 				AC16DBF71EC96E0B000A0D02 /* Session.swift */,
@@ -224,6 +228,8 @@
 		AC16DC0E1ECA75F8000A0D02 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AC8373251ECD4E39000CD47B /* UserController.swift */,
+				AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */,
 				AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */,
 				AC16DC081ECA3381000A0D02 /* SessionController.swift */,
 			);
@@ -507,13 +513,15 @@
 				ACEA96B81ECAD247002C2334 /* LargeTimerTableViewCell.swift in Sources */,
 				AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */,
 				AC8373261ECD4E39000CD47B /* UserController.swift in Sources */,
+				AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */,
 				AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */,
 				AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */,
 				AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */,
-				AC16DBFB1EC96E0B000A0D02 /* TabBarController.swift in Sources */,
 				AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */,
 				AC83731E1ECD35D9000CD47B /* User.swift in Sources */,
 				AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */,
+				AC76C3101ECE952B0090A3FE /* Category.swift in Sources */,
+				AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */,
 			);

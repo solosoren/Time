@@ -20,7 +20,7 @@ class TimerTableViewCell: UITableViewCell {
         
         if let project = projectController.currentProject  {
             timerName.text = project.name
-            categoryName.text = project.category
+            categoryName.text = project.categoryRef
             
 // Optional
             if let timerDeadline = project.activeTimer!.deadline {

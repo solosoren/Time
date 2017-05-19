@@ -7,7 +7,44 @@
 //
 
 import Foundation
+import GoogleSignIn
+import Firebase
 
 struct User {
     
+    var uid: String
+    var projects = [Project]()
+    
+    init(firebaseUser: FIRUser) {
+        self.uid = firebaseUser.uid
+    }
+    
 }
+
+
+/*
+
+ {
+    "Users": {
+        "sorenUID": {
+            "Categories": {
+                "CategoryRef": True
+            }
+        }
+    }
+ }
+ 
+ {  
+    "Categories": {
+        "CategoryREF": {
+                "Projects": {
+                    "ProjectRef": {
+                        "Name": CS,
+                        "OtherData": ...
+                    }
+                }
+        }
+    }
+ }
+ 
+ */

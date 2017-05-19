@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate {
     
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
@@ -23,27 +24,34 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		
-		if checked == false {
-			FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
-				self.checked = true
-				if let user = user {
-					print("User up and running")
-					//TODO: Current user
-				} else {
-					let view = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
-					self.present(view, animated: true, completion: nil)
-				}
-				
-			}
-		}
-		
         tableView.reloadData()
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		
+		
+		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
+			if user != nil {
+				self.checked = true
+				//TODO: Current user
+			} else {
+				 GIDSignIn.sharedInstance().signIn()
+				FIRDatabase.database().reference().child("users").child((user?.uid)!).setValue(user?.displayName)
+			}
+			
+		}
+		
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		GIDSignIn.sharedInstance().uiDelegate = self
+		
         tableView.reloadData()
         tabBarController?.delegate = UIApplication.shared.delegate as? UITabBarControllerDelegate
+		
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,9 +114,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		} else {
 			cell?.selectionStyle = UITableViewCellSelectionStyle.none
 		}
-			
-			
-		
 		
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -14,15 +14,15 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FIRApp.configure()
-        
+
         // Initialize sign-in
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-//        GIDSignIn.sharedInstance().signInSilently()
+        GIDSignIn.sharedInstance().signInSilently()
         
         return true
     }
@@ -43,9 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         // ...
+        
         if let error = error {
             
-            print(error.localizedDescription + "Debug")
+            print(error)
             return
         }
         
@@ -53,16 +54,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         
-//        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-//            // ...
-//            if let error = error {
-//                print(error.localizedDescription)
-//                // TODO: Handle Error
-//                return
-//            }
-//            //TODO: set current user
-////            self.dismiss(animated: true, completion: nil)
-//        }
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            // ...
+            if let error = error {
+                print(error.localizedDescription)
+                // TODO: Handle Error
+                return
+            }
+            //TODO: set current user
+            
+
+        
+        }
         
         print("Got Credentials")
         // ...
