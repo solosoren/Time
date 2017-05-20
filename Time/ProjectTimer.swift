@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 struct ProjectTimer {
     
@@ -15,6 +16,7 @@ struct ProjectTimer {
     var deadline: Date?
     var weight: Double
     var isActive:Bool
+    var firebaseRef: FIRDatabaseReference?
     
     init(deadline: Date?, weight: Double?) {
         
@@ -33,8 +35,36 @@ struct ProjectTimer {
         
         self.totalLength = 0
         sessions.append(Session.init(startTime: Date.init()))
+    }
+    
+    func toAnyObject() -> Any {
+        
+        var activeString: NSString
+        if isActive {
+            activeString = "true"
+        } else {
+            activeString = "false"
+        }
+        
+        let weight = self.weight as NSNumber
+        let totalLength = self.totalLength as NSNumber
+        
+        if let deadline = deadline {
+            let stringDeadline: NSString = String(describing: deadline) as NSString
+            
+            return ["Weight": weight,
+                    "Is Active": activeString,
+                    "Deadline": stringDeadline,
+                    "Project Length": totalLength]
+        }
+        let string: NSString = ""
+        return ["Weight": weight,
+                "Is Active": activeString,
+                "Deadline": string,
+                "Project Length": totalLength]
         
     }
+    
     
 }
 

@@ -13,7 +13,6 @@ import Firebase
 struct User {
     
     var uid: String
-    var projects = [Project]()
     
     init(firebaseUser: FIRUser) {
         self.uid = firebaseUser.uid
@@ -28,23 +27,31 @@ struct User {
     "Users": {
         "sorenUID": {
             "Categories": {
-                "CategoryRef": True
+                "CategoryRef": {
+                    "Name"
+                    "Projects": [
+                        "ProjectRef": True
+                        ]
+ 
+                }
             }
         }
     }
- }
  
- {  
-    "Categories": {
-        "CategoryREF": {
-                "Projects": {
-                    "ProjectRef": {
-                        "Name": CS,
-                        "OtherData": ...
-                    }
-                }
+    "Projects": {
+        "ProjectRef": {
+                "Name": "Name",
+                "Weight": "Weight", (Double)
+                "ActiveTimer": "TimerRef",
+                "Timers": [TimerRefs]
         }
     }
+ 
+    "Timers": {
+        "TimerRef": {
+                "TotalLength": "Length" (Double)
+                "Deadline": "deadline" String
+                "Sessions": [SessionRefs]
  }
  
  */

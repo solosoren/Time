@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 struct Category {
     
@@ -15,11 +16,7 @@ struct Category {
     
     init(name: String, projectName: String, weight: Double, deadline: Date?) {
         self.name = name
-        
-        self.projects = [Project.init(name: projectName, category: name, weight: weight, deadline: deadline)]
     }
-    
-    
     
     func isEqual(rhs: Category) -> Bool {
         if self.name == rhs.name {
@@ -28,9 +25,15 @@ struct Category {
         return false
     }
     
-//    func toAnyObject -> Any {
-//        return [
-//    }
+    func toAnyObject() -> Any {
+        
+        var refProjects = [FIRDatabaseReference]()
+        for project in projects {
+            refProjects.append(project.firebaseRef!)
+        }
+        return ["Name": name as NSString,
+                "Projects": refProjects]
+    }
     
     
 }

@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Time/ProjectController.swift"
-            timestampString = "516860098.955573"
+            timestampString = "516956053.98025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "newProject(name:categoryName:deadline:weight:completion:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "newTimer(project:weight:deadline:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Time/CategoryController.swift"
-            timestampString = "516872423.745328"
+            filePath = "Time/ProjectController.swift"
+            timestampString = "516956053.98025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "newCategory(name:projectName:weight:deadline:completion:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "newTimer(project:weight:deadline:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Time/ProjectController.swift"
+            timestampString = "516956053.98025"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "newTimer(project:weight:deadline:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Time/ProjectTimer.swift"
+            timestampString = "516957588.76461"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "toAnyObject()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

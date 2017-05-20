@@ -174,7 +174,6 @@
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
-				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
 				AC16DC071ECA3316000A0D02 /* Model */,
 				AC16DC0E1ECA75F8000A0D02 /* Controllers */,
 				AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */,
@@ -221,6 +220,7 @@
 			children = (
 				AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */,
 				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
+				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
 			);
 			name = ProjectView;
 			sourceTree = "<group>";

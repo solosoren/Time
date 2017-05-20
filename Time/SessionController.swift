@@ -20,6 +20,8 @@ class SessionController {
         
         project?.activeTimer?.totalLength = (project?.activeTimer?.totalLength)! + (session?.totalLength)!
         
+        project?.activeTimer?.isActive = false
+        
         ProjectController.sharedInstance.currentProject = nil
     }
 }

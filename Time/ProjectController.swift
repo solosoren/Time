@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseDatabase
 
 class ProjectController {
     
@@ -15,29 +17,51 @@ class ProjectController {
     var currentProject: Project?
     var activeProjects = [Project]()
     
+    
+    
     // Creates a brand new project
     // Check to see if their is a category prior to calling
-    func newProject(name: String, categoryName: String, deadline: Date?, weight: Double, completion:@escaping (Bool) -> Void) {
+    func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
         
-        let project = Project.init(name: name, category: categoryName, weight: weight, deadline: deadline)
+        var project = Project.init(name: name, category: categoryName, weight: weight)
 
-        projects.append(project)
-        activeProjects.append(project)
-        currentProject = project
+        _ = newTimer(project: project, weight: weight, deadline: deadline)
         
-        completion(true)
+        let projectRef = FIRDatabase.database().reference().child("Projects")
+        
+        let autoID = projectRef.childByAutoId()
+        project.firebaseRef = autoID
+        autoID.setValuesForKeys(project.toAnyObject() as![String : Any])
+        
+        projects.append(project)
+        
+        return project
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
     
     // Creates a new timer to an existing project
-    func newTimer(project: Project, weight: Double, deadline: Date?, completion:@escaping (Bool) -> Void) {
-        let timer = ProjectTimer.init(deadline: deadline, weight: weight)
+    func newTimer(project: Project, weight: Double, deadline: Date?) -> ProjectTimer {
+        var timer = ProjectTimer.init(deadline: deadline, weight: weight)
+        
+        let timerRef = UserController.sharedInstance.userRef.child("Timers")
+        
+        
+        let autoID = timerRef.childByAutoId()
+        timer.firebaseRef = autoID
+        
+        autoID.setValuesForKeys(timer.toAnyObject() as! [String : Any])
+        
+        var anySessions = [Any]()
+        for session in timer.sessions {
+            anySessions.append(session.toAnyObject())
+        }
+        autoID.updateChildValues(["Sessions": anySessions])
         
         currentProject = project
         currentProject?.activeTimer = timer
         currentProject?.timers.append(timer)
         activeProjects.append(currentProject!)
-        
+        return timer
     }
     
     

@@ -132,11 +132,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         if CategoryContoller.sharedInstance.checkForCategory(categoryName: categoryTextField.text!) {
-            projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight, completion: { (success) in
-                if !success {
-                    // Throw an error
-                }
-            })
+            let _ = projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight)
         } else {
             CategoryContoller.sharedInstance.newCategory(name: categoryTextField.text!, projectName: nameTextField.text!, weight: self.weight, deadline: deadline, completion: { (success) in
                 if !success {
@@ -144,7 +140,6 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
                 }
             })
         }
-        
         
         self.dismiss(animated: true, completion: nil)
     }

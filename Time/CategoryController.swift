@@ -13,23 +13,18 @@ import FirebaseDatabase
 class CategoryContoller {
     
     static let sharedInstance = CategoryContoller()
-    
     var categories =  [Category]()
+    var ref = UserController.sharedInstance.userRef.child("Categories")
     
     func newCategory(name: String, projectName: String, weight: Double, deadline: Date?, completion:@escaping (Bool) -> Void) {
-        let category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
+        var category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
+        let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
         
+        category.projects.append(project)
         categories.append(category)
         
-        UserController.sharedInstance.userRef.setValue(["Categories": name])
+        ref.setValuesForKeys(category.toAnyObject() as! [String: Any])
         
-        ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight) { (success) in
-            if success {
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
     }
     
     // Check to see if a category already exists
@@ -42,7 +37,6 @@ class CategoryContoller {
         }
         
         return false
-        
     }
     
 }

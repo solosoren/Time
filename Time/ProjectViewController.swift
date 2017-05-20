@@ -30,15 +30,12 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		
-		
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user != nil {
-				self.checked = true
+//				self.checked = true
 				//TODO: Current user
 			} else {
-				 GIDSignIn.sharedInstance().signIn()
-				FIRDatabase.database().reference().child("users").child((user?.uid)!).setValue(user?.displayName)
+				GIDSignIn.sharedInstance().signIn()
 			}
 			
 		}
