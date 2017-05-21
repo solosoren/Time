@@ -49,19 +49,26 @@ struct ProjectTimer {
         let weight = self.weight as NSNumber
         let totalLength = self.totalLength as NSNumber
         
+        var anySessions = [Any]()
+        for session in self.sessions {
+            anySessions.append(session.toAnyObject())
+        }
+        
         if let deadline = deadline {
             let stringDeadline: NSString = String(describing: deadline) as NSString
             
             return ["Weight": weight,
                     "Is Active": activeString,
                     "Deadline": stringDeadline,
-                    "Project Length": totalLength]
+                    "Project Length": totalLength,
+                    "Sessions": anySessions]
         }
         let string: NSString = ""
         return ["Weight": weight,
                 "Is Active": activeString,
                 "Deadline": string,
-                "Project Length": totalLength]
+                "Project Length": totalLength,
+                "Sessions": anySessions]
         
     }
     

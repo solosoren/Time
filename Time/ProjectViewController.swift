@@ -15,7 +15,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
 	var isSelected = false
-	var checked = false
 	
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -32,8 +31,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user != nil {
-//				self.checked = true
-				//TODO: Current user
+				
 			} else {
 				GIDSignIn.sharedInstance().signIn()
 			}

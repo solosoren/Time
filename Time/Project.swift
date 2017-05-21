@@ -41,14 +41,14 @@ struct Project {
         
         if let activeTimer = activeTimer {
             return ["Project Name": name as NSString,
-                    "CategoryRef": categoryRef as NSString,
+                    "Category Name": categoryRef as NSString,
                     "Weight": weight as NSNumber,
                     "Timers": stringTimers,
                     "Active Timer": activeTimer.firebaseRef!]
         }
         
         return ["Project Name": name as NSString,
-                "CategoryRef": categoryRef as NSString,
+                "Category Name": categoryRef as NSString,
                 "Weight": weight as NSNumber,
                 "Timers": stringTimers]
     }

@@ -13,6 +13,7 @@ struct Category {
     
     var name: String
     var projects = [Project]()
+    var firebaseRef: FIRDatabaseReference?
     
     init(name: String, projectName: String, weight: Double, deadline: Date?) {
         self.name = name
@@ -27,9 +28,9 @@ struct Category {
     
     func toAnyObject() -> Any {
         
-        var refProjects = [FIRDatabaseReference]()
+        var refProjects = [String]()
         for project in projects {
-            refProjects.append(project.firebaseRef!)
+            refProjects.append((project.firebaseRef?.key)!)
         }
         return ["Name": name as NSString,
                 "Projects": refProjects]

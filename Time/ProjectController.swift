@@ -18,7 +18,6 @@ class ProjectController {
     var activeProjects = [Project]()
     
     
-    
     // Creates a brand new project
     // Check to see if their is a category prior to calling
     func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
@@ -27,11 +26,13 @@ class ProjectController {
 
         _ = newTimer(project: project, weight: weight, deadline: deadline)
         
-        let projectRef = FIRDatabase.database().reference().child("Projects")
+        let projectRef = FIRDatabase.database().reference().child("projects")
         
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
-        autoID.setValuesForKeys(project.toAnyObject() as![String : Any])
+        
+        let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
         
         projects.append(project)
         
@@ -43,19 +44,16 @@ class ProjectController {
     func newTimer(project: Project, weight: Double, deadline: Date?) -> ProjectTimer {
         var timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
-        let timerRef = UserController.sharedInstance.userRef.child("Timers")
-        
+        let timerRef = UserController.sharedInstance.userRef.child("timers")
         
         let autoID = timerRef.childByAutoId()
         timer.firebaseRef = autoID
         
-        autoID.setValuesForKeys(timer.toAnyObject() as! [String : Any])
-        
-        var anySessions = [Any]()
-        for session in timer.sessions {
-            anySessions.append(session.toAnyObject())
-        }
-        autoID.updateChildValues(["Sessions": anySessions])
+//        let childUpdates = ["/posts/\(key)": post,
+//                            "/user-posts/\(userID)/\(key)/": post]
+
+        let updateKeys = ["/timers/\(autoID.key)": timer.toAnyObject() as! [String: Any]]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
         
         currentProject = project
         currentProject?.activeTimer = timer

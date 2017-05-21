@@ -408,9 +408,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Math" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rJ-bd-82O">
-                                                    <rect key="frame" x="18" y="26" width="166" height="26"/>
+                                                    <rect key="frame" x="18" y="26" width="204" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="166" id="9VP-32-44o"/>
+                                                        <constraint firstAttribute="width" constant="204" id="9VP-32-44o"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="25"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

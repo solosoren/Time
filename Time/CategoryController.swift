@@ -14,7 +14,7 @@ class CategoryContoller {
     
     static let sharedInstance = CategoryContoller()
     var categories =  [Category]()
-    var ref = UserController.sharedInstance.userRef.child("Categories")
+    var ref = UserController.sharedInstance.userRef.child("categories")
     
     func newCategory(name: String, projectName: String, weight: Double, deadline: Date?, completion:@escaping (Bool) -> Void) {
         var category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
@@ -22,8 +22,11 @@ class CategoryContoller {
         
         category.projects.append(project)
         categories.append(category)
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        category.firebaseRef = ref.childByAutoId()
         
-        ref.setValuesForKeys(category.toAnyObject() as! [String: Any])
+        let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)": category.toAnyObject() as! [String: Any]]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
         
     }
     

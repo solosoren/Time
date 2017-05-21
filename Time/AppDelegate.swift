@@ -62,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 // TODO: Handle Error
                 return
             }
+            UserController.sharedInstance.userRef.setValue(FIRAuth.auth()?.currentUser?.uid)
             //TODO: set current user
         }
         
