@@ -16,7 +16,6 @@ class LargeTimerTableViewCell: UITableViewCell {
     @IBOutlet var activeLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     
-    
     @IBOutlet var deadlineTimeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
     @IBOutlet var averageTimeLabel: UILabel!
@@ -24,6 +23,39 @@ class LargeTimerTableViewCell: UITableViewCell {
     // TODO: Fix
     @IBOutlet var sessionsTimeLabel: UILabel!
     @IBOutlet var weightNameLabel: UILabel!
+    
+    var running = false
+    var project: Project?
+    
+    func setUpCell(project: Project) {
+        self.project = project
+        
+        self.timerName.text = project.name
+        self.categoryName.text = project.categoryRef
+//        running/active
+        let projectController = ProjectController.sharedInstance
+        
+        if let activeTimer = project.activeTimer {
+            
+            self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (activeTimer.sessions.last?.startTime.timeIntervalSinceReferenceDate)!, bigVersion: true)
+            
+            self.weightNameLabel.text = projectController.weightString(weight: activeTimer.weight)
+            self.running = true
+            
+        } else {
+            self.timeLabel.text = "-"
+            self.weightNameLabel.text = projectController.weightString(weight: project.weight)
+        }
+        
+        if let deadline = project.activeTimer?.deadline {
+            self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: true)
+        } else {
+            self.deadlineTimeLabel.text = "-"
+        }
+        
+        self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true)
+        
+    }
     
     
     @IBAction func cancelTimer(_ sender: Any) {
@@ -45,10 +77,12 @@ class LargeTimerTableViewCell: UITableViewCell {
     
     
     @IBAction func endSessionPressed(_ sender: Any) {
-        
+        if running {
+            SessionController.sharedInstance.endSession()
+        }
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        
+        ProjectController.sharedInstance.endTimer(project: project!)
     }
 }

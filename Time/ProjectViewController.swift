@@ -30,14 +30,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		super.viewDidAppear(animated)
 		
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
-			if user != nil {
-				
-			} else {
+			if user == nil {
 				GIDSignIn.sharedInstance().signIn()
 			}
-			
 		}
-		
 	}
 
     override func viewDidLoad() {

@@ -29,10 +29,8 @@ struct User {
             "Categories": {
                 "CategoryRef": {
                     "Name"
-                    "Projects": [
-                        "ProjectRef": True
-                        ]
- 
+                    "RunningProject": "ProjectRef",
+                    "Projects": ["ProjectRef"]
                 }
             }
         }
@@ -42,16 +40,17 @@ struct User {
         "ProjectRef": {
                 "Name": "Name",
                 "Weight": "Weight", (Double)
-                "ActiveTimer": "TimerRef",
-                "Timers": [TimerRefs]
+                "ActiveTimer": {
+                        "TimerRef": {
+                            "TotalLength": "Length" (Double)
+                            "Deadline": "deadline" String
+                            "Sessions": [SessionRefs]
+                },
+                "NumberOfTimers": "NumberOfTimers", (Double)
+                "Average Length": "AverageLength", (Double)
+                "Longest Timer Length": "LongestLength", (Double)
         }
     }
- 
-    "Timers": {
-        "TimerRef": {
-                "TotalLength": "Length" (Double)
-                "Deadline": "deadline" String
-                "Sessions": [SessionRefs]
  }
  
  */

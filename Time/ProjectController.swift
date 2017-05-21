@@ -13,7 +13,7 @@ import FirebaseDatabase
 class ProjectController {
     
     static let sharedInstance = ProjectController()
-    var projects = [Project]()
+    var inactiveProjects = [Project]()
     var currentProject: Project?
     var activeProjects = [Project]()
     
@@ -24,7 +24,7 @@ class ProjectController {
         
         var project = Project.init(name: name, category: categoryName, weight: weight)
 
-        _ = newTimer(project: project, weight: weight, deadline: deadline)
+        _ = newTimer(project: project, weight: weight, deadline: deadline, new: true)
         
         let projectRef = FIRDatabase.database().reference().child("projects")
         
@@ -34,14 +34,13 @@ class ProjectController {
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
         
-        projects.append(project)
-        
         return project
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
     
     // Creates a new timer to an existing project
-    func newTimer(project: Project, weight: Double, deadline: Date?) -> ProjectTimer {
+    func newTimer(project: Project, weight: Double, deadline: Date?, new: Bool) -> ProjectTimer {
+        var proj = project
         var timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
         let timerRef = UserController.sharedInstance.userRef.child("timers")
@@ -58,8 +57,30 @@ class ProjectController {
         currentProject = project
         currentProject?.activeTimer = timer
         currentProject?.timers.append(timer)
-        activeProjects.append(currentProject!)
+        
+        if new {
+            activeProjects.append(currentProject!)
+        } else {
+            if !project.isActive {
+                var index = -1
+                for p in inactiveProjects {
+                    index += 1
+                    if p.isEqual(rhs: project) {
+                        break
+                    }
+                }
+                inactiveProjects.remove(at: index)
+                activeProjects.append(project)
+                proj.isActive = true
+            }
+        }
         return timer
+    }
+    
+    func getRunningTimerTotalLength() -> TimeInterval {
+        let length = currentProject?.activeTimer?.totalLength
+        let sessionLength = currentProject?.activeTimer?.sessions.last?.startTime.timeIntervalSinceReferenceDate
+        return length! + sessionLength!
     }
     
     
@@ -72,15 +93,47 @@ class ProjectController {
                 break
             }
         }
-        
         activeProjects.remove(at: index)
+        inactiveProjects.append(project)
+        
+        var timer = project.activeTimer
+        var proj = project
+        proj.isActive = false
+        timer?.isRunning = false
         
         if let currentProject = currentProject {
             if project.isEqual(rhs: currentProject) {
                 SessionController.sharedInstance.endSession()
             }
         }
-
+        var categoryRef = "REF"
+        var category: Category
+        for cat in CategoryContoller.sharedInstance.categories {
+            if cat.name == project.categoryRef {
+                categoryRef = cat.firebaseRef!.key
+                category = cat
+            }
+        }
+        
+        let updateKeys = ["/timers/\(timer!.firebaseRef!.key)": timer?.toAnyObject() as! [String: Any],
+                          "/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/categories/\(categoryRef)": category.toAnyObject()] as [String : Any]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
+    }
+    
+    
+// Strings
+    
+    // get the right weight string from the given weight double
+    func weightString(weight: Double) -> String {
+        
+        if weight == 0.4 {
+            return "Major"
+        } else if weight == 0.5 {
+            return "Average"
+        }
+        return "Minor"
+        
     }
     
     // returns a string of the hours and minutes from the timeinterval

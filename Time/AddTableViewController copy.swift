@@ -117,7 +117,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
 // Start buttons
     @IBAction func startNowButtonPressed(_ sender: Any) {
         setUpDatePickerLabel()
-        
+        //TODO: notify the user that a timer is already rolling
         if !nameTextField.hasText || !categoryTextField.hasText {
             //TODO: fix. Want the text to turn red and notify
             return
