@@ -12,11 +12,11 @@ import FirebaseDatabase
 struct Category {
     
     var name: String
-    var activeProjects: [Project]?
-    var inactiveProjects: [Project]?
+    var activeProjects = [Project]()
+    var inactiveProjects = [Project]()
     // Store everything in projects when you query everything from firebase
     // When you need all the active/ inactive projects, loop through and sort them accordingly
-    var projects: [Project]?
+    var projects = [Project]()
     var currentProject: Project?
     var firebaseRef: FIRDatabaseReference?
     
@@ -34,7 +34,7 @@ struct Category {
     func toAnyObject() -> Any {
         
         var refProjects = [String]()
-        for project in projects! {
+        for project in projects {
             refProjects.append((project.firebaseRef?.key)!)
         }
         
@@ -45,6 +45,7 @@ struct Category {
                     "Projects": refProjects]
         }
         return ["Name": name as NSString,
+                "Current Project": "",
                 "Projects": refProjects]
     }
     

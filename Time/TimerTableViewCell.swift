@@ -36,7 +36,8 @@ class TimerTableViewCell: UITableViewCell {
 
     @IBAction func doneButtonPressed(_ sender: Any) {
         if let currentProject = projectController.currentProject {
-            projectController.endTimer(project: currentProject)
+            let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: currentProject.categoryRef)
+            projectController.endTimer(category: category!, project: currentProject)
         }
     }
 

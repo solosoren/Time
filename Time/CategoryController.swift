@@ -20,6 +20,7 @@ class CategoryContoller {
         var category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
         let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
         
+        category.activeProjects.append(project)
         category.projects.append(project)
         categories.append(category)
         let uid = FIRAuth.auth()?.currentUser?.uid
@@ -27,7 +28,6 @@ class CategoryContoller {
         
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)": category.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
-        
     }
     
     // Check to see if a category already exists
@@ -40,6 +40,16 @@ class CategoryContoller {
         }
         
         return false
+    }
+    
+    //TODO: Fix this?
+    func getCategoryFromRef(ref: String) -> Category? {
+        for category in categories {
+            if category.name == ref {
+                return category
+            }
+        }
+        return nil
     }
     
 }

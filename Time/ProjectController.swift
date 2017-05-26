@@ -22,9 +22,10 @@ class ProjectController {
     // Check to see if their is a category prior to calling
     func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
         
-        var project = Project.init(name: name, category: categoryName, weight: weight)
+        var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
 
-        _ = newTimer(project: project, weight: weight, deadline: deadline, new: true)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, new: true)
+        project.activeTimer = timer
         
         let projectRef = FIRDatabase.database().reference().child("projects")
         
@@ -41,39 +42,34 @@ class ProjectController {
     // Creates a new timer to an existing project
     func newTimer(project: Project, weight: Double, deadline: Date?, new: Bool) -> ProjectTimer {
         var proj = project
-        var timer = ProjectTimer.init(deadline: deadline, weight: weight)
-        
-        let timerRef = UserController.sharedInstance.userRef.child("timers")
-        
-        let autoID = timerRef.childByAutoId()
-        timer.firebaseRef = autoID
+        let timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
 //        let childUpdates = ["/posts/\(key)": post,
 //                            "/user-posts/\(userID)/\(key)/": post]
-
-        let updateKeys = ["/timers/\(autoID.key)": timer.toAnyObject() as! [String: Any]]
-        FIRDatabase.database().reference().updateChildValues(updateKeys)
         
+        if currentProject != nil {
+           SessionController.sharedInstance.endSession()
+            // TODO: need to save project after ending session
+        }
         currentProject = project
         currentProject?.activeTimer = timer
-        currentProject?.timers.append(timer)
-        
-        if new {
-            activeProjects.append(currentProject!)
+        if project.numberOfTimers != nil {
+            proj.numberOfTimers! += 1.0
         } else {
-            if !project.isActive {
-                var index = -1
-                for p in inactiveProjects {
-                    index += 1
-                    if p.isEqual(rhs: project) {
-                        break
-                    }
-                }
-                inactiveProjects.remove(at: index)
-                activeProjects.append(project)
-                proj.isActive = true
-            }
+            proj.numberOfTimers = 1
         }
+        
+        if !new {
+            var index = -1
+            for p in inactiveProjects {
+                index += 1
+                if p.isEqual(rhs: proj) {
+                    break
+                }
+            }
+            inactiveProjects.remove(at: index)
+        }
+        activeProjects.append(proj)
         return timer
     }
     
@@ -84,7 +80,7 @@ class ProjectController {
     }
     
     
-    func endTimer(project: Project) {
+    func endTimer(category: Category, project: Project) {
         
         var index = -1
         for p in activeProjects {
@@ -96,28 +92,16 @@ class ProjectController {
         activeProjects.remove(at: index)
         inactiveProjects.append(project)
         
-        var timer = project.activeTimer
-        var proj = project
-        proj.isActive = false
-        timer?.isRunning = false
-        
         if let currentProject = currentProject {
             if project.isEqual(rhs: currentProject) {
                 SessionController.sharedInstance.endSession()
             }
         }
-        var categoryRef = "REF"
-        var category: Category
-        for cat in CategoryContoller.sharedInstance.categories {
-            if cat.name == project.categoryRef {
-                categoryRef = cat.firebaseRef!.key
-                category = cat
-            }
-        }
+        let categoryRef = category.firebaseRef!.key
         
-        let updateKeys = ["/timers/\(timer!.firebaseRef!.key)": timer?.toAnyObject() as! [String: Any],
-                          "/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+        let updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/categories/\(categoryRef)": category.toAnyObject()] as [String : Any]
+        
         FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     

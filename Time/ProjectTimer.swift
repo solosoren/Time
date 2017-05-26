@@ -15,7 +15,6 @@ struct ProjectTimer {
     var totalLength: TimeInterval
     var deadline: Date?
     var weight: Double
-    var firebaseRef: FIRDatabaseReference?
     
     init(deadline: Date?, weight: Double?) {
         

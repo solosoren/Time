@@ -26,6 +26,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     
     var running = false
     var project: Project?
+    var category: Category?
     
     func setUpCell(project: Project) {
         self.project = project
@@ -83,6 +84,8 @@ class LargeTimerTableViewCell: UITableViewCell {
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        ProjectController.sharedInstance.endTimer(project: project!)
+        //TODO: Fix
+        let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: (project?.categoryRef)!)
+        ProjectController.sharedInstance.endTimer(category: category!, project: project!)
     }
 }

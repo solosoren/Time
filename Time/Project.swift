@@ -19,11 +19,16 @@ struct Project {
     var activeTimer: ProjectTimer?
     var firebaseRef: FIRDatabaseReference?
     
-    init(name: String, category: String, weight: Double) {
+    init(name: String, category: String, weight: Double, numberOfTimers: Double?) {
         self.name = name
         self.categoryRef = category
         self.estimatedLength = 0
         self.weight = weight
+        if let numberOfTimers = numberOfTimers {
+            self.numberOfTimers = numberOfTimers
+        } else {
+            self.numberOfTimers = 1
+        }
     }
     
     func isEqual(rhs: Project) -> Bool {
@@ -41,7 +46,7 @@ struct Project {
                     "Category Name": categoryRef as NSString,
                     "Weight": weight as NSNumber,
                     "Number Of Timers": numberOfTimers!,
-                    "Active Timer": activeTimer.firebaseRef!]
+                    "Active Timer": activeTimer.toAnyObject()]
         }
         
         return ["Project Name": name as NSString,
