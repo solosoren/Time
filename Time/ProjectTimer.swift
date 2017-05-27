@@ -33,6 +33,22 @@ struct ProjectTimer {
         sessions.append(Session.init(startTime: Date.init()))
     }
     
+    init(snapshot:FIRDataSnapshot) {
+        let value = snapshot.value as? NSDictionary
+        
+        let length = value?["Project Length"] as? Double ?? 0
+        self.totalLength = TimeInterval.init(length)
+        
+        let deadline = value?["Deadline"] as? String ?? nil
+        if let deadline = deadline {
+            // TODO: switch deadline string back to Date
+        }
+        
+        self.weight = value?["Weight"] as! Double
+        
+        
+    }
+    
     func toAnyObject() -> Any {
         
         let weight = self.weight as NSNumber

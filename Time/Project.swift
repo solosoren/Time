@@ -31,6 +31,17 @@ struct Project {
         }
     }
     
+    init(snapshot: FIRDataSnapshot, category: FIRDatabaseReference) {
+        let value = snapshot.value as? NSDictionary
+        self.name = value?["Project Name"] as! String
+        self.weight = value?["Weight"] as! Double
+        self.categoryRef = String(describing: category)
+        self.numberOfTimers = value?["Number Of Timers"] as? Double
+        self.firebaseRef = snapshot.ref
+        // active Timer
+        // estimated length
+    }
+    
     func isEqual(rhs: Project) -> Bool {
         if self.name == rhs.name && self.categoryRef == rhs.categoryRef {
             return true
@@ -52,10 +63,9 @@ struct Project {
         return ["Project Name": name as NSString,
                 "Category Name": categoryRef as NSString,
                 "Weight": weight as NSNumber,
-                
-// Don't like this ""
-                "Active Timer": "",
-                "Number Of Timers": numberOfTimers!]
+                "Number Of Timers": numberOfTimers!,
+                // Don't like this ""
+                "Active Timer": ""]
     }
     
 }

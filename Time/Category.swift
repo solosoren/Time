@@ -24,6 +24,18 @@ struct Category {
         self.name = name
     }
     
+    init(snapshot: FIRDataSnapshot) {
+        let value = snapshot.value as? NSDictionary
+        self.firebaseRef = value?["Current Project"] as? FIRDatabaseReference
+        self.name = value?["Name"] as! String
+        let projects = value?["Projects"] as! [FIRDatabaseReference]
+        for project in projects {
+            // Pass in snapshot
+//            Project.init(snapshot: <#T##FIRDataSnapshot#>, category: firebaseRef)
+        }
+        
+    }
+    
     func isEqual(rhs: Category) -> Bool {
         if self.name == rhs.name {
             return true

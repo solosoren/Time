@@ -32,6 +32,13 @@ struct Session {
         return ["Start Time": start,
                 "Session Length": 0 as NSNumber]
     }
+    
+    init(snapshot: FIRDataSnapshot) {
+        let value = snapshot.value as? NSDictionary
+        
+        
+        
+    }
 
 
 }
