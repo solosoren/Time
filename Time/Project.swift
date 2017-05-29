@@ -31,14 +31,17 @@ struct Project {
         }
     }
     
-    init(snapshot: FIRDataSnapshot, category: FIRDatabaseReference) {
+    init(snapshot: FIRDataSnapshot) {
         let value = snapshot.value as? NSDictionary
         self.name = value?["Project Name"] as! String
         self.weight = value?["Weight"] as! Double
-        self.categoryRef = String(describing: category)
+        self.categoryRef = value?["Category Name"] as! String
         self.numberOfTimers = value?["Number Of Timers"] as? Double
-        self.firebaseRef = snapshot.ref
-        // active Timer
+        
+        if let pt = value?["Active Timer"] as? NSDictionary {
+            self.activeTimer = ProjectTimer.init(dict: pt)
+        }
+        
         // estimated length
     }
     

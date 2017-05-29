@@ -33,20 +33,24 @@ struct ProjectTimer {
         sessions.append(Session.init(startTime: Date.init()))
     }
     
-    init(snapshot:FIRDataSnapshot) {
-        let value = snapshot.value as? NSDictionary
+    init(dict: NSDictionary) {
         
-        let length = value?["Project Length"] as? Double ?? 0
+        let length = dict["Project Length"] as? Double ?? 0
         self.totalLength = TimeInterval.init(length)
         
-        let deadline = value?["Deadline"] as? String ?? nil
+        let deadline = dict["Deadline"] as? String ?? nil
         if let deadline = deadline {
-            // TODO: switch deadline string back to Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
+            self.deadline = formatter.date(from: deadline)
         }
         
-        self.weight = value?["Weight"] as! Double
+        self.weight = dict["Weight"] as! Double
         
-        
+        let sessionArray = dict["Sessions"] as! [NSDictionary]
+        for sesh in sessionArray {
+            sessions.append(Session.init(dict: sesh))
+        }
     }
     
     func toAnyObject() -> Any {

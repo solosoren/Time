@@ -15,6 +15,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
 	var isSelected = false
+	var signedIn = false
 	
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -34,6 +35,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 				GIDSignIn.sharedInstance().signIn()
 			}
 		}
+		self.tableView.reloadData()
 	}
 
     override func viewDidLoad() {

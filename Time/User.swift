@@ -13,6 +13,8 @@ import Firebase
 struct User {
     
     var uid: String
+    var activeProjects = [Project]()
+    var currentProject: Project?
     
     init(firebaseUser: FIRUser) {
         self.uid = firebaseUser.uid
@@ -26,11 +28,12 @@ struct User {
  {
     "Users": {
         "sorenUID": {
+            "Active Projects": [ProjectRef],
+            "Running Project": ProjectRef,
             "Categories": {
                 "CategoryRef": {
-                    "Name"
-                    "RunningProject": "ProjectRef",
-                    "Projects": ["ProjectRef"]
+                    "Name": "Name",
+                    "Projects": [ProjectRef]
                 }
             }
         }

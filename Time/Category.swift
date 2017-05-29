@@ -12,12 +12,8 @@ import FirebaseDatabase
 struct Category {
     
     var name: String
-    var activeProjects = [Project]()
-    var inactiveProjects = [Project]()
-    // Store everything in projects when you query everything from firebase
-    // When you need all the active/ inactive projects, loop through and sort them accordingly
     var projects = [Project]()
-    var currentProject: Project?
+    var projectRefs = [FIRDatabaseReference]()
     var firebaseRef: FIRDatabaseReference?
     
     init(name: String, projectName: String, weight: Double, deadline: Date?) {
@@ -26,14 +22,10 @@ struct Category {
     
     init(snapshot: FIRDataSnapshot) {
         let value = snapshot.value as? NSDictionary
-        self.firebaseRef = value?["Current Project"] as? FIRDatabaseReference
+        self.firebaseRef = snapshot.ref
         self.name = value?["Name"] as! String
-        let projects = value?["Projects"] as! [FIRDatabaseReference]
-        for project in projects {
-            // Pass in snapshot
-//            Project.init(snapshot: <#T##FIRDataSnapshot#>, category: firebaseRef)
-        }
-        
+        let refs = value?["Projects"] as? NSArray
+        self.projectRefs = refs as! [FIRDatabaseReference]
     }
     
     func isEqual(rhs: Category) -> Bool {
@@ -46,18 +38,11 @@ struct Category {
     func toAnyObject() -> Any {
         
         var refProjects = [String]()
-        for project in projects {
-            refProjects.append((project.firebaseRef?.key)!)
+        for project in projectRefs {
+            refProjects.append((project.key))
         }
         
-        
-        if let current = currentProject {
-            return ["Name": name as NSString,
-                    "Current Project": current.firebaseRef!,
-                    "Projects": refProjects]
-        }
         return ["Name": name as NSString,
-                "Current Project": "",
                 "Projects": refProjects]
     }
     

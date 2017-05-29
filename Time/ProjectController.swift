@@ -13,24 +13,23 @@ import FirebaseDatabase
 class ProjectController {
     
     static let sharedInstance = ProjectController()
-    var inactiveProjects = [Project]()
     var currentProject: Project?
+    var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
-    
     
     // Creates a brand new project
     // Check to see if their is a category prior to calling
     func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
         
         var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
-
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, new: true)
-        project.activeTimer = timer
         
         let projectRef = FIRDatabase.database().reference().child("projects")
         
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
+        
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
+        project.activeTimer = timer
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
@@ -39,8 +38,8 @@ class ProjectController {
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
     
-    // Creates a new timer to an existing project
-    func newTimer(project: Project, weight: Double, deadline: Date?, new: Bool) -> ProjectTimer {
+    // Creates a new timer
+    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
         var proj = project
         let timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
@@ -59,17 +58,27 @@ class ProjectController {
             proj.numberOfTimers = 1
         }
         
-        if !new {
-            var index = -1
-            for p in inactiveProjects {
-                index += 1
-                if p.isEqual(rhs: proj) {
-                    break
-                }
-            }
-            inactiveProjects.remove(at: index)
-        }
         activeProjects.append(proj)
+        activeProjectsRefs.append(proj.firebaseRef!.key)
+                
+        var updateKeys: [String : Any]
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        
+        if !newProject {
+            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
+                          "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs,
+                          "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
+        } else {
+            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
+                          "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs]
+        }
+        
+        FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
+            if let error = error {
+                print(error)
+            }
+        }
+        
         return timer
     }
     
@@ -90,7 +99,6 @@ class ProjectController {
             }
         }
         activeProjects.remove(at: index)
-        inactiveProjects.append(project)
         
         if let currentProject = currentProject {
             if project.isEqual(rhs: currentProject) {
