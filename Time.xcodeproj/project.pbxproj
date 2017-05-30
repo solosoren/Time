@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D748BE234BC063EAE3F4141 /* Pods_Time.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F12CD1F860934C2362F841 /* Pods_Time.framework */; };
+		AC05B7011EDD2748008B6D56 /* ActiveProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */; };
 		AC16DBC51EC96CF8000A0D02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */; };
 		AC16DBC81EC96CF8000A0D02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */; };
 		AC16DBD31EC96CF8000A0D02 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBD21EC96CF8000A0D02 /* TimeTests.swift */; };
@@ -60,6 +61,7 @@
 		57F12CD1F860934C2362F841 /* Pods_Time.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Time.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1A961D939352D2BEEA3B79 /* Pods-TimeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTests/Pods-TimeTests.release.xcconfig"; sourceTree = "<group>"; };
 		79400ED8229FF127A82E9958 /* Pods_TimeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveProjectTableViewCell.swift; sourceTree = "<group>"; };
 		AC16DBBA1EC96CF8000A0D02 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC16DBC71EC96CF8000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */,
 				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
 				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
+				AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */,
 			);
 			name = ProjectView;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */,
 				AC8373261ECD4E39000CD47B /* UserController.swift in Sources */,
 				AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */,
+				AC05B7011EDD2748008B6D56 /* ActiveProjectTableViewCell.swift in Sources */,
 				AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */,
 				AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */,
 				AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */,

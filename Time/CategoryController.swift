@@ -21,6 +21,7 @@ class CategoryContoller {
         let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
         
         category.projects.append(project)
+        category.projectRefs.append(project.firebaseRef!)
         
         categories.append(category)
         let uid = FIRAuth.auth()?.currentUser?.uid

@@ -491,7 +491,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProjectsCell" rowHeight="77" id="X8S-Rf-5mq">
+                                    <tableViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProjectsCell" rowHeight="77" id="X8S-Rf-5mq" customClass="ActiveProjectTableViewCell" customModule="Time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="282" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X8S-Rf-5mq" id="3HY-VH-Wlc">
@@ -552,6 +552,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="averageTimeLabel" destination="dE0-Wf-bWX" id="JZA-Hh-vkg"/>
+                                            <outlet property="categoryNameLabel" destination="un8-Lf-DUe" id="xsa-aE-G4O"/>
+                                            <outlet property="deadlineLabel" destination="yX5-yk-zd4" id="ULH-cn-ccL"/>
+                                            <outlet property="projectNameLabel" destination="LIt-gk-0gO" id="lZJ-5C-V8L"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LargeTimerCell" rowHeight="576" id="gbq-la-ye8" customClass="LargeTimerTableViewCell" customModule="Time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="359" width="375" height="576"/>

@@ -28,7 +28,7 @@ class ProjectController {
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true, isActive: false)
         project.activeTimer = timer
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
@@ -39,7 +39,7 @@ class ProjectController {
     }
     
     // Creates a new timer
-    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
+    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool, isActive: Bool) -> ProjectTimer {
         var proj = project
         let timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
@@ -47,9 +47,11 @@ class ProjectController {
 //                            "/user-posts/\(userID)/\(key)/": post]
         
         if currentProject != nil {
-           SessionController.sharedInstance.endSession()
-            // TODO: need to save project after ending session
+           SessionController.sharedInstance.endSession(projectIsDone: false)
+            // TODO: need to save project after ending session. Save in endSession
         }
+        
+        
         currentProject = project
         currentProject?.activeTimer = timer
         if project.numberOfTimers != nil {
@@ -58,16 +60,39 @@ class ProjectController {
             proj.numberOfTimers = 1
         }
         
-        activeProjects.append(proj)
-        activeProjectsRefs.append(proj.firebaseRef!.key)
+        // if the project is active. Remove the project from active projects because its running
+        if isActive {
+            var index = -1
+            for p in activeProjectsRefs {
+                index += 1
+                if p == currentProject?.firebaseRef?.key {
+                    break
+                }
+            }
+            
+            print(activeProjects[index].firebaseRef?.key ?? "")
+            print(activeProjectsRefs[index])
+            
+            activeProjectsRefs.remove(at: index)
+            activeProjects.remove(at: index)
+        }
+        
                 
         var updateKeys: [String : Any]
         let uid = FIRAuth.auth()?.currentUser?.uid
         
-        if !newProject {
+        // if the project is active then save the current project, active projects, and the projects activeTimer
+        if !newProject && isActive {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
                           "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs,
                           "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
+        
+        // if the project is not new and not active then save the current project and the projects active timer
+        } else if !newProject && !isActive {
+            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
+                          "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
+            
+        // if the project is new then save the current project and active projects. The active timer will be saved when you create the new project.
         } else {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs]
@@ -102,7 +127,7 @@ class ProjectController {
         
         if let currentProject = currentProject {
             if project.isEqual(rhs: currentProject) {
-                SessionController.sharedInstance.endSession()
+                SessionController.sharedInstance.endSession(projectIsDone: true)
             }
         }
         let categoryRef = category.firebaseRef!.key

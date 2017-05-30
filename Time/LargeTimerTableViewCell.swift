@@ -79,7 +79,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     
     @IBAction func endSessionPressed(_ sender: Any) {
         if running {
-            SessionController.sharedInstance.endSession()
+            SessionController.sharedInstance.endSession(projectIsDone: false)
         }
     }
     

@@ -43,7 +43,7 @@ class TimerTableViewCell: UITableViewCell {
 
     @IBAction func endSessionButtonPressed(_ sender: Any) {
         if let _ = projectController.currentProject {
-            SessionController.sharedInstance.endSession()
+            SessionController.sharedInstance.endSession(projectIsDone: false)
         }
     }
 

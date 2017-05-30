@@ -63,7 +63,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
             let segmentedCell = tableView.dequeueReusableCell(withIdentifier: "SegmentedCell", for: indexPath)
             return segmentedCell
         } else {
-             let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath)
+			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
+			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2])
             return projectsCell
         }
     }
@@ -73,7 +74,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			return 1
 		}
 		
-        return 5
+        return ProjectController.sharedInstance.activeProjects.count + 2
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

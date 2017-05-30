@@ -24,8 +24,10 @@ class UserController {
             let currentProject = value?["current project"] as? String
             if currentProject != nil {
                 FIRDatabase.database().reference().child("projects").child(currentProject!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let project = Project.init(snapshot: snapshot)
+                    var project = Project.init(snapshot: snapshot)
+                    project.firebaseRef = snapshot.ref
                     ProjectController.sharedInstance.currentProject = project
+                    
                 })
             }
             
