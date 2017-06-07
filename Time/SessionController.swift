@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import Firebase
 
 class SessionController {
     
@@ -17,17 +18,20 @@ class SessionController {
     func endSession(projectIsDone: Bool) {
         var project = ProjectController.sharedInstance.currentProject
         var session = project?.activeTimer?.sessions.last
-        session?.totalLength = session?.startTime.timeIntervalSinceReferenceDate
+        session?.totalLength = session?.startTime.timeIntervalSinceNow
         
         project?.activeTimer?.totalLength = (project?.activeTimer?.totalLength)! + (session?.totalLength)!
         
         if !projectIsDone {
             ProjectController.sharedInstance.activeProjects.append(project!)
+            ProjectController.sharedInstance.activeProjectsRefs.append((project?.firebaseRef?.key)!)
         }
         
         ProjectController.sharedInstance.currentProject = nil
         
-        let updateKeys = ["/projects/\(project!.firebaseRef!.key)": project!.toAnyObject()] as [String: Any]
+        let updateKeys = ["/projects/\(project!.firebaseRef!.key)": project!.toAnyObject(),
+                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": ProjectController.sharedInstance.activeProjectsRefs,
+                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""] as [String: Any]
         FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
             if let error = error {
                 print(error)

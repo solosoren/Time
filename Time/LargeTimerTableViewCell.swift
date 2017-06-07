@@ -11,50 +11,55 @@ import UIKit
 class LargeTimerTableViewCell: UITableViewCell {
 
 
-    @IBOutlet var timerName: UILabel!
-    @IBOutlet var categoryName: UILabel!
-    @IBOutlet var activeLabel: UILabel!
-    @IBOutlet var timeLabel: UILabel!
-    
+    @IBOutlet var timerName:         UILabel!
+    @IBOutlet var categoryName:      UILabel!
+    @IBOutlet var activeLabel:       UILabel!
+    @IBOutlet var timeLabel:         UILabel!
     @IBOutlet var deadlineTimeLabel: UILabel!
-    @IBOutlet var totalTimeLabel: UILabel!
-    @IBOutlet var averageTimeLabel: UILabel!
-    
+    @IBOutlet var totalTimeLabel:    UILabel!
+    @IBOutlet var averageTimeLabel:  UILabel!
     // TODO: Fix
     @IBOutlet var sessionsTimeLabel: UILabel!
-    @IBOutlet var weightNameLabel: UILabel!
+    @IBOutlet var weightNameLabel:   UILabel!
     
     var running = false
-    var project: Project?
+    var project:  Project?
     var category: Category?
     
+    override func draw(_ rect: CGRect) {
+        
+        if let project = project {
+            self.timerName.text = project.name
+            self.categoryName.text = project.categoryRef
+            //        running/active
+            
+            let projectController = ProjectController.sharedInstance
+            
+            if projectController.currentProject != nil && (projectController.currentProject?.isEqual(rhs: project))! {
+                self.running = true
+                
+                self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true)
+                self.weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
+                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true)
+                self.activeLabel.text = "Running"
+                
+            } else {
+                self.timeLabel.text = "-"
+                self.totalTimeLabel.text = "\(project.activeTimer?.totalLength ?? 0)"
+                self.weightNameLabel.text = projectController.weightString(weight: project.weight)
+            }
+            
+            if let deadline = project.activeTimer?.deadline {
+                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: true)
+            } else {
+                self.deadlineTimeLabel.text = "-"
+            }
+        }
+        
+    }
+    
     func setUpCell(project: Project) {
-        self.project = project
         
-        self.timerName.text = project.name
-        self.categoryName.text = project.categoryRef
-//        running/active
-        let projectController = ProjectController.sharedInstance
-        
-        if let activeTimer = project.activeTimer {
-            
-            self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (activeTimer.sessions.last?.startTime.timeIntervalSinceReferenceDate)!, bigVersion: true)
-            
-            self.weightNameLabel.text = projectController.weightString(weight: activeTimer.weight)
-            self.running = true
-            
-        } else {
-            self.timeLabel.text = "-"
-            self.weightNameLabel.text = projectController.weightString(weight: project.weight)
-        }
-        
-        if let deadline = project.activeTimer?.deadline {
-            self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: true)
-        } else {
-            self.deadlineTimeLabel.text = "-"
-        }
-        
-        self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true)
         
     }
     

@@ -108,32 +108,49 @@ class ProjectController {
     }
     
     func getRunningTimerTotalLength() -> TimeInterval {
-        let length = currentProject?.activeTimer?.totalLength
-        let sessionLength = currentProject?.activeTimer?.sessions.last?.startTime.timeIntervalSinceReferenceDate
-        return length! + sessionLength!
+        var length = 0 as TimeInterval
+        if let _length = currentProject?.activeTimer?.totalLength {
+            length = _length
+        }
+        var seshLength = 0 as TimeInterval
+        if let _seshLength = currentProject?.activeTimer?.sessions.last?.startTime.timeIntervalSinceReferenceDate {
+            seshLength = _seshLength
+        }
+        return length + seshLength
     }
-    
+        
+    func getAverageTimerLength() {
+        
+    }
     
     func endTimer(category: Category, project: Project) {
         
-        var index = -1
-        for p in activeProjects {
-            index += 1
-            if p.isEqual(rhs: project) {
-                break
-            }
-        }
-        activeProjects.remove(at: index)
+        var updateKeys: [String: Any]
         
-        if let currentProject = currentProject {
-            if project.isEqual(rhs: currentProject) {
-                SessionController.sharedInstance.endSession(projectIsDone: true)
+        if currentProject != nil && project.isEqual(rhs: currentProject!) {
+            
+            SessionController.sharedInstance.endSession(projectIsDone: true)
+            
+            updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""]
+            
+        } else {
+            var index = -1
+            for p in activeProjects {
+                index += 1
+                if p.isEqual(rhs: project) {
+                    break
+                }
             }
+            activeProjects.remove(at: index)
+            activeProjectsRefs.remove(at: index)
+            
+            updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": activeProjectsRefs]
         }
-        let categoryRef = category.firebaseRef!.key
         
-        let updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
-                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/categories/\(categoryRef)": category.toAnyObject()] as [String : Any]
+        
+        
         
         FIRDatabase.database().reference().updateChildValues(updateKeys)
     }

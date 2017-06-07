@@ -16,6 +16,7 @@ struct Project {
     var weight: Double
     var numberOfTimers: Double?
     var estimatedLength: TimeInterval?
+    var timers = [ProjectTimer]()
     var activeTimer: ProjectTimer?
     var firebaseRef: FIRDatabaseReference?
     
@@ -38,6 +39,12 @@ struct Project {
         self.categoryRef = value?["Category Name"] as! String
         self.numberOfTimers = value?["Number Of Timers"] as? Double
         
+        if let timers = value?["Timers"] as? [NSDictionary] {
+            for timer in timers {
+                self.timers.append(ProjectTimer.init(dict: timer))
+            }
+        }
+        
         if let pt = value?["Active Timer"] as? NSDictionary {
             self.activeTimer = ProjectTimer.init(dict: pt)
         }
@@ -54,12 +61,20 @@ struct Project {
     
     func toAnyObject() -> Any {
         
+        var anyTimers = [NSDictionary]()
+        if timers.count > 0 {
+            for timer in timers {
+                anyTimers.append(timer.toAnyObject() as! NSDictionary)
+            }
+        }
+        
         // TODO: Add estimated length
         if let activeTimer = activeTimer {
             return ["Project Name": name as NSString,
                     "Category Name": categoryRef as NSString,
                     "Weight": weight as NSNumber,
                     "Number Of Timers": numberOfTimers!,
+                    "Timers": anyTimers,
                     "Active Timer": activeTimer.toAnyObject()]
         }
         
@@ -67,6 +82,7 @@ struct Project {
                 "Category Name": categoryRef as NSString,
                 "Weight": weight as NSNumber,
                 "Number Of Timers": numberOfTimers!,
+                "Timers": anyTimers,
                 // Don't like this ""
                 "Active Timer": ""]
     }

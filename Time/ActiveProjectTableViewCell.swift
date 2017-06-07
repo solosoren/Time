@@ -10,25 +10,27 @@ import UIKit
 
 class ActiveProjectTableViewCell: UITableViewCell {
     
-    @IBOutlet var projectNameLabel: UILabel!
+    @IBOutlet var projectNameLabel:  UILabel!
     @IBOutlet var categoryNameLabel: UILabel!
+    @IBOutlet var deadlineLabel:     UILabel!
+    @IBOutlet var averageTimeLabel:  UILabel!
     
-    @IBOutlet var deadlineLabel: UILabel!
+    var project: Project?
     
-    @IBOutlet var averageTimeLabel: UILabel!
     
-    func setUpCell(project: Project) {
-        self.projectNameLabel.text = project.name
-        self.categoryNameLabel.text = project.categoryRef
-        self.deadlineLabel.text = "Deadline: "
-        if let deadline = project.activeTimer?.deadline {
-            self.deadlineLabel.text = "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: false))"
-        } else {
-            self.deadlineLabel.text = "Deadline: -"
+    override func draw(_ rect: CGRect) {
+        if let project = project {
+            self.projectNameLabel.text = project.name
+            self.categoryNameLabel.text = project.categoryRef
+            self.deadlineLabel.text = "Deadline: "
+            if let deadline = project.activeTimer?.deadline {
+                self.deadlineLabel.text = "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: false))"
+            } else {
+                self.deadlineLabel.text = "Deadline: -"
+            }
+            
+            //        self.averageTimeLabel.text = estimatedLength
         }
-        
-//        self.averageTimeLabel.text = estimatedLength
     }
     
-
 }

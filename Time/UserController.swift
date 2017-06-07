@@ -15,14 +15,13 @@ class UserController {
     static let sharedInstance = UserController()
     var userRef = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!)
     
-    
     func fetchInitialData() {
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
             
             let currentProject = value?["current project"] as? String
-            if currentProject != nil {
+            if currentProject != "" {
                 FIRDatabase.database().reference().child("projects").child(currentProject!).observeSingleEvent(of: .value, with: { (snapshot) in
                     var project = Project.init(snapshot: snapshot)
                     project.firebaseRef = snapshot.ref
@@ -35,7 +34,9 @@ class UserController {
             if activeProjects != nil {
                 for ref in activeProjects! {
                     FIRDatabase.database().reference().child("projects").child(ref).observeSingleEvent(of: .value, with: { (snapshot) in
-                        ProjectController.sharedInstance.activeProjects.append(Project.init(snapshot: snapshot))
+                        var project = Project.init(snapshot: snapshot)
+                        project.firebaseRef = snapshot.ref
+                        ProjectController.sharedInstance.activeProjects.append(project)
                         ProjectController.sharedInstance.activeProjectsRefs.append(ref)
                     })
                 }
