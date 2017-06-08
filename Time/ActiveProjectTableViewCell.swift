@@ -15,22 +15,25 @@ class ActiveProjectTableViewCell: UITableViewCell {
     @IBOutlet var deadlineLabel:     UILabel!
     @IBOutlet var averageTimeLabel:  UILabel!
     
-    var project: Project?
-    
-    
     override func draw(_ rect: CGRect) {
-        if let project = project {
-            self.projectNameLabel.text = project.name
-            self.categoryNameLabel.text = project.categoryRef
-            self.deadlineLabel.text = "Deadline: "
-            if let deadline = project.activeTimer?.deadline {
-                self.deadlineLabel.text = "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: false))"
-            } else {
-                self.deadlineLabel.text = "Deadline: -"
-            }
+        self.projectNameLabel.text =   ""
+        self.categoryNameLabel.text =  ""
+        self.deadlineLabel.text =      ""
+        self.averageTimeLabel.text =   ""
+    }
+    
+    func setUpCell(project: Project) {
+        self.accessoryType = .disclosureIndicator
+        self.projectNameLabel.text =   project.name
+        self.categoryNameLabel.text =  project.categoryRef
+        self.deadlineLabel.text =      "Deadline: -"
+        
+        if let deadline = project.activeTimer?.deadline {
             
-            //        self.averageTimeLabel.text = estimatedLength
+            self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: false))"
         }
+        
+        //        self.averageTimeLabel.text = estimatedLength
     }
     
 }

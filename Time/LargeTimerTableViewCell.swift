@@ -58,11 +58,6 @@ class LargeTimerTableViewCell: UITableViewCell {
         
     }
     
-    func setUpCell(project: Project) {
-        
-        
-    }
-    
     
     @IBAction func cancelTimer(_ sender: Any) {
         

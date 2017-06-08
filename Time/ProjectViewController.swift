@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, InitialDataUpdater {
     
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
@@ -23,6 +23,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		UserController.sharedInstance.delegate = self
 		
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user == nil {
@@ -45,10 +46,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			//TODO: figure out which timer is being pressed on
 			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
 			if selectedRowIndex > 1 {
-				timerCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[selectedRowIndex - 2])
+				timerCell.project = ProjectController.sharedInstance.activeProjects[selectedRowIndex - 2]
 			} else {
 				if let currentProject = ProjectController.sharedInstance.currentProject {
-					timerCell.setUpCell(project: currentProject)
+					timerCell.project = currentProject
 				}
 			}
 			return timerCell
@@ -61,19 +62,33 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if indexPath.row == 1 {
             let segmentedCell = tableView.dequeueReusableCell(withIdentifier: "SegmentedCell", for: indexPath)
             return segmentedCell
-        } else {
+			
+		// because I am going to return a full tableview regardless of the amount of projects. Check if their are projects before calling setUpCell()
+        } else if indexPath.row <= ProjectController.sharedInstance.activeProjects.count + 1 {
+			
 			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
-			projectsCell.project = ProjectController.sharedInstance.activeProjects[indexPath.row - 2]
+			
+			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2])
             return projectsCell
-        }
+		} else {
+			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
+			return projectsCell
+		}
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if isSelected {
 			return 1
 		}
-		
-        return ProjectController.sharedInstance.activeProjects.count + 2
+		if ProjectController.sharedInstance.activeProjects.count > 0 {
+			if ProjectController.sharedInstance.activeProjects.count > 8 {
+				self.tableView.isScrollEnabled = true
+				return ProjectController.sharedInstance.activeProjects.count + 2
+			}
+			return 9
+		}
+		self.tableView.isScrollEnabled = false
+        return 9
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,7 +101,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			if ProjectController.sharedInstance.currentProject != nil {
 				return 215
 			} else {
-				return 100
+				return 90
 			}
 			
         } else if indexPath.row == 1 {
