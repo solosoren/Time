@@ -113,25 +113,29 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let cell = tableView.cellForRow(at: indexPath)
+//        let cell = tableView.cellForRow(at: indexPath)
 		
 		if isSelected {
 			isSelected = false
 			tableView.reloadData()
+			self.tabBarController?.tabBar.isHidden = false
 			
 		} else if indexPath.row == 0 && !isSelected && ProjectController.sharedInstance.currentProject != nil {
 			selectedRowIndex = indexPath.row
 			isSelected = true
 			tableView.reloadData()
+			self.tabBarController?.tabBar.isHidden = true
 			
-		} else if indexPath.row > 1 && !isSelected && ProjectController.sharedInstance.activeProjects.count >= indexPath.row - 2 {
+		} else if indexPath.row > 1 && !isSelected && ProjectController.sharedInstance.activeProjects.count > indexPath.row - 2 {
 			selectedRowIndex = indexPath.row
 			isSelected = true
 			tableView.reloadData()
+			self.tabBarController?.tabBar.isHidden = true
 			
-		} else {
-			cell?.selectionStyle = UITableViewCellSelectionStyle.none
 		}
+//		else {
+//			cell?.selectionStyle = UITableViewCellSelectionStyle.none
+//		}
 		
         tableView.deselectRow(at: indexPath, animated: true)
     }

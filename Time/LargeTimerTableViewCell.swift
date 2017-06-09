@@ -10,7 +10,7 @@ import UIKit
 
 class LargeTimerTableViewCell: UITableViewCell {
 
-
+    // Labels
     @IBOutlet var timerName:         UILabel!
     @IBOutlet var categoryName:      UILabel!
     @IBOutlet var activeLabel:       UILabel!
@@ -21,6 +21,14 @@ class LargeTimerTableViewCell: UITableViewCell {
     // TODO: Fix
     @IBOutlet var sessionsTimeLabel: UILabel!
     @IBOutlet var weightNameLabel:   UILabel!
+    
+    // Buttons
+    @IBOutlet var cancelTimerButton: UIButton!
+    @IBOutlet var updateButton: UIButton!
+    @IBOutlet var notesButton: UIButton!
+    @IBOutlet var breakButton: UIButton!
+    @IBOutlet var endSessionButton: UIButton!
+    @IBOutlet var doneButton: UIButton!
     
     var running = false
     var project:  Project?
@@ -55,6 +63,9 @@ class LargeTimerTableViewCell: UITableViewCell {
                 self.deadlineTimeLabel.text = "-"
             }
         }
+        
+        cancelTimerButton.titleLabel?.textAlignment = .center
+        endSessionButton.titleLabel?.textAlignment = .center
         
     }
     
