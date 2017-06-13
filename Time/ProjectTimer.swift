@@ -35,7 +35,7 @@ struct ProjectTimer {
     
     init(dict: NSDictionary) {
         
-        let length = dict["Project Length"] as? Double ?? 0
+        let length = dict["Timer Length"] as? Double ?? 0
         self.totalLength = TimeInterval.init(length)
         
         let deadline = dict["Deadline"] as? String ?? nil
@@ -68,13 +68,13 @@ struct ProjectTimer {
             
             return ["Weight": weight,
                     "Deadline": stringDeadline,
-                    "Project Length": totalLength,
+                    "Timer Length": totalLength,
                     "Sessions": anySessions]
         }
         let string: NSString = ""
         return ["Weight": weight,
                 "Deadline": string,
-                "Project Length": totalLength,
+                "Timer Length": totalLength,
                 "Sessions": anySessions]
         
     }

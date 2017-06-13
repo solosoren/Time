@@ -47,9 +47,11 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
 			if selectedRowIndex > 1 {
 				timerCell.project = ProjectController.sharedInstance.activeProjects[selectedRowIndex - 2]
+				timerCell.setUpCell()
 			} else {
 				if let currentProject = ProjectController.sharedInstance.currentProject {
 					timerCell.project = currentProject
+					timerCell.setUpCell()
 				}
 			}
 			return timerCell
@@ -58,6 +60,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
         if indexPath.row == 0 {
             let timerCell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath) as! TimerTableViewCell
 			timerCell.delegate = self
+			timerCell.setUpCell()
             return timerCell
         } else if indexPath.row == 1 {
             let segmentedCell = tableView.dequeueReusableCell(withIdentifier: "SegmentedCell", for: indexPath)
@@ -71,6 +74,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2])
             return projectsCell
 		} else {
+			
+			// returning empty cells
 			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
 			return projectsCell
 		}

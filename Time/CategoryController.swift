@@ -16,6 +16,14 @@ class CategoryContoller {
     var categories =  [Category]()
     var ref = UserController.sharedInstance.userRef.child("categories")
     
+    
+    /// Creates a new category. Only is called when you are creating a project with a new category.
+    ///
+    /// - Parameters:
+    ///   - name: the name of the category.
+    ///   - projectName: the anem of the Project being created
+    ///   - weight: the weight of the Project, as a double
+    ///   - deadline: the deadline of the project
     func newCategory(name: String, projectName: String, weight: Double, deadline: Date?) {
         var category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
         let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
@@ -31,7 +39,10 @@ class CategoryContoller {
         FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     
-    // Check to see if a category already exists
+    /// Checks to see if a category already exists.
+    ///
+    /// - Parameter categoryName: the category to check
+    /// - Returns: whether or not the category exists.
     func checkForCategory(categoryName: String) -> Bool {
         
         for category in categories {
@@ -43,7 +54,13 @@ class CategoryContoller {
         return false
     }
     
-    //TODO: Fix this?
+    
+// FIXME: not working
+    
+    /// Gets the category from the given reference
+    ///
+    /// - Parameter ref: the categories reference
+    /// - Returns: an optional category
     func getCategoryFromRef(ref: String) -> Category? {
         for category in categories {
             if category.name == ref {

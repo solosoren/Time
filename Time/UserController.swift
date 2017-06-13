@@ -16,14 +16,13 @@ protocol InitialDataUpdater {
 
 class UserController {
     
-    static let sharedInstance = UserController()
-    var userRef = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!)
+    static let sharedInstance =  UserController()
+    var userRef =                FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!)
+    var delegate:                InitialDataUpdater?
+    var loadingInt =             0
     
-    var delegate: InitialDataUpdater?
-    var loadingInt = 0
-    
+    /// Fetches the current project, the active projects, and the categories. The rest of the projects can be loaded later from the reference on the category object.
     func fetchInitialData() {
-        
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -80,6 +79,8 @@ class UserController {
         })
     }
     
+    
+    /// Helper method to know when the fetchInitialData() is finished loading.
     func finishedLoading() {
         if loadingInt == 3 {
             DispatchQueue.main.async {
@@ -89,7 +90,6 @@ class UserController {
         } else {
             loadingInt += 1
         }
-        
     }
     
     

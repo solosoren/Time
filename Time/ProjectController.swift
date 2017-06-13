@@ -17,8 +17,15 @@ class ProjectController {
     var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
     
-    // Creates a brand new project
-    // Check to see if their is a category prior to calling
+    /// Creates a brand new project.
+    /// - Check to see if their is a category prior to calling
+    ///
+    /// - Parameters:
+    ///   - name: The name of the new Project
+    ///   - categoryName: the category name of the new Project
+    ///   - deadline: the deadline date for the new Project
+    ///   - weight: the weight of the new Project, as a double
+    /// - Returns: a new Project
     func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
         
         var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
@@ -28,7 +35,7 @@ class ProjectController {
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true, isActive: false)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
         project.activeTimer = timer
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
@@ -38,8 +45,15 @@ class ProjectController {
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
     
-    // Creates a new timer
-    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool, isActive: Bool) -> ProjectTimer {
+    /// Creates a new timer. If their is a running project, it stops it and sets new timer to current project.
+    ///
+    /// - Parameters:
+    ///   - project: The timer's project
+    ///   - weight: The weight of the new timer, as a double
+    ///   - deadline: The deadline date for the timer
+    ///   - newProject: Whether it is a new project or not
+    /// - Returns: A new Project Timer
+    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
         var proj = project
         let timer = ProjectTimer.init(deadline: deadline, weight: weight)
         
@@ -51,44 +65,20 @@ class ProjectController {
             // TODO: need to save project after ending session. Save in endSession
         }
         
-        
-        currentProject = project
-        currentProject?.activeTimer = timer
         if project.numberOfTimers != nil {
             proj.numberOfTimers! += 1.0
         } else {
             proj.numberOfTimers = 1
         }
         
-        // if the project is active. Remove the project from active projects because its running
-        if isActive {
-            var index = -1
-            for p in activeProjectsRefs {
-                index += 1
-                if p == currentProject?.firebaseRef?.key {
-                    break
-                }
-            }
-            
-            print(activeProjects[index].firebaseRef?.key ?? "")
-            print(activeProjectsRefs[index])
-            
-            activeProjectsRefs.remove(at: index)
-            activeProjects.remove(at: index)
-        }
+        currentProject = proj
+        currentProject?.activeTimer = timer
         
-                
         var updateKeys: [String : Any]
         let uid = FIRAuth.auth()?.currentUser?.uid
         
-        // if the project is active then save the current project, active projects, and the projects activeTimer
-        if !newProject && isActive {
-            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
-                          "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs,
-                          "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
-        
-        // if the project is not new and not active then save the current project and the projects active timer
-        } else if !newProject && !isActive {
+        // if the project is not new
+            if !newProject {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
                           "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
             
@@ -97,16 +87,18 @@ class ProjectController {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs]
         }
-        
         FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
             if let error = error {
                 print(error)
             }
         }
-        
         return timer
     }
     
+    
+    /// Get the current Project timers Total Length. Not to be confused with the timer's current session total length.
+    ///
+    /// - Returns: the timers total Length
     func getRunningTimerTotalLength() -> TimeInterval {
         var length = 0 as TimeInterval
         if let _length = currentProject?.activeTimer?.totalLength {
@@ -118,20 +110,30 @@ class ProjectController {
         }
         return length + seshLength
     }
-        
+    
+    
     func getAverageTimerLength() {
         
     }
     
+    
+    /// Ends the Timer of the given project.
+    ///
+    /// - Parameters:
+    ///   - category: the category of the timer to be ended
+    ///   - project: the project of the Timer
     func endTimer(category: Category, project: Project) {
         
         var updateKeys: [String: Any]
+        var proj = project
+        
+        proj.timers.append(project.activeTimer!)
+        proj.activeTimer = nil
         
         if currentProject != nil && project.isEqual(rhs: currentProject!) {
             
             SessionController.sharedInstance.endSession(projectIsDone: true)
-            
-            updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+            updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""]
             
         } else {
@@ -145,20 +147,21 @@ class ProjectController {
             activeProjects.remove(at: index)
             activeProjectsRefs.remove(at: index)
             
-            updateKeys = ["/projects/\(project.firebaseRef!.key)": project.toAnyObject() as! [String: Any],
+            updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": activeProjectsRefs]
         }
-        
-        
-        
         
         FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     
     
-// Strings
+// MARK: Strings
     
-    // get the right weight string from the given weight double
+    
+    /// Get right weight string from the given weight double.
+    ///
+    /// - Parameter weight: the weight in double form
+    /// - Returns: the weight in string form
     func weightString(weight: Double) -> String {
         
         if weight == 0.4 {
@@ -170,19 +173,28 @@ class ProjectController {
         
     }
     
-    // returns a string of the hours and minutes from the timeinterval
+    /// Gives you a string of the hours and minutes from the given timeInterval.
+    ///
+    /// - Parameters:
+    ///   - interval: the interval to change to a string
+    ///   - bigVersion: If big it returns 'Hours' and 'Mins'. If not big it returns 'H' and 'M'.
+    ///
+    /// - Returns: a String of the hours and minutes
     func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool) -> String {
         let interval = Int(interval)
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
+// FIXME: negative time interval
+// TODO: Days
+//        let days = (interval / 86400)
 
         if bigVersion {
             if hours == 0 {
-                return "\(abs(minutes)) Mins"
+                return "\(minutes) Mins"
             }
 
             if minutes == 0 {
-                return "\(abs(hours)) Hours"
+                return "\(hours) Hours"
             }
 
             return "\(hours) Hours \(minutes) Mins"
@@ -190,11 +202,11 @@ class ProjectController {
 
 
         if hours == 0 {
-            return "\(abs(minutes))M"
+            return "\(minutes)M"
         }
 
         if minutes == 0 {
-            return "\(abs(hours))H"
+            return "\(hours)H"
         }
         
         return "\(hours)H \(minutes)M"

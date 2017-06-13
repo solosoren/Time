@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Time/Session.swift"
-            timestampString = "518252966.785761"
+            filePath = "Time/LargeTimerTableViewCell.swift"
+            timestampString = "518937233.915396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "toAnyObject()"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "endSessionPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

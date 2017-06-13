@@ -34,7 +34,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     var project:  Project?
     var category: Category?
     
-    override func draw(_ rect: CGRect) {
+    func setUpCell() {
         
         if let project = project {
             self.timerName.text = project.name
@@ -51,24 +51,36 @@ class LargeTimerTableViewCell: UITableViewCell {
                 self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true)
                 self.activeLabel.text = "Running"
                 
+                
+                
             } else {
                 self.timeLabel.text = "-"
-                self.totalTimeLabel.text = "\(project.activeTimer?.totalLength ?? 0)"
+                let total = project.activeTimer?.totalLength ?? 0
+                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true)
                 self.weightNameLabel.text = projectController.weightString(weight: project.weight)
+                
+                self.breakButton.setTitle("Delete Project", for: .normal)
+                self.endSessionButton.setTitle("Start Session", for: .normal)
+                
             }
             
             if let deadline = project.activeTimer?.deadline {
-                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceReferenceDate, bigVersion: true)
+                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true)
+                if (self.deadlineTimeLabel.text?.contains("-"))! {
+                    // TODO: Fix Color
+                    //                    self.deadlineTimeLabel.textColor = UIColor.red
+                }
             } else {
                 self.deadlineTimeLabel.text = "-"
             }
         }
         
+        breakButton.titleLabel?.textAlignment = .center
         cancelTimerButton.titleLabel?.textAlignment = .center
         endSessionButton.titleLabel?.textAlignment = .center
         
+        // TODO: Add Typical time. Check Sketch
     }
-    
     
     @IBAction func cancelTimer(_ sender: Any) {
         
@@ -82,15 +94,20 @@ class LargeTimerTableViewCell: UITableViewCell {
         
     }
 
-    
+    // Running: Break
+    // Active: Delete Timer
     @IBAction func breakButtonPressed(_ sender: Any) {
         
     }
     
-    
+    // Running: end session
+    // Active: start session
     @IBAction func endSessionPressed(_ sender: Any) {
         if running {
             SessionController.sharedInstance.endSession(projectIsDone: false)
+        } else {
+            guard let project = project else { return }
+            SessionController.sharedInstance.startSession(p: project)
         }
     }
     
