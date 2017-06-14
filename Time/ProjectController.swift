@@ -105,7 +105,7 @@ class ProjectController {
             length = _length
         }
         var seshLength = 0 as TimeInterval
-        if let _seshLength = currentProject?.activeTimer?.sessions.last?.startTime.timeIntervalSinceReferenceDate {
+        if let _seshLength = currentProject?.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow {
             seshLength = _seshLength
         }
         return length + seshLength
@@ -127,16 +127,19 @@ class ProjectController {
         var updateKeys: [String: Any]
         var proj = project
         
-        proj.timers.append(project.activeTimer!)
-        proj.activeTimer = nil
-        
         if currentProject != nil && project.isEqual(rhs: currentProject!) {
             
             SessionController.sharedInstance.endSession(projectIsDone: true)
+            proj.timers.append(project.activeTimer!)
+            proj.activeTimer = nil
+            
             updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""]
             
         } else {
+            proj.timers.append(project.activeTimer!)
+            proj.activeTimer = nil
+            
             var index = -1
             for p in activeProjects {
                 index += 1
@@ -180,36 +183,37 @@ class ProjectController {
     ///   - bigVersion: If big it returns 'Hours' and 'Mins'. If not big it returns 'H' and 'M'.
     ///
     /// - Returns: a String of the hours and minutes
-    func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool) -> String {
+    func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool, deadline: Bool) -> String {
         let interval = Int(interval)
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
-// FIXME: negative time interval
+        
 // TODO: Days
-//        let days = (interval / 86400)
-
+        //        let days = (interval / 86400)
+        
+        var hourText = "H"
+        var minText = "M"
+        
         if bigVersion {
-            if hours == 0 {
-                return "\(minutes) Mins"
-            }
-
-            if minutes == 0 {
-                return "\(hours) Hours"
-            }
-
-            return "\(hours) Hours \(minutes) Mins"
-        }
-
-
-        if hours == 0 {
-            return "\(minutes)M"
-        }
-
-        if minutes == 0 {
-            return "\(hours)H"
+            hourText = " Hours"
+            minText =  " Mins"
         }
         
-        return "\(hours)H \(minutes)M"
+        if hours == 0 {
+            return "\(abs(minutes))" + minText
+        }
+        
+        if minutes == 0 {
+            return "\(abs(hours))" + hourText
+        }
+        
+        if deadline {
+            return "\(hours)" + hourText +  " \(minutes)" + minText
+        } else {
+            return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText
+        }
+
+        
     }
     
 }

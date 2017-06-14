@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, InitialDataUpdater {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerCellUpdater, InitialDataUpdater {
     
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
@@ -45,6 +45,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		if isSelected {
 			//TODO: figure out which timer is being pressed on
 			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
+			timerCell.delegate = self
 			if selectedRowIndex > 1 {
 				timerCell.project = ProjectController.sharedInstance.activeProjects[selectedRowIndex - 2]
 				timerCell.setUpCell()

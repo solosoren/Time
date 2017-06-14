@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol LargeTimerCellUpdater {
+    func updateTableView()
+}
+
 class LargeTimerTableViewCell: UITableViewCell {
 
     // Labels
@@ -31,6 +35,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     @IBOutlet var doneButton: UIButton!
     
     var running = false
+    var delegate: LargeTimerCellUpdater?
     var project:  Project?
     var category: Category?
     
@@ -46,29 +51,27 @@ class LargeTimerTableViewCell: UITableViewCell {
             if projectController.currentProject != nil && (projectController.currentProject?.isEqual(rhs: project))! {
                 self.running = true
                 
-                self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true)
+                self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
                 self.weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
-                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true)
+                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false)
                 self.activeLabel.text = "Running"
                 
-                
-                
             } else {
+                self.running = false
                 self.timeLabel.text = "-"
                 let total = project.activeTimer?.totalLength ?? 0
-                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true)
-                self.weightNameLabel.text = projectController.weightString(weight: project.weight)
                 
+                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false)
+                self.weightNameLabel.text = projectController.weightString(weight: project.weight)
                 self.breakButton.setTitle("Delete Project", for: .normal)
                 self.endSessionButton.setTitle("Start Session", for: .normal)
-                
             }
             
             if let deadline = project.activeTimer?.deadline {
-                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true)
+                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true)
                 if (self.deadlineTimeLabel.text?.contains("-"))! {
                     // TODO: Fix Color
-                    //                    self.deadlineTimeLabel.textColor = UIColor.red
+                    //  self.deadlineTimeLabel.textColor = UIColor.red
                 }
             } else {
                 self.deadlineTimeLabel.text = "-"
@@ -105,15 +108,19 @@ class LargeTimerTableViewCell: UITableViewCell {
     @IBAction func endSessionPressed(_ sender: Any) {
         if running {
             SessionController.sharedInstance.endSession(projectIsDone: false)
+            self.running = false
         } else {
             guard let project = project else { return }
             SessionController.sharedInstance.startSession(p: project)
+            self.running = true
         }
+        self.delegate?.updateTableView()
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         //TODO: Fix
         let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: (project?.categoryRef)!)
         ProjectController.sharedInstance.endTimer(category: category!, project: project!)
+        self.delegate?.updateTableView()
     }
 }

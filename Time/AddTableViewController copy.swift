@@ -156,7 +156,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadlineDatePicker.isHidden = true
             
             let timeInterval = deadlineDatePicker.date.timeIntervalSinceNow
-            deadlineLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false)
+            deadlineLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true)
             
             //TODO: fix. Want the text to turn red and notify
             if (deadlineLabel.text == "0M") || (deadlineLabel.text!.contains("-")) {

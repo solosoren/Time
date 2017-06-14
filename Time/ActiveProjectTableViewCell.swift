@@ -30,7 +30,7 @@ class ActiveProjectTableViewCell: UITableViewCell {
         
         if let deadline = project.activeTimer?.deadline {
             
-            self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false))"
+            self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false, deadline: true))"
         }
         
         //        self.averageTimeLabel.text = estimatedLength

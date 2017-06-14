@@ -20,7 +20,7 @@ class SessionController {
     func endSession(projectIsDone: Bool) {
         var project = ProjectController.sharedInstance.currentProject
         var session = project?.activeTimer?.sessions.last
-        session?.totalLength = session?.startTime.timeIntervalSinceReferenceDate
+        session?.totalLength = session?.startTime.timeIntervalSinceNow
         project?.activeTimer?.sessions[(project?.activeTimer?.sessions.count)! - 1].totalLength = session?.totalLength
         
         project?.activeTimer?.totalLength = (project?.activeTimer?.totalLength)! + (session?.totalLength)!

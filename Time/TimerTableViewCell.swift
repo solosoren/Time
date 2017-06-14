@@ -23,9 +23,7 @@ class TimerTableViewCell: UITableViewCell {
     @IBOutlet var breakButton:      UIButton!
     
     let projectController = ProjectController.sharedInstance
-    
     var delegate:           TimerCellUpdater?
-    
     
     func setUpCell() {
         let project =  projectController.currentProject
@@ -39,21 +37,22 @@ class TimerTableViewCell: UITableViewCell {
                 categoryName.isHidden = false
                 deadline.isHidden =     false
                 
-                doneButton.setTitle("Break", for: .normal)
+                doneButton.setTitle("Done", for: .normal)
                 endSessionButton.setTitle("End Session", for: .normal)
-                breakButton.setTitle("Done", for: .normal)
+                breakButton.setTitle("Break", for: .normal)
             }
             timerName.text =    project.name
             categoryName.text = project.categoryRef
             
             // Optional
             if let timerDeadline = project.activeTimer!.deadline {
-                deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true))"
+                deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true, deadline: true))"
             } else {
                 deadline.text = "Deadline: -"
             }
             
-            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceReferenceDate)!, bigVersion: true)
+            
+            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
             
             // if their is no running project
         } else {
