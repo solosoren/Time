@@ -32,6 +32,8 @@
 		AC83731E1ECD35D9000CD47B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83731D1ECD35D9000CD47B /* User.swift */; };
 		AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83731F1ECD4188000CD47B /* SignInViewController.swift */; };
 		AC8373261ECD4E39000CD47B /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8373251ECD4E39000CD47B /* UserController.swift */; };
+		AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B8BE31EF4565000072031 /* CategoryViewController.swift */; };
+		AC8B8BE81EF45A7800072031 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */; };
 		ACEA96B81ECAD247002C2334 /* LargeTimerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */; };
 		D9223D89E3708EE628611970 /* Pods_TimeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79400ED8229FF127A82E9958 /* Pods_TimeTests.framework */; };
 		FFD470F73937CD8A371F5A90 /* Pods_TimeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D30D569AC65A21C595C926 /* Pods_TimeUITests.framework */; };
@@ -89,6 +91,8 @@
 		AC83731D1ECD35D9000CD47B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC83731F1ECD4188000CD47B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		AC8373251ECD4E39000CD47B /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		AC8B8BE31EF4565000072031 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTimerTableViewCell.swift; sourceTree = "<group>"; };
 		B7022EDDC8331C7CCEAC3ECA /* Pods-TimeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTests/Pods-TimeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BED5F404D01003B35CC4B40A /* Pods-Time.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Time.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Time/Pods-Time.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,10 +178,13 @@
 				AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */,
 				AC76C30D1ECE89C00090A3FE /* TabBarController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
-				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
-				AC16DC071ECA3316000A0D02 /* Model */,
-				AC16DC0E1ECA75F8000A0D02 /* Controllers */,
+				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
+				AC8B8BE91EF45A7C00072031 /* CategoryView */,
+				AC8B8BE51EF4566B00072031 /* User */,
+				AC8B8BE61EF4568100072031 /* Category */,
+				AC16DC071ECA3316000A0D02 /* Project */,
+				AC16DC0E1ECA75F8000A0D02 /* Timer */,
 				AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */,
 				AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */,
 				AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */,
@@ -205,16 +212,13 @@
 			path = TimeUITests;
 			sourceTree = "<group>";
 		};
-		AC16DC071ECA3316000A0D02 /* Model */ = {
+		AC16DC071ECA3316000A0D02 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				AC83731D1ECD35D9000CD47B /* User.swift */,
-				AC76C30F1ECE952B0090A3FE /* Category.swift */,
 				AC16DC011EC96EBA000A0D02 /* Project.swift */,
-				AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */,
-				AC16DBF71EC96E0B000A0D02 /* Session.swift */,
+				AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */,
 			);
-			name = Model;
+			name = Project;
 			sourceTree = "<group>";
 		};
 		AC16DC0D1ECA75E7000A0D02 /* ProjectView */ = {
@@ -222,21 +226,47 @@
 			children = (
 				AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */,
 				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
-				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
 				AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */,
+				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
 			);
 			name = ProjectView;
 			sourceTree = "<group>";
 		};
-		AC16DC0E1ECA75F8000A0D02 /* Controllers */ = {
+		AC16DC0E1ECA75F8000A0D02 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				AC8373251ECD4E39000CD47B /* UserController.swift */,
-				AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */,
-				AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */,
+				AC16DBFD1EC96E7D000A0D02 /* ProjectTimer.swift */,
+				AC16DBF71EC96E0B000A0D02 /* Session.swift */,
 				AC16DC081ECA3381000A0D02 /* SessionController.swift */,
 			);
-			name = Controllers;
+			name = Timer;
+			sourceTree = "<group>";
+		};
+		AC8B8BE51EF4566B00072031 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				AC83731D1ECD35D9000CD47B /* User.swift */,
+				AC8373251ECD4E39000CD47B /* UserController.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		AC8B8BE61EF4568100072031 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				AC76C30F1ECE952B0090A3FE /* Category.swift */,
+				AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		AC8B8BE91EF45A7C00072031 /* CategoryView */ = {
+			isa = PBXGroup;
+			children = (
+				AC8B8BE31EF4565000072031 /* CategoryViewController.swift */,
+				AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */,
+			);
+			name = CategoryView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -521,12 +551,14 @@
 				AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */,
 				AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */,
 				AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */,
+				AC8B8BE81EF45A7800072031 /* CategoryCollectionViewCell.swift in Sources */,
 				AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */,
 				AC83731E1ECD35D9000CD47B /* User.swift in Sources */,
 				AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */,
 				AC76C3101ECE952B0090A3FE /* Category.swift in Sources */,
 				AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
+				AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */,
 				AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

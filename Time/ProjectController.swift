@@ -127,6 +127,14 @@ class ProjectController {
         var updateKeys: [String: Any]
         var proj = project
         
+        if proj.timers.count > 0 {
+            var total = 0.0
+            for timer in proj.timers {
+                total += timer.totalLength
+            }
+            proj.estimatedLength = total / Double(proj.timers.count + 1)
+        }
+        
         if currentProject != nil && project.isEqual(rhs: currentProject!) {
             
             SessionController.sharedInstance.endSession(projectIsDone: true)

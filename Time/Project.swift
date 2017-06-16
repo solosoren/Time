@@ -15,7 +15,7 @@ struct Project {
     var categoryRef: String
     var weight: Double
     var numberOfTimers: Double?
-    var estimatedLength: TimeInterval?
+    var estimatedLength: TimeInterval
     var timers = [ProjectTimer]()
     var activeTimer: ProjectTimer?
     var firebaseRef: FIRDatabaseReference?
@@ -33,23 +33,24 @@ struct Project {
     }
     
     init(snapshot: FIRDataSnapshot) {
-        let value = snapshot.value as? NSDictionary
-        self.name = value?["Project Name"] as! String
-        self.weight = value?["Weight"] as! Double
-        self.categoryRef = value?["Category Name"] as! String
-        self.numberOfTimers = value?["Number Of Timers"] as? Double
+        let value =             snapshot.value as? NSDictionary
+        self.name =             value?["Project Name"] as! String
+        self.weight =           value?["Weight"] as! Double
+        self.categoryRef =     value?["Category Name"] as! String
+        self.numberOfTimers =  value?["Number Of Timers"] as? Double
         
-        if let timers = value?["Timers"] as? [NSDictionary] {
+        let avg =               value?["Estimated Length"] as? Double ?? 0
+        self.estimatedLength = TimeInterval.init(avg)
+        
+        if let timers =         value?["Timers"] as? [NSDictionary] {
             for timer in timers {
                 self.timers.append(ProjectTimer.init(dict: timer))
             }
         }
         
-        if let pt = value?["Active Timer"] as? NSDictionary {
+        if let pt =             value?["Active Timer"] as? NSDictionary {
             self.activeTimer = ProjectTimer.init(dict: pt)
         }
-        
-        // estimated length
     }
     
     func isEqual(rhs: Project) -> Bool {
@@ -67,14 +68,15 @@ struct Project {
                 anyTimers.append(timer.toAnyObject() as! NSDictionary)
             }
         }
+        let estimatedLength = self.estimatedLength as NSNumber
         
-        // TODO: Add estimated length
         if let activeTimer = activeTimer {
             return ["Project Name": name as NSString,
                     "Category Name": categoryRef as NSString,
                     "Weight": weight as NSNumber,
                     "Number Of Timers": numberOfTimers!,
                     "Timers": anyTimers,
+                    "Estimated Length": estimatedLength,
                     "Active Timer": activeTimer.toAnyObject()]
         }
         
@@ -83,7 +85,7 @@ struct Project {
                 "Weight": weight as NSNumber,
                 "Number Of Timers": numberOfTimers!,
                 "Timers": anyTimers,
-                // Don't like this ""
+                "Estimated Length": estimatedLength,
                 "Active Timer": ""]
     }
     
