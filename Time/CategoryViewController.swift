@@ -11,6 +11,7 @@ import UIKit
 class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InitialDataUpdater {
     
     @IBOutlet var collectionView: UICollectionView!
+    var passOnCategory: Category?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCollectionViewCell
-        let category = CategoryContoller.sharedInstance.categories[indexPath.row]
+        let category = CategoryContoller.sharedInstance.categories[indexPath.item]
         item.categoryNameLabel.text = category.name
         return item
     }
@@ -36,7 +37,20 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         return size
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.passOnCategory = CategoryContoller.sharedInstance.categories[indexPath.item]
+        self.performSegue(withIdentifier: "CategoryProjectsSegue", sender: self)
+        
+    }
+    
     func updateTableView() {
         collectionView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CategoryProjectsSegue" {
+            let vc = segue.destination as! CategoryProjectsTableViewController
+            vc.category = self.passOnCategory
+        }
     }
 }

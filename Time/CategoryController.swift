@@ -70,4 +70,44 @@ class CategoryContoller {
         return nil
     }
     
+    func fetchProjectsFromCategoryRef(category: Category, _completion:@escaping(_ category:Category?, _ success:Bool) -> Void) {
+        
+        guard let firebaseRef = category.firebaseRef else { return }
+        var cat = category
+        
+        ref.child(firebaseRef.key).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            guard let projects = value?["Projects"] as? [String] else { return }
+
+            var count = 0
+            for reference in projects {
+                count += 1
+                FIRDatabase.database().reference().child("projects").child(reference).observeSingleEvent(of: .value, with: { (snapshot) in
+                    var project = Project.init(snapshot: snapshot)
+                    project.firebaseRef = snapshot.ref
+                    cat.projects.append(project)
+                    
+                    if count == projects.count {
+                        _completion(category, true)
+                    }
+                })
+            }
+            
+        })
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
