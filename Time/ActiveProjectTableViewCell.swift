@@ -15,13 +15,6 @@ class ActiveProjectTableViewCell: UITableViewCell {
     @IBOutlet var deadlineLabel:     UILabel!
     @IBOutlet var averageTimeLabel:  UILabel!
     
-    override func draw(_ rect: CGRect) {
-        self.projectNameLabel.text =   ""
-        self.categoryNameLabel.text =  ""
-        self.deadlineLabel.text =      ""
-        self.averageTimeLabel.text =   ""
-    }
-    
     func setUpCell(project: Project) {
         self.accessoryType = .disclosureIndicator
         self.projectNameLabel.text =   project.name

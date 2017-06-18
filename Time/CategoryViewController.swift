@@ -49,7 +49,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryProjectsSegue" {
-            let vc = segue.destination as! CategoryProjectsTableViewController
+            let vc = segue.destination as! CategoryProjectsViewController
             vc.category = self.passOnCategory
         }
     }

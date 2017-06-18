@@ -89,7 +89,7 @@ class CategoryContoller {
                     cat.projects.append(project)
                     
                     if count == projects.count {
-                        _completion(category, true)
+                        _completion(cat, true)
                     }
                 })
             }

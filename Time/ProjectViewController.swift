@@ -43,7 +43,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		if isSelected {
-			//TODO: figure out which timer is being pressed on
 			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
 			timerCell.delegate = self
 			if selectedRowIndex > 1 {
@@ -77,7 +76,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		} else {
 			
 			// returning empty cells
-			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
+			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) 
 			return projectsCell
 		}
     }
