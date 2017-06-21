@@ -58,7 +58,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		}
         
         if indexPath.row == 0 {
-            let timerCell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath) as! TimerTableViewCell
+            let timerCell = tableView.dequeueReusableCell(withIdentifier: "CurrentTimerCell", for: indexPath) as! TimerTableViewCell
 			timerCell.delegate = self
 			timerCell.setUpCell()
             return timerCell

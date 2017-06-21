@@ -29,7 +29,7 @@ class UserController {
             let value = snapshot.value as? NSDictionary
             
             let currentProject = value?["current project"] as? String
-            if currentProject != "" {
+            if currentProject != nil && currentProject != "" {
                 FIRDatabase.database().reference().child("projects").child(currentProject!).observeSingleEvent(of: .value, with: { (snapshot) in
                     var project = Project.init(snapshot: snapshot)
                     project.firebaseRef = snapshot.ref

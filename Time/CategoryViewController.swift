@@ -16,6 +16,10 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.reloadData()
+        
+        if (tabBarController?.tabBar.isHidden)! {
+            self.tabBarController?.tabBar.isHidden = false
+        }
     }
 
 // MARK: Collection View

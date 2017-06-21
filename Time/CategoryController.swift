@@ -29,7 +29,7 @@ class CategoryContoller {
         let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
         
         category.projects.append(project)
-        category.projectRefs.append(project.firebaseRef!)
+        category.projectRefs.append(project.firebaseRef!.key)
         
         categories.append(category)
         let uid = FIRAuth.auth()?.currentUser?.uid
@@ -43,15 +43,33 @@ class CategoryContoller {
     ///
     /// - Parameter categoryName: the category to check
     /// - Returns: whether or not the category exists.
-    func checkForCategory(categoryName: String) -> Bool {
+    func checkForCategory(categoryName: String) -> Category? {
         
         for category in categories {
             if category.name == categoryName {
-                return true
+                return category
             }
         }
         
-        return false
+        return nil
+    }
+    
+    /// Add new project to an existing category.
+    ///
+    /// - Parameters:
+    ///   - category: the existing category
+    ///   - project: the new project
+    func newProjectInExistingCategory(category: Category, project: Project) {
+        var cat = category
+        cat.projects.append(project)
+        cat.projectRefs.append(project.firebaseRef!.key)
+        
+        categories.append(category)
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        
+        let updateKeys = ["/users/\(uid ?? "UID")/categories/\(cat.firebaseRef!.key)": cat.toAnyObject() as! [String: Any]]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
+        
     }
     
     

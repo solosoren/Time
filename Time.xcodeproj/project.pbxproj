@@ -181,6 +181,7 @@
 				AC76C30D1ECE89C00090A3FE /* TabBarController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
+				ACAF590E1EF70D5D00B8D113 /* Project Cells */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				AC8B8BE91EF45A7C00072031 /* CategoryView */,
 				AC8B8BE51EF4566B00072031 /* User */,
@@ -228,8 +229,6 @@
 			children = (
 				AC16DBF51EC96DCB000A0D02 /* ProjectViewController.swift */,
 				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
-				AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */,
-				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
 			);
 			name = ProjectView;
 			sourceTree = "<group>";
@@ -265,11 +264,20 @@
 		AC8B8BE91EF45A7C00072031 /* CategoryView */ = {
 			isa = PBXGroup;
 			children = (
-				ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */,
 				AC8B8BE31EF4565000072031 /* CategoryViewController.swift */,
 				AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */,
+				ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */,
 			);
 			name = CategoryView;
+			sourceTree = "<group>";
+		};
+		ACAF590E1EF70D5D00B8D113 /* Project Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AC05B7001EDD2748008B6D56 /* ActiveProjectTableViewCell.swift */,
+				ACEA96B71ECAD247002C2334 /* LargeTimerTableViewCell.swift */,
+			);
+			name = "Project Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

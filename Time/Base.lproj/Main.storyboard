@@ -361,7 +361,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cWU-9Y-rfg">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryProjectsCell" rowHeight="77" id="Y1f-Jp-9id" customClass="ActiveProjectTableViewCell" customModule="Time" customModuleProvider="target">
@@ -432,7 +432,7 @@
                                             <outlet property="projectNameLabel" destination="dTs-aV-W2Q" id="01h-XJ-FdE"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LargeTimerCell" rowHeight="645" id="Izx-Lj-VbC" customClass="LargeTimerTableViewCell" customModule="Time" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TimerCell" rowHeight="645" id="Izx-Lj-VbC" customClass="LargeTimerTableViewCell" customModule="Time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="105" width="414" height="645"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Izx-Lj-VbC" id="QR5-1I-CFR">
@@ -798,21 +798,22 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="9fE-of-fPK" firstAttribute="top" secondItem="cWU-9Y-rfg" secondAttribute="bottom" id="B8d-Xo-gLn"/>
+                            <constraint firstItem="9fE-of-fPK" firstAttribute="top" secondItem="cWU-9Y-rfg" secondAttribute="bottom" constant="-49" id="B8d-Xo-gLn"/>
                             <constraint firstItem="cWU-9Y-rfg" firstAttribute="leading" secondItem="CXG-BT-Ghg" secondAttribute="leading" id="Cku-JF-uub"/>
                             <constraint firstAttribute="trailing" secondItem="cWU-9Y-rfg" secondAttribute="trailing" id="Vd2-FN-6Hg"/>
                             <constraint firstItem="cWU-9Y-rfg" firstAttribute="top" secondItem="CXG-BT-Ghg" secondAttribute="top" id="m8Y-T4-tIi"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="aXV-Tt-bLV"/>
                     <connections>
                         <outlet property="tableview" destination="cWU-9Y-rfg" id="JAP-ha-m3F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfb-MY-H7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1887" y="1030"/>
+            <point key="canvasLocation" x="1886.9565217391305" y="1029.6195652173915"/>
         </scene>
         <!--Projects-->
         <scene sceneID="5uh-h7-slh">
@@ -832,7 +833,7 @@
                                 <color key="tintColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TimerCell" rowHeight="215" id="viv-aq-iBb" customClass="TimerTableViewCell" customModule="Time" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CurrentTimerCell" rowHeight="215" id="viv-aq-iBb" customClass="TimerTableViewCell" customModule="Time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="215"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="viv-aq-iBb" id="DiQ-nh-s8e">
@@ -1485,7 +1486,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MU-jM-drS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072.8" y="-442.12893553223392"/>
+            <point key="canvasLocation" x="1072.463768115942" y="-442.66304347826093"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="RSO-dV-qse">
@@ -1582,6 +1583,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u47-aM-sSN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.36884689329999998" green="0.56623685359999998" blue="0.86674976349999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

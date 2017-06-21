@@ -131,8 +131,12 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadline = nil
         }
         
-        if CategoryContoller.sharedInstance.checkForCategory(categoryName: categoryTextField.text!) {
-            let _ = projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight)
+        if let category = CategoryContoller.sharedInstance.checkForCategory(categoryName: categoryTextField.text!) {
+//            newProjectExistingCategory
+            
+            let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight)
+            CategoryContoller.sharedInstance.newProjectInExistingCategory(category: category, project: project)
+            
         } else {
             CategoryContoller.sharedInstance.newCategory(name: categoryTextField.text!, projectName: nameTextField.text!, weight: self.weight, deadline: deadline)
             
