@@ -16,7 +16,7 @@ struct Category {
     var projectRefs = [String]()
     var firebaseRef: FIRDatabaseReference?
     
-    init(name: String, projectName: String, weight: Double, deadline: Date?) {
+    init(name: String) {
         self.name = name
     }
     

@@ -119,8 +119,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         //TODO: Fix
-        let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: (project?.categoryRef)!)
-        ProjectController.sharedInstance.endTimer(category: category!, project: project!)
+        ProjectController.sharedInstance.endTimer(project: project!)
         self.delegate?.updateTableView()
     }
 }

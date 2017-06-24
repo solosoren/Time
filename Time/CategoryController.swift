@@ -16,7 +16,6 @@ class CategoryContoller {
     var categories =  [Category]()
     var ref = UserController.sharedInstance.userRef.child("categories")
     
-    
     /// Creates a new category. Only is called when you are creating a project with a new category.
     ///
     /// - Parameters:
@@ -24,8 +23,25 @@ class CategoryContoller {
     ///   - projectName: the anem of the Project being created
     ///   - weight: the weight of the Project, as a double
     ///   - deadline: the deadline of the project
-    func newCategory(name: String, projectName: String, weight: Double, deadline: Date?) {
-        var category = Category.init(name: name, projectName: projectName, weight: weight, deadline: deadline)
+    func newCategory(name: String?, projectName: String?, weight: Double, deadline: Date?) {
+        
+        var category: Category
+        if let name = name {
+            category = Category.init(name: name)
+        } else {
+            
+            // if random category already exists
+            if let category = self.checkForCategory(categoryName: "Random") {
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
+                newProjectInExistingCategory(category: category, project: project)
+                return
+                
+            } else {
+                category = Category.init(name: "Random")
+            }
+            
+        }
+        
         let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
         
         category.projects.append(project)
@@ -61,12 +77,19 @@ class CategoryContoller {
     ///   - project: the new project
     func newProjectInExistingCategory(category: Category, project: Project) {
         var cat = category
-        cat.projects.append(project)
         cat.projectRefs.append(project.firebaseRef!.key)
         
-        categories.append(category)
-        let uid = FIRAuth.auth()?.currentUser?.uid
+        var count = 0
+        for c in categories {
+            if cat.isEqual(rhs: c) {
+                break
+            }
+            count += 1
+        }
+        categories.remove(at: count)
+        categories.append(cat)
         
+        let uid = FIRAuth.auth()?.currentUser?.uid
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(cat.firebaseRef!.key)": cat.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
         
@@ -88,6 +111,12 @@ class CategoryContoller {
         return nil
     }
     
+    
+    /// Fetch the projects for a category.
+    ///
+    /// - Parameters:
+    ///   - category: the category to grab the projects for
+    ///   - _completion: whether the category was successful and the category with the projects array now filled.
     func fetchProjectsFromCategoryRef(category: Category, _completion:@escaping(_ category:Category?, _ success:Bool) -> Void) {
         
         guard let firebaseRef = category.firebaseRef else { return }

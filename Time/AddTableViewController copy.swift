@@ -23,6 +23,14 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var averageButton: UIButton!
     @IBOutlet var majorButton: UIButton!
     
+    @IBOutlet var categoryLeftContraint: NSLayoutConstraint!
+    @IBOutlet var categoryRightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
+    @IBOutlet var deadlineRightConstraint: NSLayoutConstraint!
+    
+    
+    
     let regBlue = UIColor.init(red: 0.3, green: 0.57, blue: 0.89, alpha: 1.0)
     let regGray = UIColor(red:0.59, green:0.59, blue:0.59, alpha:1.0)
     
@@ -33,10 +41,18 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         return .lightContent
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.isEqual(nameTextField) {
+            categoryWasFirstResponder()
+            setUpDatePickerLabel()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         deadlineDatePicker.setValue(regGray, forKeyPath: "textColor")
         deadlineDatePicker.minimumDate = Date.init()
+        categoryTextField.isEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -45,7 +61,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         if textField.isEqual(nameTextField) {
             categoryTextField.becomeFirstResponder()
             categoryButton.setTitleColor(regBlue, for: .normal)
-        } else  if textField.isEqual(categoryTextField) {
+        } else if textField.isEqual(categoryTextField) {
             categoryWasFirstResponder()
             if deadlineLabel.text == "" {
                 deadlineDatePicker.isHidden = false
@@ -67,6 +83,22 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func categoryButtonPressed(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.3) {
+            self.categoryLeftContraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+            self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+            self.view.layoutIfNeeded()
+            self.categoryLeftContraint.isActive = true
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.categoryLeftContraint.constant = 20
+                self.categoryRightConstraint.constant = 20
+                self.view.layoutIfNeeded()
+            })
+        }
+
+        categoryTextField.isEnabled = true
+        
         if nameTextField.isFirstResponder {
             nameTextField.resignFirstResponder()
         }
@@ -87,10 +119,24 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         
         if !(deadlineLabel.text?.isEmpty)! {
             deadlineLabel.text = ""
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.deadlineLeftConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+                self.deadlineRightConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+                self.view.layoutIfNeeded()
+                self.deadlineLeftConstraint.isActive = true
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.deadlineLeftConstraint.constant = 20
+                    self.deadlineRightConstraint.constant = 20
+                    self.view.layoutIfNeeded()
+                })
+            }
         }
         deadlineDatePicker.isHidden = false
         
         deadlineButton.setTitleColor(regBlue, for: .normal)
+
     }
     
 // Weight Buttons
@@ -151,6 +197,23 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     // Call when category is no longer wanted to be first responder
     func categoryWasFirstResponder() {
         categoryTextField.resignFirstResponder()
+        categoryTextField.isEnabled = false
+        
+        if !categoryTextField.hasText {
+            UIView.animate(withDuration: 0.3) {
+                self.categoryRightConstraint.isActive = false
+                self.categoryLeftContraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+                self.view.layoutIfNeeded()
+                self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.categoryLeftContraint.isActive = false
+                    self.categoryRightConstraint.isActive = true
+                    self.categoryRightConstraint.constant = 20
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
         categoryButton.setTitleColor(regGray, for: .normal)
     }
     
@@ -165,6 +228,21 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             //TODO: fix. Want the text to turn red and notify
             if (deadlineLabel.text == "0M") || (deadlineLabel.text!.contains("-")) {
                 deadlineLabel.text?.removeAll()
+            }
+        }
+        if deadlineLabel.text == "" {
+            UIView.animate(withDuration: 0.3) {
+                self.deadlineRightConstraint.isActive = false
+                self.deadlineLeftConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+                self.view.layoutIfNeeded()
+                self.deadlineRightConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.deadlineLeftConstraint.isActive = false
+                    self.deadlineRightConstraint.isActive = true
+                    self.deadlineRightConstraint.constant = 20
+                    self.view.layoutIfNeeded()
+                })
             }
         }
         deadlineButton.setTitleColor(regGray, for: .normal)

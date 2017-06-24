@@ -86,11 +86,17 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			return 1
 		}
 		if ProjectController.sharedInstance.activeProjects.count > 0 {
-			if ProjectController.sharedInstance.activeProjects.count > 8 {
+			if ProjectController.sharedInstance.activeProjects.count > 4 && ProjectController.sharedInstance.currentProject != nil {
 				self.tableView.isScrollEnabled = true
 				return ProjectController.sharedInstance.activeProjects.count + 2
 			}
-			return 9
+			if ProjectController.sharedInstance.activeProjects.count > 7 {
+				return ProjectController.sharedInstance.activeProjects.count + 2
+			}
+			if ProjectController.sharedInstance.activeProjects.count > 8 {
+				self.tableView.isScrollEnabled = true
+				
+			}
 		}
 		self.tableView.isScrollEnabled = false
         return 9

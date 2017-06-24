@@ -26,7 +26,7 @@ class ProjectController {
     ///   - deadline: the deadline date for the new Project
     ///   - weight: the weight of the new Project, as a double
     /// - Returns: a new Project
-    func newProject(name: String, categoryName: String, deadline: Date?, weight: Double) -> Project {
+    func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double) -> Project {
         
         var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
         
@@ -56,9 +56,6 @@ class ProjectController {
     func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
         var proj = project
         let timer = ProjectTimer.init(deadline: deadline, weight: weight)
-        
-//        let childUpdates = ["/posts/\(key)": post,
-//                            "/user-posts/\(userID)/\(key)/": post]
         
         if currentProject != nil {
            SessionController.sharedInstance.endSession(projectIsDone: false)
@@ -120,9 +117,8 @@ class ProjectController {
     /// Ends the Timer of the given project.
     ///
     /// - Parameters:
-    ///   - category: the category of the timer to be ended
     ///   - project: the project of the Timer
-    func endTimer(category: Category, project: Project) {
+    func endTimer(project: Project) {
         
         var updateKeys: [String: Any]
         var proj = project

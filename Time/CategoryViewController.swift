@@ -12,6 +12,11 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet var collectionView: UICollectionView!
     var passOnCategory: Category?
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
