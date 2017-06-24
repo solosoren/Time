@@ -19,6 +19,10 @@ class TimerTableViewCell: UITableViewCell {
     @IBOutlet var time:             UILabel!
     @IBOutlet var categoryName:     UILabel!
     @IBOutlet var deadline:         UILabel!
+    
+    @IBOutlet var timerNameTextField: UITextField!
+    
+    
 //Buttons
     // Done/Goal
     @IBOutlet var doneButton:       UIButton!
@@ -33,6 +37,8 @@ class TimerTableViewCell: UITableViewCell {
     func setUpCell() {
         let project =  projectController.currentProject
         
+        timerNameTextField.isEnabled = false
+        
         // Running timer
         if let project = project {
             
@@ -40,8 +46,17 @@ class TimerTableViewCell: UITableViewCell {
             time.isHidden =         false
             categoryName.isHidden = false
             deadline.isHidden =     false
+            timerNameTextField.isHidden = false
             
-        // Label text
+            // Timer Name Text Field
+            if project.name == "" || project.name == nil {
+                timerNameTextField.isEnabled = true
+                timerNameTextField.placeholder = "Add Timer Name..."
+            } else {
+                timerNameTextField.isHidden = true
+            }
+            
+            // Label text
             timerName.text =    project.name
             categoryName.text = project.categoryRef
             if let timerDeadline = project.activeTimer!.deadline {
@@ -62,6 +77,7 @@ class TimerTableViewCell: UITableViewCell {
             time.isHidden =          true
             categoryName.isHidden = true
             deadline.isHidden =     true
+            timerNameTextField.isHidden = true
             
             breakButton.setTitle("Schedule", for: .normal)
             endSessionButton.setTitle("Start", for: .normal)

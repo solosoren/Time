@@ -84,18 +84,27 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func categoryButtonPressed(_ sender: Any) {
         
+//        let timeInt = TimeInterval.init(0.3)
+//        let animator = UIViewPropertyAnimator(duration: timeInt, dampingRatio: 0.6) {
+//            self.categoryLeftContraint.constant = 20
+//            self.categoryRightConstraint.constant = 20
+//            self.view.layoutIfNeeded()
+//        }
+//        animator.startAnimation()
+        
+        self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
         UIView.animate(withDuration: 0.3) {
             self.categoryLeftContraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
-            self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+            
             self.view.layoutIfNeeded()
             self.categoryLeftContraint.isActive = true
             
             UIView.animate(withDuration: 0.3, animations: {
                 self.categoryLeftContraint.constant = 20
-                self.categoryRightConstraint.constant = 20
                 self.view.layoutIfNeeded()
             })
         }
+        self.categoryRightConstraint.constant = 20
 
         categoryTextField.isEnabled = true
         
@@ -177,7 +186,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadline = nil
         }
         
-        if let category = CategoryContoller.sharedInstance.checkForCategory(categoryName: categoryTextField.text!) {
+        if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryTextField.text!) {
 //            newProjectExistingCategory
             
             let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight)

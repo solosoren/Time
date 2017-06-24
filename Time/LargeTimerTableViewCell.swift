@@ -36,6 +36,7 @@ class LargeTimerTableViewCell: UITableViewCell {
     
     var running = false
     var delegate: LargeTimerCellUpdater?
+    var homeView: ProjectViewController?
     var project:  Project?
     var category: Category?
     
@@ -114,6 +115,8 @@ class LargeTimerTableViewCell: UITableViewCell {
             SessionController.sharedInstance.startSession(p: project)
             self.running = true
         }
+        self.homeView?.isSelected = false
+        self.homeView?.selectedRowIndex = -1
         self.delegate?.updateTableView()
     }
     

@@ -27,12 +27,20 @@ class CategoryContoller {
         
         var category: Category
         if let name = name {
-            category = Category.init(name: name)
+            
+            if let category = self.getCategoryFromRef(ref: name) {
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
+                newProjectInExistingCategory(category: category, project: project)
+                return
+                
+            } else {
+                category = Category.init(name: name)
+            }
         } else {
             
             // if random category already exists
-            if let category = self.checkForCategory(categoryName: "Random") {
-                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
+            if let category = self.getCategoryFromRef(ref: "Random") {
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: "Random", deadline: deadline, weight: weight)
                 newProjectInExistingCategory(category: category, project: project)
                 return
                 
@@ -53,21 +61,6 @@ class CategoryContoller {
         
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)": category.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
-    }
-    
-    /// Checks to see if a category already exists.
-    ///
-    /// - Parameter categoryName: the category to check
-    /// - Returns: whether or not the category exists.
-    func checkForCategory(categoryName: String) -> Category? {
-        
-        for category in categories {
-            if category.name == categoryName {
-                return category
-            }
-        }
-        
-        return nil
     }
     
     /// Add new project to an existing category.
@@ -93,6 +86,38 @@ class CategoryContoller {
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(cat.firebaseRef!.key)": cat.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
         
+    }
+    
+    
+    func removeProjectFromCategory(categoryName: String, project: Project) {
+        
+        var category: Category?
+        
+        var cIndex = -1
+        for c in categories {
+            cIndex += 1
+            if c.name == categoryName {
+                category = c
+                break
+            }
+        }
+        
+        var index = -1
+        for p in (category?.projects)! {
+            index += 1
+            if p.isEqual(rhs: project) {
+                break
+            }
+        }
+        
+        category?.projects.remove(at: index)
+        category?.projectRefs.remove(at: index)
+        
+        categories[cIndex] = category!
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category?.firebaseRef!.key ?? "")": category?.toAnyObject() as! [String: Any]]
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     
     

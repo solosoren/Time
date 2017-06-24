@@ -45,6 +45,58 @@ class ProjectController {
         //TODO: If already a project, notify user. Ask if they want to end current timer.
     }
     
+    
+    /// Update the category name or project name for a project
+    ///
+    /// - Parameters:
+    ///   - project: the project to be updated
+    ///   - name: a new name
+    ///   - categoryName: a new category name.
+    func updateProject(project: Project, name: String?, categoryName: String?) -> Project? {
+        var p = project
+        
+        let oldCategory = p.categoryRef
+        p.name = name
+
+        guard let ref = p.firebaseRef else { return nil }
+        
+        var updateKeys = [String: Any]()
+        
+        if let categoryName = categoryName {
+            
+            p.categoryRef = categoryName
+            
+            if let oldCategory = oldCategory {
+                CategoryContoller.sharedInstance.removeProjectFromCategory(categoryName: oldCategory, project: p)
+            }
+            
+            if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryName) {
+                CategoryContoller.sharedInstance.newProjectInExistingCategory(category: category, project: p)
+            } else {
+                
+                var category = Category.init(name: categoryName)
+                
+                category.projects.append(p)
+                category.projectRefs.append(ref.key)
+                
+                category.firebaseRef = UserController.sharedInstance.userRef.child("categories").childByAutoId()
+                CategoryContoller.sharedInstance.categories.append(category)
+                
+                let uid = FIRAuth.auth()?.currentUser?.uid
+                updateKeys["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)"] = category.toAnyObject()
+            }
+        }
+        
+        if let _ = name {
+            updateKeys["/projects/\(ref.key)"] = p.toAnyObject()
+        }
+        
+        if updateKeys.count > 0 {
+            FIRDatabase.database().reference().updateChildValues(updateKeys)
+        }
+        return p
+    }
+    
     /// Creates a new timer. If their is a running project, it stops it and sets new timer to current project.
     ///
     /// - Parameters:

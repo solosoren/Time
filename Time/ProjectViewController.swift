@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerCellUpdater, InitialDataUpdater {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerCellUpdater, InitialDataUpdater, UITextFieldDelegate {
     
     @IBOutlet var tableView: UITableView!
 	var selectedRowIndex = -1
@@ -87,18 +87,14 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		}
 		if ProjectController.sharedInstance.activeProjects.count > 0 {
 			if ProjectController.sharedInstance.activeProjects.count > 4 && ProjectController.sharedInstance.currentProject != nil {
-				self.tableView.isScrollEnabled = true
 				return ProjectController.sharedInstance.activeProjects.count + 2
 			}
 			if ProjectController.sharedInstance.activeProjects.count > 7 {
 				return ProjectController.sharedInstance.activeProjects.count + 2
 			}
-			if ProjectController.sharedInstance.activeProjects.count > 8 {
-				self.tableView.isScrollEnabled = true
-				
-			}
+			
 		}
-		self.tableView.isScrollEnabled = false
+		
         return 9
     }
     
@@ -128,20 +124,25 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		if isSelected {
 			isSelected = false
+			tableView.isScrollEnabled = true
 			tableView.reloadData()
-			self.tabBarController?.tabBar.isHidden = false
+			tabBarController?.tabBar.isHidden = false
 			
 		} else if indexPath.row == 0 && !isSelected && ProjectController.sharedInstance.currentProject != nil {
 			selectedRowIndex = indexPath.row
 			isSelected = true
+			tableView.isScrollEnabled = false
+			tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
 			tableView.reloadData()
-			self.tabBarController?.tabBar.isHidden = true
+			tabBarController?.tabBar.isHidden = true
 			
 		} else if indexPath.row > 1 && !isSelected && ProjectController.sharedInstance.activeProjects.count > indexPath.row - 2 {
 			selectedRowIndex = indexPath.row
 			isSelected = true
+			tableView.isScrollEnabled = false
+			tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
 			tableView.reloadData()
-			self.tabBarController?.tabBar.isHidden = true
+			tabBarController?.tabBar.isHidden = true
 			
 		}
 //		else {
@@ -153,6 +154,20 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	
 	func updateTableView() {
 		tableView.reloadData()
+	}
+	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		
+		// updates project name
+		if textField.text != "" && textField.text != nil {
+			let project = ProjectController.sharedInstance.currentProject
+			if let p = ProjectController.sharedInstance.updateProject(project: project!, name: textField.text, categoryName: nil) {
+				ProjectController.sharedInstance.currentProject = p
+			}
+			self.tableView.reloadData()
+		}
+		textField.resignFirstResponder()
+		return true
 	}
     
 }
