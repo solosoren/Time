@@ -23,12 +23,13 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var averageButton: UIButton!
     @IBOutlet var majorButton: UIButton!
     
+    @IBOutlet var startNowButton: UIButton!
+    
     @IBOutlet var categoryLeftContraint: NSLayoutConstraint!
     @IBOutlet var categoryRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
     @IBOutlet var deadlineRightConstraint: NSLayoutConstraint!
-    
     
     
     let regBlue = UIColor.init(red: 0.3, green: 0.57, blue: 0.89, alpha: 1.0)
@@ -53,6 +54,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         deadlineDatePicker.setValue(regGray, forKeyPath: "textColor")
         deadlineDatePicker.minimumDate = Date.init()
         categoryTextField.isEnabled = false
+        startNowButton.titleLabel?.textAlignment = .center
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -172,11 +174,9 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
 // Start buttons
     @IBAction func startNowButtonPressed(_ sender: Any) {
         setUpDatePickerLabel()
+        
         //TODO: notify the user that a timer is already rolling
-        if !nameTextField.hasText || !categoryTextField.hasText {
-            //TODO: fix. Want the text to turn red and notify
-            return
-        }
+        //TODO: fix. Notify user no name?
         
         var deadline: Date?
         //TODO: fix. Want the text to turn red and notify
@@ -186,14 +186,21 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadline = nil
         }
         
-        if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryTextField.text!) {
+        var categoryText: String
+        if let catText = categoryTextField.text {
+            categoryText = catText
+        } else {
+            categoryText = "Random"
+        }
+        
+        if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryText) {
 //            newProjectExistingCategory
             
-            let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryTextField.text!, deadline: deadline, weight: self.weight)
+            let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryText, deadline: deadline, weight: self.weight)
             CategoryContoller.sharedInstance.newProjectInExistingCategory(category: category, project: project)
             
         } else {
-            CategoryContoller.sharedInstance.newCategory(name: categoryTextField.text!, projectName: nameTextField.text!, weight: self.weight, deadline: deadline)
+            CategoryContoller.sharedInstance.newCategory(name: categoryText, projectName: nameTextField.text!, weight: self.weight, deadline: deadline)
             
         }
         
