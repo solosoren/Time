@@ -8,13 +8,12 @@
 
 import UIKit
 
-class CategoryProjectsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LargeTimerCellUpdater {
+class CategoryProjectsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LargeTimerUpdater {
 
     @IBOutlet var tableview: UITableView!
     
     var category: Category?
-    var isSelected = false
-    var selectedRowIndex = -1
+    var selectedProject: Project?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,23 +39,12 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if isSelected {
-            return 1
-        }
         guard let _ = category?.projects else { return 0 }
         return (category?.projects.count)!
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if isSelected {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath) as! LargeTimerTableViewCell
-            cell.project = category?.projects[selectedRowIndex]
-            cell.setUpCell()
-            cell.delegate = self
-            return cell
-        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
         guard let _ = category?.projects else { return cell }
@@ -67,30 +55,28 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if isSelected {
-            return view.frame.size.height
-        }
         return 77
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let projects = category?.projects else { return }
-        if indexPath.row < projects.count && isSelected == false {
-            isSelected = true
-            selectedRowIndex = indexPath.row
-            self.tabBarController?.tabBar.isHidden = true
-            tableview.reloadData()
-        } else if isSelected == true {
-            isSelected = false
-            selectedRowIndex = -1
-            self.tabBarController?.tabBar.isHidden = false
-            tableView.reloadData()
+        if indexPath.row < projects.count {
+            performSegue(withIdentifier: "CategoryProjectSegue", sender: self)
+            selectedProject = category?.projects[indexPath.row]
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func updateTableView() {
         tableview.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CategoryProjectSegue" {
+            let destination = segue.destination as! LargeTimerViewController
+            destination.delegate = self
+        }
     }
     
 

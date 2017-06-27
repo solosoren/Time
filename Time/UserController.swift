@@ -82,7 +82,7 @@ class UserController {
     
     /// Helper method to know when the fetchInitialData() is finished loading.
     func finishedLoading() {
-        if loadingInt == 3 {
+        if loadingInt == 2 {
             DispatchQueue.main.async {
                 self.delegate?.updateTableView()
             }

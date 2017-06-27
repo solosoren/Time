@@ -22,7 +22,6 @@ class TimerTableViewCell: UITableViewCell {
     
     @IBOutlet var timerNameTextField: UITextField!
     
-    
 //Buttons
     // Done/Goal
     @IBOutlet var doneButton:       UIButton!

@@ -10,11 +10,11 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerCellUpdater, InitialDataUpdater, UITextFieldDelegate {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerUpdater, InitialDataUpdater, UITextFieldDelegate {
     
     @IBOutlet var tableView: UITableView!
-	var selectedRowIndex = -1
-	var isSelected = false
+	var selectedProject: Project?
+	
 	var signedIn = false
 	
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -41,22 +41,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
-		if isSelected {
-			let timerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimerCell", for: indexPath) as! LargeTimerTableViewCell
-			timerCell.delegate = self
-			if selectedRowIndex > 1 {
-				timerCell.project = ProjectController.sharedInstance.activeProjects[selectedRowIndex - 2]
-				timerCell.setUpCell()
-			} else {
-				if let currentProject = ProjectController.sharedInstance.currentProject {
-					timerCell.project = currentProject
-					timerCell.setUpCell()
-				}
-			}
-			return timerCell
-		}
-        
+				
         if indexPath.row == 0 {
             let timerCell = tableView.dequeueReusableCell(withIdentifier: "CurrentTimerCell", for: indexPath) as! TimerTableViewCell
 			timerCell.delegate = self
@@ -82,9 +67,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if isSelected {
-			return 1
-		}
+		
 		if ProjectController.sharedInstance.activeProjects.count > 0 {
 			if ProjectController.sharedInstance.activeProjects.count > 4 && ProjectController.sharedInstance.currentProject != nil {
 				return ProjectController.sharedInstance.activeProjects.count + 2
@@ -100,9 +83,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		
-		if isSelected {
-			return view.frame.size.height
-		}
 		
         if indexPath.row == 0 {
 			if ProjectController.sharedInstance.currentProject != nil {
@@ -122,27 +102,13 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
         
 //        let cell = tableView.cellForRow(at: indexPath)
 		
-		if isSelected {
-			isSelected = false
-			tableView.isScrollEnabled = true
-			tableView.reloadData()
-			tabBarController?.tabBar.isHidden = false
+		 if indexPath.row == 0 && ProjectController.sharedInstance.currentProject != nil {
+			selectedProject = ProjectController.sharedInstance.currentProject
+			performSegue(withIdentifier: "projectSegue", sender: self)
 			
-		} else if indexPath.row == 0 && !isSelected && ProjectController.sharedInstance.currentProject != nil {
-			selectedRowIndex = indexPath.row
-			isSelected = true
-			tableView.isScrollEnabled = false
-			tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
-			tableView.reloadData()
-			tabBarController?.tabBar.isHidden = true
-			
-		} else if indexPath.row > 1 && !isSelected && ProjectController.sharedInstance.activeProjects.count > indexPath.row - 2 {
-			selectedRowIndex = indexPath.row
-			isSelected = true
-			tableView.isScrollEnabled = false
-			tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
-			tableView.reloadData()
-			tabBarController?.tabBar.isHidden = true
+		} else if indexPath.row > 1 && ProjectController.sharedInstance.activeProjects.count > indexPath.row - 2 {
+			selectedProject = ProjectController.sharedInstance.activeProjects[indexPath.row - 2]
+			performSegue(withIdentifier: "projectSegue", sender: self)
 			
 		}
 //		else {
@@ -168,6 +134,16 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		}
 		textField.resignFirstResponder()
 		return true
+	}
+	
+	
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "projectSegue" {
+			let destination = segue.destination as! LargeTimerViewController
+			destination.delegate = self
+			destination.project = selectedProject
+		}
 	}
     
 }

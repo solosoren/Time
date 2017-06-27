@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol LargeTimerCellUpdater {
+protocol LargeTimerUpdater {
     func updateTableView()
 }
 
-class LargeTimerTableViewCell: UITableViewCell {
+class LargeTimerViewController: UIViewController {
 
     // Labels
     @IBOutlet var timerName:         UILabel!
@@ -35,12 +35,22 @@ class LargeTimerTableViewCell: UITableViewCell {
     @IBOutlet var doneButton: UIButton!
     
     var running = false
-    var delegate: LargeTimerCellUpdater?
+    var delegate: LargeTimerUpdater?
     var homeView: ProjectViewController?
     var project:  Project?
     var category: Category?
     
-    func setUpCell() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
+        setUp()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    func setUp() {
         
         if let project = project {
             self.timerName.text = project.name
@@ -115,8 +125,7 @@ class LargeTimerTableViewCell: UITableViewCell {
             SessionController.sharedInstance.startSession(p: project)
             self.running = true
         }
-        self.homeView?.isSelected = false
-        self.homeView?.selectedRowIndex = -1
+        
         self.delegate?.updateTableView()
     }
     
@@ -125,4 +134,15 @@ class LargeTimerTableViewCell: UITableViewCell {
         ProjectController.sharedInstance.endTimer(project: project!)
         self.delegate?.updateTableView()
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
