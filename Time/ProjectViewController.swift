@@ -143,6 +143,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			let destination = segue.destination as! LargeTimerViewController
 			destination.delegate = self
 			destination.project = selectedProject
+			destination.isActive = true
 		}
 	}
     

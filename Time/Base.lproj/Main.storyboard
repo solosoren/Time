@@ -1185,8 +1185,10 @@
                         <outlet property="doneButton" destination="kQV-rZ-pbn" id="xmB-dx-fXA"/>
                         <outlet property="endSessionButton" destination="CX4-EJ-25g" id="ymX-Vj-xse"/>
                         <outlet property="notesButton" destination="Eww-RU-uUb" id="dn5-1T-7Rr"/>
+                        <outlet property="numberOfSessionsButton" destination="w9I-SC-2m6" id="F7d-S6-hZi"/>
                         <outlet property="timeLabel" destination="Eba-55-PoP" id="fdg-5K-hVY"/>
                         <outlet property="timerName" destination="a3c-d4-TKi" id="CCa-GN-Tzp"/>
+                        <outlet property="totalLabel" destination="Yjb-4r-JCR" id="RQt-3F-iKT"/>
                         <outlet property="totalTimeLabel" destination="Lz9-mn-Hbw" id="Wiy-gJ-bg4"/>
                         <outlet property="updateButton" destination="w8G-xF-h1I" id="IHn-Ub-x1z"/>
                         <outlet property="weightNameLabel" destination="PAV-Js-wTt" id="bQt-8h-zi9"/>
@@ -1259,7 +1261,7 @@
                     <tabBarItem key="tabBarItem" title="Projects" image="Project icon-small" id="6IC-Ft-g9p" userLabel="Projects"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eDE-Ns-r7o">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eDE-Ns-r7o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1288,7 +1290,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hqz-Dk-WYi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Categories" image="Folder icon-small" id="gTn-hv-vee"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u47-aM-sSN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u47-aM-sSN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
