@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Time/LargeTimerViewController.swift"
-            timestampString = "520362658.646414"
+            filePath = "Time/ProjectController.swift"
+            timestampString = "520479823.286228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "setUp()"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "endTimer(project:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Time/ProjectController.swift"
+            timestampString = "520479824.38494"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "endTimer(project:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

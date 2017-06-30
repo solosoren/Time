@@ -20,7 +20,7 @@ class SessionController {
     func endSession(projectIsDone: Bool) {
         var project = ProjectController.sharedInstance.currentProject
         var session = project?.activeTimer?.sessions.last
-        session?.totalLength = session?.startTime.timeIntervalSinceNow
+        session?.totalLength = abs((session?.startTime.timeIntervalSinceNow)!)
         project?.activeTimer?.sessions[(project?.activeTimer?.sessions.count)! - 1].totalLength = session?.totalLength
         
         project?.activeTimer?.totalLength = (project?.activeTimer?.totalLength)! + (session?.totalLength)!
@@ -28,6 +28,17 @@ class SessionController {
         if !projectIsDone {
             ProjectController.sharedInstance.activeProjects.append(project!)
             ProjectController.sharedInstance.activeProjectsRefs.append((project?.firebaseRef?.key)!)
+        } else {
+            project?.timers.append((project?.activeTimer)!)
+            project?.activeTimer = nil
+            
+            var total = 0.0
+            for timer in (project?.timers)! {
+                total += timer.totalLength
+            }
+            
+            project?.estimatedLength = total / Double((project?.timers.count)!)
+            
         }
         
         ProjectController.sharedInstance.currentProject = nil
@@ -35,7 +46,7 @@ class SessionController {
         let updateKeys = ["/projects/\(project!.firebaseRef!.key)": project!.toAnyObject(),
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": ProjectController.sharedInstance.activeProjectsRefs,
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""] as [String: Any]
-        FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
+        FIRDatabase.database().reference().updateChildValues(updateKeys) { (error, ref) in
             if let error = error {
                 print(error)
             }

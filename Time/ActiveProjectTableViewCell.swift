@@ -15,18 +15,29 @@ class ActiveProjectTableViewCell: UITableViewCell {
     @IBOutlet var deadlineLabel:     UILabel!
     @IBOutlet var averageTimeLabel:  UILabel!
     
-    func setUpCell(project: Project) {
+    func setUpCell(project: Project, active: Bool) {
         self.accessoryType = .disclosureIndicator
-        self.projectNameLabel.text =   project.name
+        
+        if project.name == "" {
+            projectNameLabel.text = "--"
+            projectNameLabel.textColor = UIColor(red:0.59, green:0.59, blue:0.59, alpha:1.0)
+        } else {
+            projectNameLabel.text =   project.name
+        }
+        
         self.categoryNameLabel.text =  project.categoryRef
-        self.deadlineLabel.text =      "Deadline: -"
+        
         
         if let deadline = project.activeTimer?.deadline {
             
             self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false, deadline: true))"
+        } else if active {
+            self.deadlineLabel.text = "Active"
+        } else {
+            self.deadlineLabel.text = "Inactive"
         }
         
-        //        self.averageTimeLabel.text = estimatedLength
+        averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false)
     }
     
 }

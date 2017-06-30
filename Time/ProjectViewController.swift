@@ -56,7 +56,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			
 			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
 			
-			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2])
+			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2], active: true)
             return projectsCell
 		} else {
 			

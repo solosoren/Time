@@ -49,7 +49,12 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
         guard let _ = category?.projects else { return cell }
         
-        cell.setUpCell(project: (category?.projects[indexPath.row])!)
+        if let _ = category?.projects[indexPath.row].activeTimer {
+            cell.setUpCell(project: (category?.projects[indexPath.row])!, active: true)
+        } else {
+            cell.setUpCell(project: (category?.projects[indexPath.row])!, active:  false)
+        }
+    
         return cell
     }
     
@@ -62,8 +67,8 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         
         guard let projects = category?.projects else { return }
         if indexPath.row < projects.count {
-            performSegue(withIdentifier: "CategoryProjectSegue", sender: self)
             selectedProject = category?.projects[indexPath.row]
+            performSegue(withIdentifier: "CategoryProjectSegue", sender: self)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -74,8 +79,17 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryProjectSegue" {
+            
+            guard let selectedProject = selectedProject else { return }
+            
             let destination = segue.destination as! LargeTimerViewController
             destination.delegate = self
+            for p in ProjectController.sharedInstance.activeProjects {
+                if p.isEqual(rhs: selectedProject) {
+                    destination.isActive = true
+                }
+            }
+            destination.project = selectedProject
         }
     }
     

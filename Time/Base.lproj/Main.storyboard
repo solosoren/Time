@@ -478,7 +478,7 @@
                     <navigationItem key="navigationItem" id="aXV-Tt-bLV"/>
                     <connections>
                         <outlet property="tableview" destination="cWU-9Y-rfg" id="JAP-ha-m3F"/>
-                        <segue destination="qgo-NL-Qgf" kind="show" identifier="CategoryProjectSegue" id="fER-Gn-Uoc"/>
+                        <segue destination="qgo-NL-Qgf" kind="presentation" identifier="CategoryProjectSegue" id="fER-Gn-Uoc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfb-MY-H7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -809,7 +809,7 @@
                     <connections>
                         <outlet property="tableView" destination="14G-if-ZHY" id="jCL-ZG-Agh"/>
                         <segue destination="R6p-J3-w4I" kind="show" identifier="SignIn" id="7dn-Na-Mh1"/>
-                        <segue destination="qgo-NL-Qgf" kind="show" identifier="projectSegue" id="qcZ-RN-5eJ"/>
+                        <segue destination="qgo-NL-Qgf" kind="presentation" identifier="projectSegue" id="qcZ-RN-5eJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MU-jM-drS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -863,7 +863,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Au-pv-wyE">
-                                <rect key="frame" x="19" y="125" width="109" height="17"/>
+                                <rect key="frame" x="19" y="109" width="109" height="17"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -878,7 +878,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2R-Tt-TTM">
-                                <rect key="frame" x="339" y="124" width="54" height="18"/>
+                                <rect key="frame" x="339" y="108" width="54" height="18"/>
                                 <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -902,7 +902,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mJ-zC-l8j">
-                                <rect key="frame" x="169" y="606" width="74.333333333333343" height="72"/>
+                                <rect key="frame" x="169" y="606" width="75.333333333333343" height="72.333333333333371"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -952,13 +952,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3c-d4-TKi">
-                                <rect key="frame" x="17" y="91" width="380" height="26"/>
+                                <rect key="frame" x="17" y="70" width="380" height="26"/>
                                 <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8v-MG-Fo5">
-                                <rect key="frame" x="298.66666666666669" y="518" width="74" height="72"/>
+                                <rect key="frame" x="299" y="518" width="74.333333333333314" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -967,13 +967,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hour 14 Mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eba-55-PoP">
-                                <rect key="frame" x="70" y="174" width="274" height="36"/>
+                                <rect key="frame" x="70" y="165" width="274" height="36"/>
                                 <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTG-Up-8kB">
-                                <rect key="frame" x="299" y="605.66666666666663" width="74" height="72"/>
+                                <rect key="frame" x="299" y="605.66666666666663" width="74.333333333333314" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -982,7 +982,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ON1-2O-QXc">
-                                <rect key="frame" x="39" y="607" width="73" height="70"/>
+                                <rect key="frame" x="39.666666666666657" y="607" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Coo-gO-wfr"/>
@@ -1031,7 +1031,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kQV-rZ-pbn">
-                                <rect key="frame" x="299" y="606.66666666666663" width="73" height="70"/>
+                                <rect key="frame" x="299.66666666666669" y="606.66666666666663" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="RzA-tg-52d"/>
@@ -1090,32 +1090,32 @@
                                     <action selector="updateTimer:" destination="qgo-NL-Qgf" eventType="touchUpInside" id="1ew-st-UZ9"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fp7-9d-ElP">
-                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="e4c-aZ-pGh">
-                                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="OqD-vU-sF9">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTn-py-90q">
+                                <rect key="frame" x="8" y="20" width="30" height="30"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissButtonPressed:" destination="qgo-NL-Qgf" eventType="touchUpInside" id="Qba-0a-Za4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Yjb-4r-JCR" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="01Y-YT-MAm"/>
+                            <constraint firstItem="a3c-d4-TKi" firstAttribute="top" secondItem="BTn-py-90q" secondAttribute="bottom" constant="20" id="03q-AX-tVA"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="top" secondItem="tLl-tl-OI6" secondAttribute="top" constant="1" id="0PY-81-dX0"/>
                             <constraint firstItem="kQV-rZ-pbn" firstAttribute="trailing" secondItem="CTG-Up-8kB" secondAttribute="trailing" constant="-1" id="2bI-ln-XJe"/>
                             <constraint firstItem="ON1-2O-QXc" firstAttribute="centerX" secondItem="IXO-CE-SYi" secondAttribute="centerX" id="3Yv-Ey-86i"/>
                             <constraint firstItem="j0t-ex-40X" firstAttribute="bottom" secondItem="IXO-CE-SYi" secondAttribute="bottom" constant="1" id="4Nb-iu-ctL"/>
                             <constraint firstItem="IXO-CE-SYi" firstAttribute="centerX" secondItem="LHk-cs-uJ9" secondAttribute="centerX" constant="-130.83333333333326" id="4Tu-ri-hDq"/>
                             <constraint firstItem="4Au-pv-wyE" firstAttribute="leading" secondItem="a3c-d4-TKi" secondAttribute="leading" constant="2" id="4l7-Ry-y4Z"/>
-                            <constraint firstItem="Fp7-9d-ElP" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leading" id="4xa-vl-Q5h"/>
+                            <constraint firstItem="BTn-py-90q" firstAttribute="top" secondItem="hKL-Hr-uyf" secondAttribute="bottom" id="4sa-f0-bGh"/>
                             <constraint firstItem="CTG-Up-8kB" firstAttribute="centerY" secondItem="xbW-0C-7O6" secondAttribute="centerY" constant="-0.5" id="6kl-nF-Xud"/>
                             <constraint firstItem="ON1-2O-QXc" firstAttribute="bottom" secondItem="xbW-0C-7O6" secondAttribute="bottom" constant="-1" id="9Yc-qd-dRE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w9I-SC-2m6" secondAttribute="trailing" constant="-1" id="Afb-jr-xt7"/>
                             <constraint firstItem="CX4-EJ-25g" firstAttribute="centerY" secondItem="ON1-2O-QXc" secondAttribute="centerY" id="Aqk-49-w1H"/>
-                            <constraint firstAttribute="trailing" secondItem="Fp7-9d-ElP" secondAttribute="trailing" id="BId-Wr-ikX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="u2R-Tt-TTM" secondAttribute="trailing" constant="1" id="BnL-6Y-wzc"/>
                             <constraint firstItem="a3c-d4-TKi" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="Bwz-tO-Quk"/>
                             <constraint firstItem="j0t-ex-40X" firstAttribute="leading" secondItem="IXO-CE-SYi" secondAttribute="leading" id="C7b-kL-AOw"/>
@@ -1133,7 +1133,7 @@
                             <constraint firstItem="w9I-SC-2m6" firstAttribute="centerY" secondItem="t4N-ZG-CCt" secondAttribute="centerY" id="LOM-hV-eXe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="a3c-d4-TKi" secondAttribute="trailing" constant="-3" id="MiQ-4E-HSV"/>
                             <constraint firstItem="PAV-Js-wTt" firstAttribute="centerY" secondItem="17U-Gv-Sra" secondAttribute="centerY" id="Nyz-Kq-zPO"/>
-                            <constraint firstItem="4Au-pv-wyE" firstAttribute="top" secondItem="a3c-d4-TKi" secondAttribute="bottom" constant="8" id="OdS-Eb-jxD"/>
+                            <constraint firstItem="4Au-pv-wyE" firstAttribute="top" secondItem="a3c-d4-TKi" secondAttribute="bottom" constant="13" id="OdS-Eb-jxD"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="centerY" secondItem="IXO-CE-SYi" secondAttribute="centerY" id="Ppy-pL-WgN"/>
                             <constraint firstItem="j0t-ex-40X" firstAttribute="trailing" secondItem="IXO-CE-SYi" secondAttribute="trailing" constant="1" id="QGR-f1-Jvg"/>
                             <constraint firstItem="u2R-Tt-TTM" firstAttribute="centerY" secondItem="4Au-pv-wyE" secondAttribute="centerY" id="QHC-gI-G53"/>
@@ -1152,10 +1152,8 @@
                             <constraint firstItem="Eba-55-PoP" firstAttribute="centerX" secondItem="LHk-cs-uJ9" secondAttribute="centerX" id="bGq-cB-bK5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="88f-ai-VTA" secondAttribute="trailing" constant="-1" id="eKq-hh-a4v"/>
                             <constraint firstItem="Eww-RU-uUb" firstAttribute="centerY" secondItem="w8G-xF-h1I" secondAttribute="centerY" id="eWy-PJ-4ui"/>
-                            <constraint firstItem="Fp7-9d-ElP" firstAttribute="top" secondItem="LHk-cs-uJ9" secondAttribute="top" constant="20" id="fgZ-Xs-M08"/>
                             <constraint firstItem="kQV-rZ-pbn" firstAttribute="centerX" secondItem="Eww-RU-uUb" secondAttribute="centerX" id="gaZ-fo-bSu"/>
                             <constraint firstItem="yu1-w8-e6I" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="hYu-G0-pHf"/>
-                            <constraint firstItem="a3c-d4-TKi" firstAttribute="top" secondItem="Fp7-9d-ElP" secondAttribute="bottom" constant="27" id="iPC-FG-pYn"/>
                             <constraint firstItem="t4N-ZG-CCt" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="52.000000000000057" id="itP-Zc-afZ"/>
                             <constraint firstItem="Eww-RU-uUb" firstAttribute="trailing" secondItem="M8v-MG-Fo5" secondAttribute="trailing" id="kBY-Am-pkl"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="leading" secondItem="tLl-tl-OI6" secondAttribute="leading" constant="1" id="qsu-LP-dH2"/>
@@ -1163,11 +1161,12 @@
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="trailing" secondItem="tLl-tl-OI6" secondAttribute="trailing" constant="-1" id="r37-OC-ns1"/>
                             <constraint firstItem="ON1-2O-QXc" firstAttribute="top" secondItem="IXO-CE-SYi" secondAttribute="bottom" constant="18" id="s2k-ZW-WV3"/>
                             <constraint firstItem="jpD-fH-ncy" firstAttribute="centerY" secondItem="GMM-lo-uW0" secondAttribute="centerY" id="tGw-lt-T8t"/>
-                            <constraint firstItem="Eba-55-PoP" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="-176" id="tNS-ED-OvN"/>
+                            <constraint firstItem="Eba-55-PoP" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="-185" id="tNS-ED-OvN"/>
                             <constraint firstItem="17U-Gv-Sra" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="uFe-gs-fz3"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="centerX" secondItem="LHk-cs-uJ9" secondAttribute="centerX" id="uRB-2w-NnZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PAV-Js-wTt" secondAttribute="trailing" constant="-1" id="uVq-Hn-dkg"/>
                             <constraint firstItem="t4N-ZG-CCt" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="vat-2d-wfK"/>
+                            <constraint firstItem="BTn-py-90q" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leading" constant="8" id="w5T-LD-XtK"/>
                             <constraint firstItem="tLl-tl-OI6" firstAttribute="centerY" secondItem="j0t-ex-40X" secondAttribute="centerY" id="wHF-Z4-oYM"/>
                             <constraint firstItem="Eww-RU-uUb" firstAttribute="top" secondItem="M8v-MG-Fo5" secondAttribute="top" constant="1" id="wYt-pA-Vdd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lz9-mn-Hbw" secondAttribute="trailing" constant="-1" id="ymq-VV-9wE"/>
@@ -1261,7 +1260,7 @@
                     <tabBarItem key="tabBarItem" title="Projects" image="Project icon-small" id="6IC-Ft-g9p" userLabel="Projects"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eDE-Ns-r7o">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eDE-Ns-r7o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1290,7 +1289,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hqz-Dk-WYi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Categories" image="Folder icon-small" id="gTn-hv-vee"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u47-aM-sSN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u47-aM-sSN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1314,7 +1313,7 @@
         <image name="Project icon-small" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qcZ-RN-5eJ"/>
+        <segue reference="fER-Gn-Uoc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.4516544938" green="0.63927727940000001" blue="0.8602750897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

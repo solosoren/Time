@@ -20,7 +20,7 @@ class LargeTimerViewController: UIViewController {
     @IBOutlet var activeLabel:       UILabel!
     @IBOutlet var timeLabel:         UILabel!
     @IBOutlet var deadlineTimeLabel: UILabel!
-    // Active & Inactive: Last Session
+    // Active: Last Session || Inactive: Last Timer
     @IBOutlet var totalTimeLabel:    UILabel!
     @IBOutlet var totalLabel: UILabel!
     @IBOutlet var averageTimeLabel:  UILabel!
@@ -59,62 +59,74 @@ class LargeTimerViewController: UIViewController {
     
     func setUp() {
         
-        if let project = project {
+        if let project = project {let projectController = ProjectController.sharedInstance
             
             // TODO: tap to add name or some shit
-            self.timerName.text = project.name ?? "Timer Name: -"
-            self.categoryName.text = project.categoryRef ?? "Category: -"
+            if project.name != nil && project.name != ""  {
+                timerName.text = project.name
+            } else {
+                timerName.text = "-"
+            }
+            
+            if project.categoryRef != nil && project.name != "" {
+                categoryName.text = project.categoryRef
+            } else {
+                self.categoryName.text = "-"
+            }
+            
+            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false)
+            
             let seshes = project.activeTimer?.sessions.count ?? 1
-            self.numberOfSessionsButton.setTitle("\(seshes)", for: .normal)
-            
-            let projectController = ProjectController.sharedInstance
-            
+            numberOfSessionsButton.setTitle("\(seshes)", for: .normal)
+
             if projectController.currentProject != nil && (projectController.currentProject?.isEqual(rhs: project))! {
-                self.running = true
+                running = true
                 
-                self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
-                self.weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
-                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false)
-                self.activeLabel.text = "Running"
+                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+                weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false)
+                activeLabel.text = "Running"
                 
             } else if isActive {
                 
-                self.totalLabel.text = "Last Session:"
+                totalLabel.text = "Last Session:"
                 let lastSesh = project.activeTimer?.sessions.last?.totalLength ?? 0
-                self.totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false)
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false)
                 
                 let total = project.activeTimer?.totalLength ?? 0
-                self.timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false)
+                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false)
                 
                 
-                self.weightNameLabel.text = projectController.weightString(weight: project.weight)
+                weightNameLabel.text = projectController.weightString(weight: project.weight)
                 
-                self.breakButton.setTitle("Delete Project", for: .normal)
-                self.endSessionButton.setTitle("Start Session", for: .normal)
+                breakButton.setTitle("Delete Project", for: .normal)
+                endSessionButton.setTitle("Start Session", for: .normal)
 
             } else {
                 
-                self.activeLabel.text = "Inactive"
-                self.timeLabel.text = "-"
-                self.numberOfSessionsButton.setTitle("-", for: .normal)
+                activeLabel.text = "Inactive"
+                timeLabel.text = "-"
+                numberOfSessionsButton.setTitle("-", for: .normal)
                 
-                self.totalLabel.text = "Last Session:"
+                self.totalLabel.text = "Last Timer:"
+                //TODO: Check timers
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: project.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false)
                 
                 //TODO: Fix Name
-                self.cancelTimerButton.setTitle("Make Repeating", for: .normal)
-                self.breakButton.setTitle("Delete Project", for: .normal)
-                self.endSessionButton.setTitle("Start", for: .normal)
-                self.doneButton.setTitle("New", for: .normal)
+                cancelTimerButton.setTitle("Make Repeating", for: .normal)
+                breakButton.setTitle("Delete Project", for: .normal)
+                endSessionButton.setTitle("Start", for: .normal)
+                doneButton.setTitle("New", for: .normal)
             }
             
             if let deadline = project.activeTimer?.deadline {
-                self.deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true)
-                if (self.deadlineTimeLabel.text?.contains("-"))! {
+                deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true)
+                if (deadlineTimeLabel.text?.contains("-"))! {
                     // TODO: Fix Color
                     //  self.deadlineTimeLabel.textColor = UIColor.red
                 }
             } else {
-                self.deadlineTimeLabel.text = "-"
+                deadlineTimeLabel.text = "-"
             }
         }
         
@@ -151,19 +163,20 @@ class LargeTimerViewController: UIViewController {
     @IBAction func endSessionPressed(_ sender: Any) {
         if running {
             SessionController.sharedInstance.endSession(projectIsDone: false)
-            self.running = false
+            running = false
         } else if isActive {
             guard let project = project else { return }
             SessionController.sharedInstance.startSession(p: project)
-            self.running = true
+            running = true
         } else {
             guard let project = project else { return }
-            //
-            SessionController.sharedInstance.startSession(p: project)
-            self.running = true
+            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, newProject: false)
+            running = true
+            self.project = ProjectController.sharedInstance.currentProject
+            setUp()
         }
         
-        self.delegate?.updateTableView()
+        delegate?.updateTableView()
     }
     
     // Running & Active: Done
@@ -171,8 +184,13 @@ class LargeTimerViewController: UIViewController {
     @IBAction func doneButtonPressed(_ sender: Any) {
         if isActive || running {
             ProjectController.sharedInstance.endTimer(project: project!)
-            self.delegate?.updateTableView()
+            delegate?.updateTableView()
         }
+    }
+    
+    
+    @IBAction func dismissButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

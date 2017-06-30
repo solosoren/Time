@@ -111,7 +111,6 @@ class ProjectController {
         
         if currentProject != nil {
            SessionController.sharedInstance.endSession(projectIsDone: false)
-            // TODO: need to save project after ending session. Save in endSession
         }
         
         if project.numberOfTimers != nil {
@@ -128,7 +127,7 @@ class ProjectController {
         
         // if the project is not new
             if !newProject {
-            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!,
+            updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
             
         // if the project is new then save the current project and active projects. The active timer will be saved when you create the new project.
@@ -136,7 +135,7 @@ class ProjectController {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs]
         }
-        FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
+        FIRDatabase.database().reference().updateChildValues(updateKeys) { (error, ref) in
             if let error = error {
                 print(error)
             }
@@ -175,26 +174,23 @@ class ProjectController {
         var updateKeys: [String: Any]
         var proj = project
         
-        if proj.timers.count > 0 {
-            var total = 0.0
-            for timer in proj.timers {
-                total += timer.totalLength
-            }
-            proj.estimatedLength = total / Double(proj.timers.count + 1)
-        }
-        
         if currentProject != nil && project.isEqual(rhs: currentProject!) {
             
             SessionController.sharedInstance.endSession(projectIsDone: true)
-            proj.timers.append(project.activeTimer!)
-            proj.activeTimer = nil
-            
-            updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
-                          "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": ""]
             
         } else {
             proj.timers.append(project.activeTimer!)
             proj.activeTimer = nil
+            
+            if proj.timers.count > 0 {
+                var total = 0.0
+                for timer in proj.timers {
+                    total += timer.totalLength
+                }
+                
+                proj.estimatedLength = total / Double(proj.timers.count)
+                
+            }
             
             var index = -1
             for p in activeProjects {
@@ -208,9 +204,10 @@ class ProjectController {
             
             updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": activeProjectsRefs]
+            
+            FIRDatabase.database().reference().updateChildValues(updateKeys)
         }
         
-        FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     
     
