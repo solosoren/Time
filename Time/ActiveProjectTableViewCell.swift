@@ -27,7 +27,6 @@ class ActiveProjectTableViewCell: UITableViewCell {
         
         self.categoryNameLabel.text =  project.categoryRef
         
-        
         if let deadline = project.activeTimer?.deadline {
             
             self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false, deadline: true))"
@@ -35,6 +34,11 @@ class ActiveProjectTableViewCell: UITableViewCell {
             self.deadlineLabel.text = "Active"
         } else {
             self.deadlineLabel.text = "Inactive"
+            
+        }
+        
+        if ProjectController.sharedInstance.currentProject != nil && project.isEqual(rhs: ProjectController.sharedInstance.currentProject!) {
+            self.deadlineLabel.text = "Running"
         }
         
         averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false)

@@ -17,13 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         FIRApp.configure()
 //        FIRDatabase.database().persistenceEnabled = true
         
         // Initialize sign-in
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signInSilently()
+//        GIDSignIn.sharedInstance().signInSilently()
         
         return true
     }
@@ -47,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         if let error = error {
             
-            print(error)
+            print(error.localizedDescription)
             return
         }
         
@@ -55,19 +57,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         
+        
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             // ...
             if let error = error {
                 print(error.localizedDescription)
                 // TODO: Handle Error
                 return
+            } else {
+                print("Got Credentials")
+                //TODO: FIX
+                if !UserController.sharedInstance.fetched {
+                    let initialData = UserController.sharedInstance.fetchInitialData()
+                }
+                
+                //TODO: ERROR IF FALSE
+                // ...
             }
             //TODO: set current user
             
         }
-        print("Got Credentials")
-        UserController.sharedInstance.fetchInitialData()
-        // ...
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {

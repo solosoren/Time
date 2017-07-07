@@ -38,10 +38,6 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     let projectController = ProjectController.sharedInstance
     var weight = 0.0
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isEqual(nameTextField) {
             categoryWasFirstResponder()
@@ -187,8 +183,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         var categoryText: String
-        if let catText = categoryTextField.text {
-            categoryText = catText
+        if categoryTextField.text != nil && categoryTextField.text != "" {
+            categoryText = categoryTextField.text!
         } else {
             categoryText = "Random"
         }

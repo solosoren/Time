@@ -49,7 +49,7 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
         guard let _ = category?.projects else { return cell }
         
-        if let _ = category?.projects[indexPath.row].activeTimer {
+        if (category?.projects[indexPath.row].activeTimer) != nil {
             cell.setUpCell(project: (category?.projects[indexPath.row])!, active: true)
         } else {
             cell.setUpCell(project: (category?.projects[indexPath.row])!, active:  false)

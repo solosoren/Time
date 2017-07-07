@@ -27,16 +27,22 @@ class ProjectController {
     ///   - weight: the weight of the new Project, as a double
     /// - Returns: a new Project
     func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double) -> Project {
-        
+        var cName = categoryName
+        if cName == nil {
+            cName = "Random"
+        }
         var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
         
         let projectRef = FIRDatabase.database().reference().child("projects")
+        
         
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
         let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
         project.activeTimer = timer
+        
+        currentProject = project
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
@@ -79,7 +85,7 @@ class ProjectController {
                 category.projects.append(p)
                 category.projectRefs.append(ref.key)
                 
-                category.firebaseRef = UserController.sharedInstance.userRef.child("categories").childByAutoId()
+                category.firebaseRef = UserController.sharedInstance.userRef?.child("categories").childByAutoId()
                 CategoryContoller.sharedInstance.categories.append(category)
                 
                 let uid = FIRAuth.auth()?.currentUser?.uid
@@ -208,6 +214,62 @@ class ProjectController {
             FIRDatabase.database().reference().updateChildValues(updateKeys)
         }
         
+    }
+    
+    func deleteProject(project: Project, active: Bool, running: Bool) {
+        
+        if active {
+            var index = -1
+            for p in activeProjects {
+                index += 1
+                if p.isEqual(rhs: project) {
+                    break
+                }
+            }
+            activeProjects.remove(at: index)
+            activeProjectsRefs.remove(at: index)
+            
+            let updateKeys = ["/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": activeProjectsRefs] as [String: Any]
+            FIRDatabase.database().reference().updateChildValues(updateKeys)
+            
+        }
+        
+        if running {
+            UserController.sharedInstance.userRef?.child("current project").removeValue()
+        }
+        
+        removeProjectFromCategory(project: project)
+        
+        FIRDatabase.database().reference().child("projects").child((project.firebaseRef?.key)!).removeValue()
+        
+        
+    }
+    
+    func removeProjectFromCategory(project: Project) {
+        
+        guard let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: project.categoryRef!) else { return }
+        
+        var c = category
+        
+        // remove the category
+        var cIndex = -1
+        for p in c.projectRefs {
+            cIndex += 1
+            if p == project.firebaseRef?.key {
+                break
+            }
+        }
+        
+        c.projectRefs.remove(at: cIndex)
+        
+        // if no projects left in category, delete category
+        if c.projectRefs.count == 0 {
+            UserController.sharedInstance.userRef?.child("categories").child((category.firebaseRef?.key)!).removeValue()
+        }
+        
+        let updateKeys = ["/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/categories/\((c.firebaseRef?.key)!)": c.toAnyObject()] as [String: Any]
+        
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
     }
     
     

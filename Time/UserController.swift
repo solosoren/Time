@@ -17,14 +17,22 @@ protocol InitialDataUpdater {
 class UserController {
     
     static let sharedInstance =  UserController()
-    var userRef =                FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!)
+    var userRef: FIRDatabaseReference?
     var delegate:                InitialDataUpdater?
     var loadingInt =             0
+    var fetched = false
     
     /// Fetches the current project, the active projects, and the categories. The rest of the projects can be loaded later from the reference on the category object.
-    func fetchInitialData() {
+    ///
+    /// -Return: Success bool
+    func fetchInitialData() -> Bool {
         
-        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else { return false }
+        print("fetched")
+        self.fetched = true
+        userRef = FIRDatabase.database().reference().child("users").child(uid)
+        
+        userRef?.observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
             
@@ -64,7 +72,7 @@ class UserController {
                 var count = 0
                 for ref in categoryRefs.allKeys {
                     count += 1
-                    self.userRef.child("categories").child(ref as! String).observeSingleEvent(of: .value, with: { (snapshot) in
+                    self.userRef?.child("categories").child(ref as! String).observeSingleEvent(of: .value, with: { (snapshot) in
                         CategoryContoller.sharedInstance.categories.append(Category.init(snapshot: snapshot))
                         
                         if count == categoryRefs.count {
@@ -77,6 +85,7 @@ class UserController {
             }
             
         })
+        return true
     }
     
     

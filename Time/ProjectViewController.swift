@@ -15,11 +15,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var tableView: UITableView!
 	var selectedProject: Project?
 	
-	var signedIn = false
-	
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+	var signingIn = false
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
@@ -27,10 +23,20 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user == nil {
-				GIDSignIn.sharedInstance().signIn()
+				if !self.signingIn {
+					GIDSignIn.sharedInstance().signIn()
+					self.signingIn = true
+				}
+			} else {
+				if !UserController.sharedInstance.fetched  {
+					let _ = UserController.sharedInstance.fetchInitialData()
+
+				}
 			}
+			
 		}
 		tableView.reloadData()
+		
 	}
 
     override func viewDidLoad() {
@@ -38,6 +44,15 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		GIDSignIn.sharedInstance().uiDelegate = self
 		
         tabBarController?.delegate = UIApplication.shared.delegate as? UITabBarControllerDelegate
+		
+//		GIDSignIn.sharedInstance().signOut()
+//		
+//		do {
+//			try FIRAuth.auth()?.signOut()
+//		} catch let signOutError as NSError {
+//			print ("Error signing out: %@", signOutError)
+//		}
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,13 +84,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		if ProjectController.sharedInstance.activeProjects.count > 0 {
-			if ProjectController.sharedInstance.activeProjects.count > 4 && ProjectController.sharedInstance.currentProject != nil {
-				return ProjectController.sharedInstance.activeProjects.count + 2
-			}
-			if ProjectController.sharedInstance.activeProjects.count > 7 {
-				return ProjectController.sharedInstance.activeProjects.count + 2
-			}
-			
+			return ProjectController.sharedInstance.activeProjects.count + 2
 		}
 		
         return 9
@@ -86,7 +95,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
         if indexPath.row == 0 {
 			if ProjectController.sharedInstance.currentProject != nil {
-				return 215
+				return 225
 			} else {
 				return 90
 			}

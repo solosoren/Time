@@ -14,7 +14,7 @@ class CategoryContoller {
     
     static let sharedInstance = CategoryContoller()
     var categories =  [Category]()
-    var ref = UserController.sharedInstance.userRef.child("categories")
+    var ref = UserController.sharedInstance.userRef?.child("categories")
     
     /// Creates a new category. Only is called when you are creating a project with a new category.
     ///
@@ -57,7 +57,7 @@ class CategoryContoller {
         
         categories.append(category)
         let uid = FIRAuth.auth()?.currentUser?.uid
-        category.firebaseRef = ref.childByAutoId()
+        category.firebaseRef = UserController.sharedInstance.userRef?.child("categories").childByAutoId()
         
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)": category.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
@@ -147,7 +147,7 @@ class CategoryContoller {
         guard let firebaseRef = category.firebaseRef else { return }
         var cat = category
         
-        ref.child(firebaseRef.key).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child(firebaseRef.key).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
             guard let projects = value?["Projects"] as? [String] else { return }

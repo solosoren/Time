@@ -29,7 +29,7 @@ class LargeTimerViewController: UIViewController {
     @IBOutlet var numberOfSessionsButton: UIButton!
     
 // Buttons
-    //Current & Active:cancel || inactive:Make Repeating
+    //Current & Active:cancel timer || inactive:Make Repeating
     @IBOutlet var cancelTimerButton: UIButton!
     @IBOutlet var updateButton: UIButton!
     @IBOutlet var notesButton: UIButton!
@@ -59,7 +59,8 @@ class LargeTimerViewController: UIViewController {
     
     func setUp() {
         
-        if let project = project {let projectController = ProjectController.sharedInstance
+        if let project = project {
+            let projectController = ProjectController.sharedInstance
             
             // TODO: tap to add name or some shit
             if project.name != nil && project.name != ""  {
@@ -68,7 +69,7 @@ class LargeTimerViewController: UIViewController {
                 timerName.text = "-"
             }
             
-            if project.categoryRef != nil && project.name != "" {
+            if project.categoryRef != nil && project.categoryRef != "" {
                 categoryName.text = project.categoryRef
             } else {
                 self.categoryName.text = "-"
@@ -155,6 +156,17 @@ class LargeTimerViewController: UIViewController {
     // Active & Inactive: Delete Timer
     @IBAction func breakButtonPressed(_ sender: Any) {
         
+        if running {
+            
+        } else {
+            guard let project = project else { return }
+            ProjectController.sharedInstance.deleteProject(project: project, active: isActive, running: false)
+            
+        }
+        
+        setUp()
+        delegate?.updateTableView()
+        
     }
     
     // Running: end session
@@ -164,6 +176,7 @@ class LargeTimerViewController: UIViewController {
         if running {
             SessionController.sharedInstance.endSession(projectIsDone: false)
             running = false
+            isActive = true
         } else if isActive {
             guard let project = project else { return }
             SessionController.sharedInstance.startSession(p: project)
@@ -173,9 +186,8 @@ class LargeTimerViewController: UIViewController {
             let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, newProject: false)
             running = true
             self.project = ProjectController.sharedInstance.currentProject
-            setUp()
         }
-        
+        setUp()
         delegate?.updateTableView()
     }
     
@@ -185,6 +197,9 @@ class LargeTimerViewController: UIViewController {
         if isActive || running {
             ProjectController.sharedInstance.endTimer(project: project!)
             delegate?.updateTableView()
+            self.running = false
+            self.isActive = false
+            setUp()
         }
     }
     

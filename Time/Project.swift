@@ -54,7 +54,7 @@ struct Project {
     }
     
     func isEqual(rhs: Project) -> Bool {
-        if self.firebaseRef == rhs.firebaseRef {
+        if self.firebaseRef?.key == rhs.firebaseRef?.key {
             return true
         }
         return false
