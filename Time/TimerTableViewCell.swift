@@ -12,7 +12,7 @@ protocol TimerCellUpdater {
     func updateTableView()
 }
 
-class TimerTableViewCell: UITableViewCell {
+class TimerTableViewCell: UITableViewCell, BreakUpdater {
 
 //Labels
     @IBOutlet var timerName:        UILabel!
@@ -71,7 +71,14 @@ class TimerTableViewCell: UITableViewCell {
             breakButton.setTitle("Break", for: .normal)
             
         // No running timer
+        } else if projectController.onBreak {
+            
+            
+//            Set up text
+            
+            
         } else {
+        
             timerName.isHidden =    true
             time.isHidden =          true
             categoryName.isHidden = true
@@ -121,6 +128,16 @@ class TimerTableViewCell: UITableViewCell {
             CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil)
             delegate?.updateTableView()
         }
+    }
+    
+    @IBAction func breakButtonPressed(_ sender: Any) {
+        ProjectController.sharedInstance.delegate = self
+    }
+    
+    
+    func breakUpdate(length: String) {
+        delegate?.updateTableView()
+        
     }
 
 }

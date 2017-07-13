@@ -15,6 +15,7 @@ struct ProjectTimer {
     var totalLength: TimeInterval
     var deadline: Date?
     var weight: Double
+    var breaks = [TimeInterval]()
     
     init(deadline: Date?, weight: Double?) {
         
@@ -62,6 +63,8 @@ struct ProjectTimer {
         for session in self.sessions {
             anySessions.append(session.toAnyObject())
         }
+        
+        
         
         if let deadline = deadline {
             let stringDeadline: NSString = String(describing: deadline) as NSString

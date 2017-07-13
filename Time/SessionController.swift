@@ -29,9 +29,6 @@ class SessionController {
             ProjectController.sharedInstance.activeProjects.append(project!)
             ProjectController.sharedInstance.activeProjectsRefs.append((project?.firebaseRef?.key)!)
         } else {
-            project?.timers.append((project?.activeTimer)!)
-            project?.activeTimer = nil
-            
             var total = 0.0
             for timer in (project?.timers)! {
                 total += timer.totalLength
@@ -39,6 +36,8 @@ class SessionController {
             
             project?.estimatedLength = total / Double((project?.timers.count)!)
             
+            project?.timers.append((project?.activeTimer)!)
+            project?.activeTimer = nil
         }
         
         ProjectController.sharedInstance.currentProject = nil

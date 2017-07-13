@@ -586,6 +586,9 @@
                                                             <integer key="value" value="35"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="breakButtonPressed:" destination="viv-aq-iBb" eventType="touchUpInside" id="Ed0-Py-tCd"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="9Kr-xQ-UZO">
                                                     <rect key="frame" x="171.66666666666666" y="146.33333333333334" width="73" height="70"/>
@@ -879,11 +882,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0t-ex-40X">
-                                <rect key="frame" x="39" y="518" width="74" height="72.333333333333371"/>
+                                <rect key="frame" x="38" y="518" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="35.5"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -912,16 +915,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mJ-zC-l8j">
-                                <rect key="frame" x="169" y="606" width="75.333333333333343" height="72.333333333333371"/>
+                                <rect key="frame" x="169" y="606" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="35.5"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="IXO-CE-SYi">
-                                <rect key="frame" x="39.666666666666657" y="519" width="73" height="70"/>
+                                <rect key="frame" x="39" y="519" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="85i-Sr-vCK"/>
@@ -941,11 +944,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xbW-0C-7O6">
-                                <rect key="frame" x="39" y="606" width="74" height="72"/>
+                                <rect key="frame" x="38" y="606" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="35.5"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -968,11 +971,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8v-MG-Fo5">
-                                <rect key="frame" x="299" y="518" width="74.333333333333314" height="72"/>
+                                <rect key="frame" x="299" y="518" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="35.5"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -983,16 +986,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTG-Up-8kB">
-                                <rect key="frame" x="299" y="605.66666666666663" width="74.333333333333314" height="72"/>
+                                <rect key="frame" x="299" y="606" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="35.5"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ON1-2O-QXc">
-                                <rect key="frame" x="39.666666666666657" y="607" width="73" height="70"/>
+                                <rect key="frame" x="39" y="607" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Coo-gO-wfr"/>
@@ -1012,11 +1015,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLl-tl-OI6">
-                                <rect key="frame" x="169" y="518" width="74.333333333333343" height="72.333333333333371"/>
+                                <rect key="frame" x="169" y="518" width="75" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="35"/>
+                                        <integer key="value" value="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -1041,7 +1044,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kQV-rZ-pbn">
-                                <rect key="frame" x="299.66666666666669" y="606.66666666666663" width="73" height="70"/>
+                                <rect key="frame" x="300" y="607" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="RzA-tg-52d"/>
@@ -1061,7 +1064,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Eww-RU-uUb">
-                                <rect key="frame" x="299.66666666666669" y="519" width="73" height="70"/>
+                                <rect key="frame" x="300" y="519" width="73" height="70"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="dQe-PI-y5C"/>
@@ -1124,13 +1127,12 @@
                             <constraint firstItem="IXO-CE-SYi" firstAttribute="centerX" secondItem="LHk-cs-uJ9" secondAttribute="centerX" constant="-130.83333333333326" id="4Tu-ri-hDq"/>
                             <constraint firstItem="4Au-pv-wyE" firstAttribute="leading" secondItem="a3c-d4-TKi" secondAttribute="leading" constant="2" id="4l7-Ry-y4Z"/>
                             <constraint firstItem="BTn-py-90q" firstAttribute="top" secondItem="hKL-Hr-uyf" secondAttribute="bottom" constant="8" id="4sa-f0-bGh"/>
-                            <constraint firstItem="CTG-Up-8kB" firstAttribute="centerY" secondItem="xbW-0C-7O6" secondAttribute="centerY" constant="-0.5" id="6kl-nF-Xud"/>
                             <constraint firstItem="ON1-2O-QXc" firstAttribute="bottom" secondItem="xbW-0C-7O6" secondAttribute="bottom" constant="-1" id="9Yc-qd-dRE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w9I-SC-2m6" secondAttribute="trailing" constant="-1" id="Afb-jr-xt7"/>
                             <constraint firstItem="CX4-EJ-25g" firstAttribute="centerY" secondItem="ON1-2O-QXc" secondAttribute="centerY" id="Aqk-49-w1H"/>
                             <constraint firstAttribute="trailingMargin" secondItem="u2R-Tt-TTM" secondAttribute="trailing" constant="1" id="BnL-6Y-wzc"/>
                             <constraint firstItem="a3c-d4-TKi" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="Bwz-tO-Quk"/>
-                            <constraint firstItem="j0t-ex-40X" firstAttribute="leading" secondItem="IXO-CE-SYi" secondAttribute="leading" id="C7b-kL-AOw"/>
+                            <constraint firstItem="j0t-ex-40X" firstAttribute="leading" secondItem="IXO-CE-SYi" secondAttribute="leading" constant="-1" id="C7b-kL-AOw"/>
                             <constraint firstItem="ON1-2O-QXc" firstAttribute="trailing" secondItem="xbW-0C-7O6" secondAttribute="trailing" constant="-1" id="D7O-zX-SwP"/>
                             <constraint firstItem="yu1-w8-e6I" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="-116.99999999999994" id="DrL-dv-7NT"/>
                             <constraint firstItem="j0t-ex-40X" firstAttribute="top" secondItem="IXO-CE-SYi" secondAttribute="top" constant="-1" id="E6J-do-F14"/>
@@ -1143,7 +1145,7 @@
                             <constraint firstItem="88f-ai-VTA" firstAttribute="centerY" secondItem="yu1-w8-e6I" secondAttribute="centerY" id="JyI-SN-YNX"/>
                             <constraint firstItem="3mJ-zC-l8j" firstAttribute="trailing" secondItem="CX4-EJ-25g" secondAttribute="trailing" constant="1" id="K7a-xI-Ujc"/>
                             <constraint firstItem="4Au-pv-wyE" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="-172.83333333333326" id="KK0-cr-clT"/>
-                            <constraint firstItem="ON1-2O-QXc" firstAttribute="leading" secondItem="xbW-0C-7O6" secondAttribute="leading" id="KSC-vT-iqa"/>
+                            <constraint firstItem="ON1-2O-QXc" firstAttribute="leading" secondItem="xbW-0C-7O6" secondAttribute="leading" constant="1" id="KSC-vT-iqa"/>
                             <constraint firstItem="w9I-SC-2m6" firstAttribute="centerY" secondItem="t4N-ZG-CCt" secondAttribute="centerY" id="LOM-hV-eXe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="a3c-d4-TKi" secondAttribute="trailing" constant="-3" id="MiQ-4E-HSV"/>
                             <constraint firstItem="PAV-Js-wTt" firstAttribute="centerY" secondItem="17U-Gv-Sra" secondAttribute="centerY" id="Nyz-Kq-zPO"/>
@@ -1154,7 +1156,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="jpD-fH-ncy" secondAttribute="trailing" constant="-1.3333333333333144" id="SV1-Aa-cMY"/>
                             <constraint firstItem="Yjb-4r-JCR" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="-60.999999999999943" id="Sz3-Y4-OEy"/>
                             <constraint firstItem="CX4-EJ-25g" firstAttribute="centerX" secondItem="w8G-xF-h1I" secondAttribute="centerX" id="TGr-XF-dEi"/>
-                            <constraint firstItem="kQV-rZ-pbn" firstAttribute="leading" secondItem="CTG-Up-8kB" secondAttribute="leading" id="Tug-15-LLv"/>
+                            <constraint firstItem="kQV-rZ-pbn" firstAttribute="leading" secondItem="CTG-Up-8kB" secondAttribute="leading" constant="1" id="Tug-15-LLv"/>
                             <constraint firstItem="Lz9-mn-Hbw" firstAttribute="centerY" secondItem="Yjb-4r-JCR" secondAttribute="centerY" id="VSv-Az-Sd5"/>
                             <constraint firstItem="Eww-RU-uUb" firstAttribute="centerX" secondItem="LHk-cs-uJ9" secondAttribute="centerX" constant="129.16666666666674" id="VrQ-ji-RDk"/>
                             <constraint firstItem="kQV-rZ-pbn" firstAttribute="top" secondItem="CTG-Up-8kB" secondAttribute="top" constant="1" id="WNt-Db-ozJ"/>
@@ -1168,7 +1170,7 @@
                             <constraint firstItem="kQV-rZ-pbn" firstAttribute="centerX" secondItem="Eww-RU-uUb" secondAttribute="centerX" id="gaZ-fo-bSu"/>
                             <constraint firstItem="yu1-w8-e6I" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leadingMargin" constant="-3" id="hYu-G0-pHf"/>
                             <constraint firstItem="t4N-ZG-CCt" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="52.000000000000057" id="itP-Zc-afZ"/>
-                            <constraint firstItem="Eww-RU-uUb" firstAttribute="trailing" secondItem="M8v-MG-Fo5" secondAttribute="trailing" id="kBY-Am-pkl"/>
+                            <constraint firstItem="Eww-RU-uUb" firstAttribute="trailing" secondItem="M8v-MG-Fo5" secondAttribute="trailing" constant="-1" id="kBY-Am-pkl"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="leading" secondItem="tLl-tl-OI6" secondAttribute="leading" constant="1" id="qsu-LP-dH2"/>
                             <constraint firstItem="17U-Gv-Sra" firstAttribute="centerY" secondItem="LHk-cs-uJ9" secondAttribute="centerY" constant="107.33333333333331" id="qtF-kV-xa8"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="trailing" secondItem="tLl-tl-OI6" secondAttribute="trailing" constant="-1" id="r37-OC-ns1"/>
@@ -1182,6 +1184,7 @@
                             <constraint firstItem="BTn-py-90q" firstAttribute="leading" secondItem="LHk-cs-uJ9" secondAttribute="leading" constant="14" id="w5T-LD-XtK"/>
                             <constraint firstItem="tLl-tl-OI6" firstAttribute="centerY" secondItem="j0t-ex-40X" secondAttribute="centerY" id="wHF-Z4-oYM"/>
                             <constraint firstItem="Eww-RU-uUb" firstAttribute="top" secondItem="M8v-MG-Fo5" secondAttribute="top" constant="1" id="wYt-pA-Vdd"/>
+                            <constraint firstItem="kQV-rZ-pbn" firstAttribute="centerY" secondItem="CX4-EJ-25g" secondAttribute="centerY" id="xIX-3N-tv8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lz9-mn-Hbw" secondAttribute="trailing" constant="-1" id="ymq-VV-9wE"/>
                             <constraint firstItem="w8G-xF-h1I" firstAttribute="bottom" secondItem="tLl-tl-OI6" secondAttribute="bottom" constant="-1" id="ywJ-DL-dhJ"/>
                         </constraints>
@@ -1327,7 +1330,7 @@
         <image name="Up - White" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fER-Gn-Uoc"/>
+        <segue reference="qcZ-RN-5eJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.4516544938" green="0.63927727940000001" blue="0.8602750897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

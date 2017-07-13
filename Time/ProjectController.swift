@@ -10,12 +10,19 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
+protocol BreakUpdater {
+    func breakUpdate(length: String)
+}
+
 class ProjectController {
     
     static let sharedInstance = ProjectController()
     var currentProject: Project?
     var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
+    var delegate: BreakUpdater?
+    var onBreak = false
+    var breakLength: TimeInterval?
     
     /// Creates a brand new project.
     /// - Check to see if their is a category prior to calling
@@ -166,8 +173,30 @@ class ProjectController {
     }
     
     
-    func getAverageTimerLength() {
+    func startBreak() -> TimeInterval {
         
+        self.onBreak = true
+        let project = ProjectController.sharedInstance.currentProject
+        
+        breakLength = project?.customizedBreakLength
+        
+        if breakLength == nil {
+            breakLength = 15 * 60
+        }
+        
+        var timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: Selector(("updateBreak")), userInfo: nil, repeats: true)
+        
+        SessionController.sharedInstance.endSession(projectIsDone: false)
+        
+        return timer.timeInterval
+        
+    }
+    
+    func updateBreak() {
+        if breakLength! > 0.0 {
+            delegate?.breakUpdate(length: self.hourMinuteStringFromTimeInterval(interval: breakLength!, bigVersion: true, deadline: false))
+            breakLength! -= 1.0
+        }
     }
     
     
