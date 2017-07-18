@@ -23,6 +23,7 @@ class ProjectController {
     var delegate: BreakUpdater?
     var onBreak = false
     var breakLength: TimeInterval?
+    var timer:Timer!
     
     /// Creates a brand new project.
     /// - Check to see if their is a category prior to calling
@@ -173,7 +174,7 @@ class ProjectController {
     }
     
     
-    func startBreak() -> TimeInterval {
+    func startBreak() {
         
         self.onBreak = true
         let project = ProjectController.sharedInstance.currentProject
@@ -184,19 +185,29 @@ class ProjectController {
             breakLength = 15 * 60
         }
         
-        var timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: Selector(("updateBreak")), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBreak), userInfo: nil, repeats: true)
         
         SessionController.sharedInstance.endSession(projectIsDone: false)
         
-        return timer.timeInterval
-        
     }
     
-    func updateBreak() {
-        if breakLength! > 0.0 {
-            delegate?.breakUpdate(length: self.hourMinuteStringFromTimeInterval(interval: breakLength!, bigVersion: true, deadline: false))
-            breakLength! -= 1.0
+    @objc func updateBreak() {
+        
+        guard let breakLength = breakLength else { return }
+        
+        if breakLength > 0.0 {
+            delegate?.breakUpdate(length: self.hourMinuteStringFromTimeInterval(interval: breakLength, bigVersion: true, deadline: false))
+            self.breakLength! -= 1.0
+        } else {
+            // completion block
+            timer.invalidate()
         }
+    }
+    
+    func endBreak() {
+        timer.invalidate()
+        breakLength = nil
+        onBreak = false
     }
     
     

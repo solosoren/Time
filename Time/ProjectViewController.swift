@@ -14,7 +14,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var tableView: UITableView!
 	var selectedProject: Project?
-	
+	var timerCell: TimerTableViewCell?
 	var signingIn = false
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -58,10 +58,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 				
         if indexPath.row == 0 {
-            let timerCell = tableView.dequeueReusableCell(withIdentifier: "CurrentTimerCell", for: indexPath) as! TimerTableViewCell
-			timerCell.delegate = self
-			timerCell.setUpCell()
-            return timerCell
+			timerCell = tableView.dequeueReusableCell(withIdentifier: "CurrentTimerCell", for: indexPath) as? TimerTableViewCell
+			timerCell?.delegate = self
+			timerCell?.setUpCell()
+            return timerCell!
         } else if indexPath.row == 1 {
             let segmentedCell = tableView.dequeueReusableCell(withIdentifier: "SegmentedCell", for: indexPath)
             return segmentedCell
@@ -94,7 +94,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		
         if indexPath.row == 0 {
-			if ProjectController.sharedInstance.currentProject != nil {
+			if ProjectController.sharedInstance.currentProject != nil || ProjectController.sharedInstance.onBreak {
 				return 225
 			} else {
 				return 90
@@ -153,6 +153,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			destination.delegate = self
 			destination.project = selectedProject
 			destination.isActive = true
+			destination.breakUpdater = timerCell
 		}
 	}
 

@@ -22,6 +22,8 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     
     @IBOutlet var timerNameTextField: UITextField!
     
+    var breakTime: String?
+    
 //Buttons
     // Done/Goal
     @IBOutlet var doneButton:       UIButton!
@@ -70,13 +72,22 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             endSessionButton.setTitle("End Session", for: .normal)
             breakButton.setTitle("Break", for: .normal)
             
-        // No running timer
+        // On Break
         } else if projectController.onBreak {
             
+            timerName.isHidden = false
+            time.isHidden = false
+            timerNameTextField.isHidden = true
             
-//            Set up text
+            timerName.text = "Break"
+            time.text = breakTime
             
+            doneButton.setTitle("Resume Project", for: .normal)
+            endSessionButton.setTitle("End Break", for: .normal)
+            breakButton.setTitle("Snooze", for: .normal)
+
             
+        // No running timer
         } else {
         
             timerName.isHidden =    true
@@ -86,7 +97,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             timerNameTextField.isHidden = true
             
             breakButton.setTitle("Schedule", for: .normal)
-            endSessionButton.setTitle("Start", for: .normal)
+            endSessionButton.setTitle("Start Timer", for: .normal)
             doneButton.setTitle("Goal", for: .normal)
         }
         
@@ -115,6 +126,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     ///
     /// - End Session: Running Timer
     /// - Start: No Running Timer
+    /// - End Break: On Break
     ///
     /// - Parameter sender: Middle Button
     @IBAction func endSessionButtonPressed(_ sender: Any) {
@@ -123,6 +135,12 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         if let _ = projectController.currentProject {
             SessionController.sharedInstance.endSession(projectIsDone: false)
             delegate?.updateTableView()
+            
+        // On break
+        } else if projectController.onBreak {
+            projectController.endBreak()
+            delegate?.updateTableView()
+            
         // No Running Timer
         } else {
             CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil)
@@ -131,12 +149,14 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     }
     
     @IBAction func breakButtonPressed(_ sender: Any) {
-        ProjectController.sharedInstance.delegate = self
+        projectController.delegate = self
+        projectController.startBreak()
     }
     
     
     func breakUpdate(length: String) {
         delegate?.updateTableView()
+        breakTime = length
         
     }
 

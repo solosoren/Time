@@ -43,7 +43,7 @@ class LargeTimerViewController: UIViewController {
     var running = false
     var isActive = false
     var delegate: LargeTimerUpdater?
-    var homeView: ProjectViewController?
+    var breakUpdater: BreakUpdater?
     var project:  Project?
     var category: Category?
     
@@ -157,6 +157,10 @@ class LargeTimerViewController: UIViewController {
     @IBAction func breakButtonPressed(_ sender: Any) {
         
         if running {
+            ProjectController.sharedInstance.delegate = breakUpdater
+            ProjectController.sharedInstance.startBreak()
+            self.running = false
+            self.isActive = false
             
         } else {
             guard let project = project else { return }
@@ -181,11 +185,17 @@ class LargeTimerViewController: UIViewController {
             guard let project = project else { return }
             SessionController.sharedInstance.startSession(p: project)
             running = true
+            if ProjectController.sharedInstance.onBreak {
+                ProjectController.sharedInstance.endBreak()
+            }
         } else {
             guard let project = project else { return }
             let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, newProject: false)
             running = true
             self.project = ProjectController.sharedInstance.currentProject
+            if ProjectController.sharedInstance.onBreak {
+                ProjectController.sharedInstance.endBreak()
+            }
         }
         setUp()
         delegate?.updateTableView()
