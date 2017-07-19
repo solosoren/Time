@@ -19,6 +19,8 @@ struct Project {
     var timers = [ProjectTimer]()
     var activeTimer: ProjectTimer?
     var firebaseRef: FIRDatabaseReference?
+    
+    //TODO: figure out how to do customized break length
     var customizedBreakLength: TimeInterval?
     
     init(name: String?, category: String?, weight: Double, numberOfTimers: Double?) {

@@ -12,6 +12,7 @@ import Firebase
 
 protocol InitialDataUpdater {
     func updateTableView()
+    func resumeBreak()
 }
 
 class UserController {
@@ -46,6 +47,11 @@ class UserController {
                 })
             } else {
                 self.finishedLoading()
+            }
+            
+            
+            if value?["break"] != nil {
+                self.delegate?.resumeBreak()
             }
             
             let activeProjects = value?["active projects"] as? [String]

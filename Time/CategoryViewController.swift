@@ -9,6 +9,7 @@
 import UIKit
 
 class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InitialDataUpdater {
+
     
     @IBOutlet var collectionView: UICollectionView!
     var passOnCategory: Category?
@@ -61,5 +62,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
             let vc = segue.destination as! CategoryProjectsViewController
             vc.category = self.passOnCategory
         }
+    }
+    
+    func resumeBreak() {
+        
     }
 }

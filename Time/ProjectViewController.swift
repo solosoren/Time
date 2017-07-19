@@ -131,6 +131,14 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		tableView.reloadData()
 	}
 	
+	func resumeBreak() {
+		guard let timerCell = timerCell else { return }
+		
+		ProjectController.sharedInstance.delegate = timerCell
+		ProjectController.sharedInstance.continueBreak()
+		
+	}
+	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		
 		// updates project name

@@ -81,7 +81,7 @@ class SessionController {
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": project.firebaseRef?.key ?? "REF",
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": ProjectController.sharedInstance.activeProjectsRefs] as [String: Any]
         
-        FIRDatabase.database().reference().onDisconnectUpdateChildValues(updateKeys) { (error, ref) in
+        FIRDatabase.database().reference().updateChildValues(updateKeys) { (error, ref) in
             if let error = error {
                 print(error)
             }

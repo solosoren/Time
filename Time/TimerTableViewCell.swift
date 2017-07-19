@@ -150,14 +150,17 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     
     @IBAction func breakButtonPressed(_ sender: Any) {
         projectController.delegate = self
-        projectController.startBreak()
+        projectController.startBreak(previousProjectRef: projectController.currentProject?.firebaseRef?.key)
     }
     
     
     func breakUpdate(length: String) {
         delegate?.updateTableView()
         breakTime = length
-        
+    }
+    
+    func timerCompleted() {
+        delegate?.updateTableView()
     }
 
 }

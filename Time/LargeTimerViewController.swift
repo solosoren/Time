@@ -158,7 +158,7 @@ class LargeTimerViewController: UIViewController {
         
         if running {
             ProjectController.sharedInstance.delegate = breakUpdater
-            ProjectController.sharedInstance.startBreak()
+            ProjectController.sharedInstance.startBreak(previousProjectRef: self.project?.firebaseRef?.key)
             self.running = false
             self.isActive = false
             
