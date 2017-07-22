@@ -10,21 +10,12 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-protocol BreakUpdater {
-    func breakUpdate(length: String)
-    func timerCompleted()
-}
-
 class ProjectController {
     
     static let sharedInstance = ProjectController()
     var currentProject: Project?
     var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
-    var delegate: BreakUpdater?
-    var onBreak = false
-    var currentBreak: Break?
-    var timer:Timer!
     
     /// Creates a brand new project.
     /// - Check to see if their is a category prior to calling
@@ -175,53 +166,6 @@ class ProjectController {
     }
     
     
-    func startBreak(previousProjectRef: String?) {
-        
-        self.onBreak = true
-        let project = ProjectController.sharedInstance.currentProject
-        currentBreak = Break.init(_totalBreakLength: project?.customizedBreakLength, _previousProjectRef: previousProjectRef)
-        
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBreak), userInfo: nil, repeats: true)
-        
-        SessionController.sharedInstance.endSession(projectIsDone: false)
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let updateKeys = ["/users/\(uid ?? "UID")/break": currentBreak?.toAnyObject() as! [String: Any]]
-        
-        FIRDatabase.database().reference().updateChildValues(updateKeys)
-    }
-    
-    func continueBreak() {
-        
-        UserController.sharedInstance.userRef?.child("break").observeSingleEvent(of: .value, with: { (snapshot) in
-            self.currentBreak = Break.init(snapshot: snapshot)
-            self.onBreak = true
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateBreak), userInfo: nil, repeats: true)
-        })
-    }
-    
-    @objc func updateBreak() {
-        
-        if currentBreak!.lengthLeft > 0.0 {
-            delegate?.breakUpdate(length: self.hourMinuteStringFromTimeInterval(interval: currentBreak!.lengthLeft, bigVersion: true, deadline: false))
-            currentBreak!.lengthLeft -= 1.0
-        } else {
-            endBreak()
-        }
-    }
-    
-    func endBreak() {
-        timer.invalidate()
-        currentBreak = nil
-        onBreak = false
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        FIRDatabase.database().reference().child("users").child(uid ?? "UID").child("break").removeValue()
-        delegate?.timerCompleted()
-        
-        // notify user
-    }
-    
-    
     /// Ends the Timer of the given project.
     ///
     /// - Parameters:
@@ -351,6 +295,7 @@ class ProjectController {
     /// - Returns: a String of the hours and minutes
     func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool, deadline: Bool) -> String {
         let interval = Int(interval)
+        let seconds = interval % 60
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
         
@@ -359,27 +304,31 @@ class ProjectController {
         
         var hourText = "H"
         var minText = "M"
+        var secText = "S"
         
         if bigVersion {
             hourText = " Hours"
             minText =  " Mins"
+            secText = " Secs"
         }
         
         if hours == 0 {
-            return "\(abs(minutes))" + minText
+            return "\(abs(minutes))" + minText + " \(abs(seconds))" + secText
         }
         
         if minutes == 0 {
-            return "\(abs(hours))" + hourText
+            if hours > 0 {
+                return "\(abs(hours))" + hourText
+            } else {
+                return "\(abs(seconds))" + secText
+            }
         }
         
         if deadline {
-            return "\(hours)" + hourText +  " \(minutes)" + minText
+            return "\(hours)" + hourText +  " \(minutes)" + minText + " \(seconds)" + secText
         } else {
-            return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText
+            return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText + " \(abs(seconds))" + secText
         }
-
-        
     }
     
 }

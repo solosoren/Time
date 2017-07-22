@@ -10,9 +10,18 @@ import Foundation
 import FirebaseDatabase
 import Firebase
 
+protocol BreakUpdater {
+    func breakUpdate(length: String)
+    func timerCompleted()
+}
+
 class SessionController {
     
     static let sharedInstance = SessionController()
+    var delegate: BreakUpdater?
+    var onBreak = false
+    var currentBreak: Break?
+    var timer:Timer!
     
     /// Ends the current session. Saves the session length and the totalLength.
     ///
@@ -87,6 +96,62 @@ class SessionController {
             }
         }
         
+    }
+    
+    
+    
+    func startBreak(previousProjectRef: String?) {
+        
+        self.onBreak = true
+        let project = ProjectController.sharedInstance.currentProject
+        currentBreak = Break.init(_totalBreakLength: project?.customizedBreakLength, _previousProjectRef: previousProjectRef)
+        
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBreak), userInfo: nil, repeats: true)
+        
+        SessionController.sharedInstance.endSession(projectIsDone: false)
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let updateKeys = ["/users/\(uid ?? "UID")/break": currentBreak?.toAnyObject() as! [String: Any]]
+        
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
+    }
+    
+    func continueBreak() {
+    
+        UserController.sharedInstance.userRef?.child("break").observeSingleEvent(of: .value, with: { (snapshot) in
+            self.currentBreak = Break.init(snapshot: snapshot)
+            self.onBreak = true
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateBreak), userInfo: nil, repeats: true)
+        })
+    }
+    
+    @objc func updateBreak() {
+        
+        if currentBreak!.lengthLeft > 0.0 {
+            delegate?.breakUpdate(length: ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: currentBreak!.lengthLeft, bigVersion: true, deadline: false))
+            currentBreak!.lengthLeft -= 1.0
+        } else {
+            endBreak()
+        }
+    }
+    
+    func snooze() {
+        currentBreak?.lengthLeft += (5 * 60)
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let updateKeys = ["/users/\(uid ?? "UID")/break": currentBreak?.toAnyObject() as! [String: Any]]
+        
+        FIRDatabase.database().reference().updateChildValues(updateKeys)
+    }
+    
+    func endBreak() {
+        timer.invalidate()
+        currentBreak = nil
+        onBreak = false
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        FIRDatabase.database().reference().child("users").child(uid ?? "UID").child("break").removeValue()
+        delegate?.timerCompleted()
+        
+        // notify user
     }
     
     

@@ -41,6 +41,7 @@ class ActiveProjectTableViewCell: UITableViewCell {
             self.deadlineLabel.text = "Running"
         }
         
+        
         averageTimeLabel.text = "AVG: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false))"
     }
     

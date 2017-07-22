@@ -38,7 +38,7 @@ struct Project {
     init(snapshot: FIRDataSnapshot) {
         let value = snapshot.value as? NSDictionary
         self.name = value?["Project Name"] as? String ?? ""
-        self.weight = value?["Weight"] as! Double
+        self.weight = value?["Weight"] as? Double ?? 0
         self.categoryRef = value?["Category Name"] as? String ?? ""
         self.numberOfTimers = value?["Number Of Timers"] as? Double
         

@@ -50,7 +50,7 @@ class CategoryContoller {
             
         }
         
-        let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
+        let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: category.name, deadline: deadline, weight: weight)
         
         category.projects.append(project)
         category.projectRefs.append(project.firebaseRef!.key)

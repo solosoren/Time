@@ -94,7 +94,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		
         if indexPath.row == 0 {
-			if ProjectController.sharedInstance.currentProject != nil || ProjectController.sharedInstance.onBreak {
+			if ProjectController.sharedInstance.currentProject != nil || SessionController.sharedInstance.onBreak {
 				return 225
 			} else {
 				return 90
@@ -134,8 +134,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	func resumeBreak() {
 		guard let timerCell = timerCell else { return }
 		
-		ProjectController.sharedInstance.delegate = timerCell
-		ProjectController.sharedInstance.continueBreak()
+		SessionController.sharedInstance.delegate = timerCell
+		SessionController.sharedInstance.continueBreak()
 		
 	}
 	

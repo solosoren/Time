@@ -157,8 +157,8 @@ class LargeTimerViewController: UIViewController {
     @IBAction func breakButtonPressed(_ sender: Any) {
         
         if running {
-            ProjectController.sharedInstance.delegate = breakUpdater
-            ProjectController.sharedInstance.startBreak(previousProjectRef: self.project?.firebaseRef?.key)
+            SessionController.sharedInstance.delegate = breakUpdater
+            SessionController.sharedInstance.startBreak(previousProjectRef: self.project?.firebaseRef?.key)
             self.running = false
             self.isActive = false
             
@@ -185,16 +185,16 @@ class LargeTimerViewController: UIViewController {
             guard let project = project else { return }
             SessionController.sharedInstance.startSession(p: project)
             running = true
-            if ProjectController.sharedInstance.onBreak {
-                ProjectController.sharedInstance.endBreak()
+            if SessionController.sharedInstance.onBreak {
+                SessionController.sharedInstance.endBreak()
             }
         } else {
             guard let project = project else { return }
             let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, newProject: false)
             running = true
             self.project = ProjectController.sharedInstance.currentProject
-            if ProjectController.sharedInstance.onBreak {
-                ProjectController.sharedInstance.endBreak()
+            if SessionController.sharedInstance.onBreak {
+                SessionController.sharedInstance.endBreak()
             }
         }
         setUp()

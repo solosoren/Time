@@ -23,6 +23,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     @IBOutlet var timerNameTextField: UITextField!
     
     var breakTime: String?
+    var timer: Timer!
     
 //Buttons
     // Done/Goal
@@ -33,6 +34,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     @IBOutlet var breakButton:      UIButton!
     
     let projectController = ProjectController.sharedInstance
+    let sessionController = SessionController.sharedInstance
     var delegate:           TimerCellUpdater?
     
     func setUpCell() {
@@ -67,17 +69,37 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             }
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
             
+            runTimer()
+            
         // Button Titles
             doneButton.setTitle("Done", for: .normal)
             endSessionButton.setTitle("End Session", for: .normal)
             breakButton.setTitle("Break", for: .normal)
             
         // On Break
-        } else if projectController.onBreak {
+        } else if sessionController.onBreak {
             
             timerName.isHidden = false
             time.isHidden = false
             timerNameTextField.isHidden = true
+            
+            if let previousProject = sessionController.currentBreak?.previousProjectRef {
+                for project in projectController.activeProjects {
+                    if project.firebaseRef?.key == previousProject {
+                        
+                        deadline.isHidden = false
+                        var projectName:String
+                        if project.name == nil || project.name == "" {
+                            projectName = "-"
+                        } else {
+                            projectName = project.name!
+                        }
+                        deadline.text = "Previous Project: \(projectName)"
+                    }
+                }
+            }
+            
+            
             
             timerName.text = "Break"
             time.text = breakTime
@@ -104,21 +126,31 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         doneButton.titleLabel?.textAlignment =       .center
         endSessionButton.titleLabel?.textAlignment = .center
         breakButton.titleLabel?.textAlignment =      .center
+        
     }
 
 //MARK: Button actions
     
-    /// Button on the left is pressed. If 'Done' it ends the current timer.
+    /// Button on the right is pressed. If 'Done' it ends the current timer.
     ///
     /// - Done: Running Timer
     /// - Schedule: No Running Timer
+    /// - Resume Project: Break
     ///
-    /// - Parameter sender: Left Button
+    /// - Parameter sender: Right Button
     @IBAction func doneButtonPressed(_ sender: Any) {
         
         if let currentProject = projectController.currentProject {
             projectController.endTimer(project: currentProject)
             delegate?.updateTableView()
+        } else if sessionController.onBreak {
+            if let ref = sessionController.currentBreak?.previousProjectRef {
+                for project in projectController.activeProjects {
+                    if ref == project.firebaseRef?.key {
+                        sessionController.startSession(p: project)
+                    }
+                }
+            }
         }
     }
     
@@ -137,8 +169,8 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             delegate?.updateTableView()
             
         // On break
-        } else if projectController.onBreak {
-            projectController.endBreak()
+        } else if sessionController.onBreak {
+            sessionController.endBreak()
             delegate?.updateTableView()
             
         // No Running Timer
@@ -148,9 +180,34 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         }
     }
     
+    /// Button in the left is pressed
+    ///
+    /// - Snooze: On Break
+    ///
+    /// - Parameter sender: Left Button
     @IBAction func breakButtonPressed(_ sender: Any) {
-        projectController.delegate = self
-        projectController.startBreak(previousProjectRef: projectController.currentProject?.firebaseRef?.key)
+        
+        if sessionController.onBreak == false {
+            sessionController.delegate = self
+            sessionController.startBreak(previousProjectRef: projectController.currentProject?.firebaseRef?.key)
+        } else if sessionController.onBreak == true {
+            sessionController.snooze()
+        }
+        
+    }
+    
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        
+        if let project = projectController.currentProject {
+            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+        } else {
+            timer.invalidate()
+        }
+        
     }
     
     
