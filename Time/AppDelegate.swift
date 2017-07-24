@@ -86,13 +86,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     // Tab bar controller delegate
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController is AddTableViewController {
-            if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "AddTableViewController") {
-                tabBarController.present(newVC, animated: true)
+        if viewController is NavController {
+            if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "NavController") {
+                tabBarController.present(newVC, animated: true, completion: nil)
                 return false
             }
         }
-        
         return true
     }
 

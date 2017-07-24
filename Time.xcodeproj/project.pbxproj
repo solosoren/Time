@@ -36,6 +36,7 @@
 		AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B8BE31EF4565000072031 /* CategoryViewController.swift */; };
 		AC8B8BE81EF45A7800072031 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */; };
 		ACD703CA1EF707CC0075D912 /* CategoryProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */; };
+		ACD84EF61F2586F800E4FB22 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD84EF51F2586F800E4FB22 /* NavController.swift */; };
 		ACEA96B81ECAD247002C2334 /* LargeTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA96B71ECAD247002C2334 /* LargeTimerViewController.swift */; };
 		D9223D89E3708EE628611970 /* Pods_TimeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79400ED8229FF127A82E9958 /* Pods_TimeTests.framework */; };
 		FFD470F73937CD8A371F5A90 /* Pods_TimeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D30D569AC65A21C595C926 /* Pods_TimeUITests.framework */; };
@@ -98,6 +99,7 @@
 		AC8B8BE31EF4565000072031 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		AC8B8BE71EF45A7800072031 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryProjectsViewController.swift; sourceTree = "<group>"; };
+		ACD84EF51F2586F800E4FB22 /* NavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavController.swift; sourceTree = "<group>"; };
 		ACEA96B71ECAD247002C2334 /* LargeTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTimerViewController.swift; sourceTree = "<group>"; };
 		B7022EDDC8331C7CCEAC3ECA /* Pods-TimeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTests/Pods-TimeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BED5F404D01003B35CC4B40A /* Pods-Time.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Time.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Time/Pods-Time.debug.xcconfig"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				AC503EEB1F0B43C400765B70 /* Time.entitlements */,
 				AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */,
 				AC76C30D1ECE89C00090A3FE /* TabBarController.swift */,
+				ACD84EF51F2586F800E4FB22 /* NavController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
@@ -567,6 +570,7 @@
 				ACEA96B81ECAD247002C2334 /* LargeTimerViewController.swift in Sources */,
 				ACD703CA1EF707CC0075D912 /* CategoryProjectsViewController.swift in Sources */,
 				AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */,
+				ACD84EF61F2586F800E4FB22 /* NavController.swift in Sources */,
 				AC8373261ECD4E39000CD47B /* UserController.swift in Sources */,
 				AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */,
 				AC05B7011EDD2748008B6D56 /* ActiveProjectTableViewCell.swift in Sources */,

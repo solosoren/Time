@@ -26,10 +26,20 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var startNowButton: UIButton!
     
     @IBOutlet var categoryLeftContraint: NSLayoutConstraint!
-    @IBOutlet var categoryRightConstraint: NSLayoutConstraint!
+    @IBOutlet var categoryCenterConstraint: NSLayoutConstraint!
     
     @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
-    @IBOutlet var deadlineRightConstraint: NSLayoutConstraint!
+    @IBOutlet var deadlineCenterConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var nameUnderline: UIView!
+    @IBOutlet var nameUnderlineLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var nameUnderlineTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var categoryUnderline: UIView!
+    @IBOutlet var categoryUnderlineTrailingConstraintToTextField: NSLayoutConstraint!
+    @IBOutlet var categoryUnderlineLeadingConstraintToTextField: NSLayoutConstraint!
+    @IBOutlet var categoryUnderlineLeadingConstraintToButton: NSLayoutConstraint!
+    @IBOutlet var categoryUnderlineTrailingConstraintToButton: NSLayoutConstraint!
     
     
     let regBlue = UIColor.init(red: 0.3, green: 0.57, blue: 0.89, alpha: 1.0)
@@ -38,12 +48,27 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     let projectController = ProjectController.sharedInstance
     var weight = 0.0
     
+    
+    @IBAction func dismissButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isEqual(nameTextField) {
             categoryWasFirstResponder()
             setUpDatePickerLabel()
+            
+            nameUnderlineLeadingConstraint.constant = -10
+            nameUnderlineTrailingConstraint.constant = 10
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+                self.nameUnderline.isHidden = false
+                self.view.layoutIfNeeded()
+            })
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +82,37 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if textField.isEqual(nameTextField) {
-            categoryTextField.becomeFirstResponder()
             categoryButton.setTitleColor(regBlue, for: .normal)
+            
+            if categoryTextField.hasText == false {
+                categoryCenterConstraint.isActive = false
+                categoryLeftContraint.isActive = true
+                categoryUnderlineLeadingConstraintToButton.isActive = false
+                categoryUnderlineTrailingConstraintToButton.isActive = false
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.categoryUnderlineLeadingConstraintToTextField.isActive = true
+                    self.categoryUnderlineTrailingConstraintToTextField.isActive = true
+                    self.categoryLeftContraint.constant = 20
+                    self.view.layoutIfNeeded()
+                })
+                categoryTextField.isEnabled = true
+                categoryTextField.becomeFirstResponder()
+            }
+            
         } else if textField.isEqual(categoryTextField) {
             categoryWasFirstResponder()
             if deadlineLabel.text == "" {
                 deadlineDatePicker.isHidden = false
                 deadlineButton.setTitleColor(regBlue, for: .normal)
+                self.deadlineCenterConstraint.isActive = false
+                self.deadlineLeftConstraint.isActive = true
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.deadlineLeftConstraint.constant = 20
+                    self.view.layoutIfNeeded()
+                    self.deadlineDatePicker.isHidden = false
+                })
             }
         }
         
@@ -73,6 +122,16 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if nameTextField.isFirstResponder {
             nameTextField.resignFirstResponder()
+            if nameTextField.hasText == false {
+                nameUnderlineLeadingConstraint.constant = 40
+                nameUnderlineTrailingConstraint.constant = -40
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.nameUnderline.isHidden = true
+                    self.view.layoutIfNeeded()
+                })
+            }
+            
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
@@ -89,25 +148,34 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
 //            self.view.layoutIfNeeded()
 //        }
 //        animator.startAnimation()
+        categoryUnderline.isHidden = false
+        self.view.layoutIfNeeded()
         
-        self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
-        UIView.animate(withDuration: 0.3) {
-            self.categoryLeftContraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+        categoryCenterConstraint.isActive = false
+        categoryLeftContraint.isActive = true
+        categoryUnderlineLeadingConstraintToButton.isActive = false
+        categoryUnderlineTrailingConstraintToButton.isActive = false
             
+        UIView.animate(withDuration: 0.3, animations: {
+            self.categoryUnderlineLeadingConstraintToTextField.isActive = true
+            self.categoryUnderlineTrailingConstraintToTextField.isActive = true
+            self.categoryLeftContraint.constant = 20
             self.view.layoutIfNeeded()
-            self.categoryLeftContraint.isActive = true
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                self.categoryLeftContraint.constant = 20
-                self.view.layoutIfNeeded()
-            })
-        }
-        self.categoryRightConstraint.constant = 20
-
+        })
+        
         categoryTextField.isEnabled = true
         
         if nameTextField.isFirstResponder {
             nameTextField.resignFirstResponder()
+            if nameTextField.hasText == false {
+                nameUnderlineLeadingConstraint.constant = 40
+                nameUnderlineTrailingConstraint.constant = -40
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.nameUnderline.isHidden = true
+                    self.view.layoutIfNeeded()
+                })
+            }
         }
         categoryTextField.becomeFirstResponder()
         
@@ -120,6 +188,15 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func deadlineButtonPressed(_ sender: Any) {
         if nameTextField.isFirstResponder {
             nameTextField.resignFirstResponder()
+            if nameTextField.hasText == false {
+                nameUnderlineLeadingConstraint.constant = 40
+                nameUnderlineTrailingConstraint.constant = -40
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.nameUnderline.isHidden = true
+                    self.view.layoutIfNeeded()
+                })
+            }
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
@@ -127,21 +204,16 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         if !(deadlineLabel.text?.isEmpty)! {
             deadlineLabel.text = ""
         } else {
-            UIView.animate(withDuration: 0.3) {
-                self.deadlineLeftConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
-                self.deadlineRightConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+            
+            self.deadlineCenterConstraint.isActive = false
+            self.deadlineLeftConstraint.isActive = true
+
+            UIView.animate(withDuration: 0.3, animations: {
+                self.deadlineLeftConstraint.constant = 20
                 self.view.layoutIfNeeded()
-                self.deadlineLeftConstraint.isActive = true
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.deadlineLeftConstraint.constant = 20
-                    self.deadlineRightConstraint.constant = 20
-                    self.view.layoutIfNeeded()
-                })
-            }
+                self.deadlineDatePicker.isHidden = false
+            })
         }
-        deadlineDatePicker.isHidden = false
-        
         deadlineButton.setTitleColor(regBlue, for: .normal)
 
     }
@@ -161,10 +233,6 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func majorButtonPressed(_ sender: Any) {
         weightButtonPressed(button: majorButton)
         self.weight = 0.4
-    }
-    
-    @IBAction func dismissButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
 // Start buttons
@@ -212,21 +280,19 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         categoryTextField.isEnabled = false
         
         if !categoryTextField.hasText {
+            self.categoryLeftContraint.isActive = false
+            self.categoryCenterConstraint.isActive = true
+            self.categoryUnderlineLeadingConstraintToTextField.isActive = false
+            self.categoryUnderlineTrailingConstraintToTextField.isActive = false
+            
             UIView.animate(withDuration: 0.3) {
-                self.categoryRightConstraint.isActive = false
-                self.categoryLeftContraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
+                self.categoryUnderlineLeadingConstraintToButton.isActive = true
+                self.categoryUnderlineTrailingConstraintToButton.isActive = true
                 self.view.layoutIfNeeded()
-                self.categoryRightConstraint.constant = (self.view.frame.size.width/2 - self.categoryButton.frame.size.width/2)
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.categoryLeftContraint.isActive = false
-                    self.categoryRightConstraint.isActive = true
-                    self.categoryRightConstraint.constant = 20
-                    self.view.layoutIfNeeded()
-                })
             }
         }
         categoryButton.setTitleColor(regGray, for: .normal)
+        categoryUnderline.isHidden = true
     }
     
     // Sets up the date picker when done picking time
@@ -235,26 +301,23 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             deadlineDatePicker.isHidden = true
             
             let timeInterval = deadlineDatePicker.date.timeIntervalSinceNow
-            deadlineLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true)
             
+            UIView.animate(withDuration: 0.3, animations: { 
+                self.deadlineLabel.text = self.projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true)
+            })
+    
             //TODO: fix. Want the text to turn red and notify
             if (deadlineLabel.text == "0M") || (deadlineLabel.text!.contains("-")) {
                 deadlineLabel.text?.removeAll()
             }
         }
         if deadlineLabel.text == "" {
+            self.deadlineLeftConstraint.isActive = false
+            self.deadlineCenterConstraint.isActive = true
+            
             UIView.animate(withDuration: 0.3) {
-                self.deadlineRightConstraint.isActive = false
-                self.deadlineLeftConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
+
                 self.view.layoutIfNeeded()
-                self.deadlineRightConstraint.constant = (self.view.frame.size.width/2 - self.deadlineButton.frame.size.width/2)
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.deadlineLeftConstraint.isActive = false
-                    self.deadlineRightConstraint.isActive = true
-                    self.deadlineRightConstraint.constant = 20
-                    self.view.layoutIfNeeded()
-                })
             }
         }
         deadlineButton.setTitleColor(regGray, for: .normal)

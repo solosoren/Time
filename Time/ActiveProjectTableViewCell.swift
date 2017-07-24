@@ -42,7 +42,7 @@ class ActiveProjectTableViewCell: UITableViewCell {
         }
         
         
-        averageTimeLabel.text = "AVG: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false))"
+        averageTimeLabel.text = "Avg: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false))"
     }
     
 }

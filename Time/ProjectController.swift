@@ -259,7 +259,9 @@ class ProjectController {
         
         // if no projects left in category, delete category
         if c.projectRefs.count == 0 {
-            UserController.sharedInstance.userRef?.child("categories").child((category.firebaseRef?.key)!).removeValue()
+            UserController.sharedInstance.userRef?.child("categories").child((c.firebaseRef?.key)!).removeValue()
+            
+            // remove category from categories
         }
         
         let updateKeys = ["/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/categories/\((c.firebaseRef?.key)!)": c.toAnyObject()] as [String: Any]
@@ -325,9 +327,9 @@ class ProjectController {
         }
         
         if deadline {
-            return "\(hours)" + hourText +  " \(minutes)" + minText + " \(seconds)" + secText
+            return "\(hours)" + hourText +  " \(minutes)" + minText
         } else {
-            return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText + " \(abs(seconds))" + secText
+            return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText
         }
     }
     
