@@ -19,6 +19,9 @@ class LargeTimerViewController: UIViewController {
     @IBOutlet var categoryName:      UILabel!
     @IBOutlet var activeLabel:       UILabel!
     @IBOutlet var timeLabel:         UILabel!
+    
+    
+    
     @IBOutlet var deadlineTimeLabel: UILabel!
     // Active: Last Session || Inactive: Last Timer
     @IBOutlet var totalTimeLabel:    UILabel!
@@ -75,7 +78,7 @@ class LargeTimerViewController: UIViewController {
                 self.categoryName.text = "-"
             }
             
-            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: true, deadline: false)
+            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false)
             
             let seshes = project.activeTimer?.sessions.count ?? 1
             numberOfSessionsButton.setTitle("\(seshes)", for: .normal)
@@ -84,6 +87,11 @@ class LargeTimerViewController: UIViewController {
                 running = true
                 
                 timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+                
+                if abs((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!) < 3600.0 {
+                    
+                }
+                
                 weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
                 totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false)
                 activeLabel.text = "Running"

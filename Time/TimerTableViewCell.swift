@@ -17,6 +17,9 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
 //Labels
     @IBOutlet var timerName:        UILabel!
     @IBOutlet var time:             UILabel!
+    @IBOutlet var minuteLabel:      UILabel!
+    @IBOutlet var hourLabel:        UILabel!
+    @IBOutlet var secondLabel:      UILabel!
     @IBOutlet var categoryName:     UILabel!
     @IBOutlet var deadline:         UILabel!
     
@@ -50,6 +53,10 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             categoryName.isHidden = false
             deadline.isHidden =     false
             timerNameTextField.isHidden = false
+            minuteLabel.isHidden = false
+            hourLabel.isHidden = false
+            secondLabel.isHidden = false
+            
             
             // Timer Name Text Field
             if project.name == "" || project.name == nil {
@@ -69,12 +76,20 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             }
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
             
+            if abs(Int((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!)) < 3600 {
+                minuteLabel.isHidden = true
+                hourLabel.text = "M"
+            } else {
+                minuteLabel.isHidden = false
+                hourLabel.text = "H"
+            }
+            
             runTimer()
             
         // Button Titles
-            doneButton.setTitle("Done", for: .normal)
-            endSessionButton.setTitle("End Session", for: .normal)
-            breakButton.setTitle("Break", for: .normal)
+            doneButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+            endSessionButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+            breakButton.setImage(#imageLiteral(resourceName: "Coffee"), for: .normal)
             
         // On Break
         } else if sessionController.onBreak {
@@ -82,6 +97,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             timerName.isHidden = false
             time.isHidden = false
             timerNameTextField.isHidden = true
+            
             
             if let previousProject = sessionController.currentBreak?.previousProjectRef {
                 for project in projectController.activeProjects {
@@ -99,14 +115,16 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                 }
             }
             
-            
-            
             timerName.text = "Break"
             time.text = breakTime
+            minuteLabel.isHidden = true
+            hourLabel.isHidden = false
+            secondLabel.isHidden = false
+            hourLabel.text = "M"
             
-            doneButton.setTitle("Resume Project", for: .normal)
-            endSessionButton.setTitle("End Break", for: .normal)
-            breakButton.setTitle("Snooze", for: .normal)
+            doneButton.setImage(#imageLiteral(resourceName: "Resume"), for: .normal)
+            endSessionButton.setImage(#imageLiteral(resourceName: "Stop"), for: .normal)
+            breakButton.setImage(#imageLiteral(resourceName: "Snooze"), for: .normal)
 
             
         // No running timer
@@ -117,6 +135,9 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             categoryName.isHidden = true
             deadline.isHidden =     true
             timerNameTextField.isHidden = true
+            secondLabel.isHidden = true
+            minuteLabel.isHidden = true
+            hourLabel.isHidden = true
             
             breakButton.setTitle("Schedule", for: .normal)
             endSessionButton.setTitle("Start Timer", for: .normal)
@@ -204,6 +225,11 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         
         if let project = projectController.currentProject {
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+            
+            if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
+                setUpCell()
+            }
+            
         } else {
             timer.invalidate()
         }

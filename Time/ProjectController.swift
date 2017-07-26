@@ -304,14 +304,31 @@ class ProjectController {
 // TODO: Days
         //        let days = (interval / 86400)
         
-        var hourText = "H"
-        var minText = "M"
-        var secText = "S"
+        let hourText = "H"
+        let minText = "M"
+        let secText = "S"
         
+        
+        // 00 : 00 : 00
         if bigVersion {
-            hourText = " Hours"
-            minText =  " Mins"
-            secText = " Secs"
+            var secondsString = "\(abs(seconds))"
+            var minutesString = "\(abs(minutes))"
+            var hoursString = "\(abs(hours))"
+            if abs(minutes) < 10 {
+                minutesString = "0\(abs(minutes))"
+            }
+            if abs(seconds) < 10 {
+                secondsString = "0\(abs(seconds))"
+            }
+            if abs(hours) < 10 {
+                hoursString = "0\(abs(hours))"
+            }
+            
+            if hours == 0 {
+                return "\(minutesString) : \(secondsString)"
+            } else {
+                return "\(hoursString) : \(minutesString) : \(secondsString)"
+            }
         }
         
         if hours == 0 {
