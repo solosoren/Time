@@ -295,9 +295,9 @@ class ProjectController {
     ///   - bigVersion: If big it returns 'Hours' and 'Mins'. If not big it returns 'H' and 'M'.
     ///
     /// - Returns: a String of the hours and minutes
-    func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool, deadline: Bool) -> String {
+    func hourMinuteStringFromTimeInterval(interval: TimeInterval, bigVersion: Bool, deadline: Bool, seconds: Bool) -> String {
         let interval = Int(interval)
-        let seconds = interval % 60
+        let secs = interval % 60
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
         
@@ -311,14 +311,14 @@ class ProjectController {
         
         // 00 : 00 : 00
         if bigVersion {
-            var secondsString = "\(abs(seconds))"
+            var secondsString = "\(abs(secs))"
             var minutesString = "\(abs(minutes))"
             var hoursString = "\(abs(hours))"
             if abs(minutes) < 10 {
                 minutesString = "0\(abs(minutes))"
             }
-            if abs(seconds) < 10 {
-                secondsString = "0\(abs(seconds))"
+            if abs(secs) < 10 {
+                secondsString = "0\(abs(secs))"
             }
             if abs(hours) < 10 {
                 hoursString = "0\(abs(hours))"
@@ -331,15 +331,23 @@ class ProjectController {
             }
         }
         
-        if hours == 0 {
-            return "\(abs(minutes))" + minText + " \(abs(seconds))" + secText
+        
+        if hours == 0 && seconds {
+            return "\(abs(minutes))" + minText + " \(abs(secs))" + secText
+        } else if hours == 0 && !seconds {
+            return "\(abs(minutes))" + minText
         }
         
         if minutes == 0 {
             if hours > 0 {
                 return "\(abs(hours))" + hourText
             } else {
-                return "\(abs(seconds))" + secText
+                if seconds {
+                    return "\(abs(secs))" + secText
+                } else if !seconds {
+                    return "0" + minText
+                }
+                
             }
         }
         
@@ -348,6 +356,8 @@ class ProjectController {
         } else {
             return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText
         }
+        
+        
     }
     
 }

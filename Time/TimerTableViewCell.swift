@@ -40,6 +40,8 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     let sessionController = SessionController.sharedInstance
     var delegate:           TimerCellUpdater?
     
+    
+    
     func setUpCell() {
         let project =  projectController.currentProject
         
@@ -63,6 +65,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                 timerNameTextField.isEnabled = true
                 timerNameTextField.placeholder = "Add Timer Name..."
             } else {
+                timerNameTextField.text = ""
                 timerNameTextField.isHidden = true
             }
             
@@ -70,11 +73,11 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             timerName.text =    project.name
             categoryName.text = project.categoryRef
             if let timerDeadline = project.activeTimer!.deadline {
-                deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true, deadline: true))"
+                deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false))"
             } else {
                 deadline.text = "Deadline: -"
             }
-            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
             if abs(Int((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!)) < 3600 {
                 minuteLabel.isHidden = true
@@ -224,7 +227,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     @objc func updateTimer() {
         
         if let project = projectController.currentProject {
-            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+            time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
             if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
                 setUpCell()

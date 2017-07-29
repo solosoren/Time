@@ -24,8 +24,9 @@ struct Category {
         let value = snapshot.value as? NSDictionary
         self.firebaseRef = snapshot.ref
         self.name = value?["Name"] as! String
-        let refs = value?["Projects"] as? NSArray
-        self.projectRefs = refs as! [String]
+        if let refs = value?["Projects"] as? NSArray {
+            self.projectRefs = refs as! [String]
+        }
     }
     
     func isEqual(rhs: Category) -> Bool {

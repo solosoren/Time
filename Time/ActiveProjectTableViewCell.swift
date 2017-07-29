@@ -29,7 +29,7 @@ class ActiveProjectTableViewCell: UITableViewCell {
         
         if let deadline = project.activeTimer?.deadline {
             
-            self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false, deadline: true))"
+            self.deadlineLabel.text =  "Deadline: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: false, deadline: true, seconds: false))"
         } else if active {
             self.deadlineLabel.text = "Active"
         } else {
@@ -42,7 +42,7 @@ class ActiveProjectTableViewCell: UITableViewCell {
         }
         
         
-        averageTimeLabel.text = "Avg: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false))"
+        averageTimeLabel.text = "Avg: \(ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false, seconds: true))"
     }
     
 }

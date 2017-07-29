@@ -128,7 +128,7 @@ class SessionController {
     @objc func updateBreak() {
         
         if currentBreak!.lengthLeft > 0.0 {
-            delegate?.breakUpdate(length: ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: currentBreak!.lengthLeft, bigVersion: true, deadline: false))
+            delegate?.breakUpdate(length: ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: currentBreak!.lengthLeft, bigVersion: true, deadline: false, seconds: true))
             currentBreak!.lengthLeft -= 1.0
         } else {
             endBreak()

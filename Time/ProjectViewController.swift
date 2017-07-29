@@ -33,10 +33,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 
 				}
 			}
-			
 		}
 		tableView.reloadData()
-		
 	}
 
     override func viewDidLoad() {

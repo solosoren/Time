@@ -78,7 +78,7 @@ class LargeTimerViewController: UIViewController {
                 self.categoryName.text = "-"
             }
             
-            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false)
+            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false, seconds: true)
             
             let seshes = project.activeTimer?.sessions.count ?? 1
             numberOfSessionsButton.setTitle("\(seshes)", for: .normal)
@@ -86,24 +86,24 @@ class LargeTimerViewController: UIViewController {
             if projectController.currentProject != nil && (projectController.currentProject?.isEqual(rhs: project))! {
                 running = true
                 
-                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false)
+                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
                 
                 if abs((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!) < 3600.0 {
                     
                 }
                 
                 weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false)
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
                 activeLabel.text = "Running"
                 
             } else if isActive {
                 
                 totalLabel.text = "Last Session:"
                 let lastSesh = project.activeTimer?.sessions.last?.totalLength ?? 0
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false)
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false, seconds: true)
                 
                 let total = project.activeTimer?.totalLength ?? 0
-                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false)
+                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false, seconds: true)
                 
                 
                 weightNameLabel.text = projectController.weightString(weight: project.weight)
@@ -119,7 +119,7 @@ class LargeTimerViewController: UIViewController {
                 
                 self.totalLabel.text = "Last Timer:"
                 //TODO: Check timers
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: project.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false)
+                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: project.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
                 
                 //TODO: Fix Name
                 cancelTimerButton.setTitle("Make Repeating", for: .normal)
@@ -129,7 +129,7 @@ class LargeTimerViewController: UIViewController {
             }
             
             if let deadline = project.activeTimer?.deadline {
-                deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true)
+                deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false)
                 if (deadlineTimeLabel.text?.contains("-"))! {
                     // TODO: Fix Color
                     //  self.deadlineTimeLabel.textColor = UIColor.red

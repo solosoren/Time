@@ -27,6 +27,7 @@
 		AC1E537E1ECBED8A00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
 		AC1E537F1ECBED8A00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
 		AC35D2691F1FF24B00B63F84 /* Break.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35D2681F1FF24B00B63F84 /* Break.swift */; };
+		AC3E03091F2A5B53001C6213 /* ViewAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */; };
 		AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30D1ECE89C00090A3FE /* TabBarController.swift */; };
 		AC76C3101ECE952B0090A3FE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30F1ECE952B0090A3FE /* Category.swift */; };
 		AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */; };
@@ -89,6 +90,7 @@
 		AC16DC0B1ECA73C2000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC35D2681F1FF24B00B63F84 /* Break.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Break.swift; sourceTree = "<group>"; };
+		AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAnimations.swift; sourceTree = "<group>"; };
 		AC503EEB1F0B43C400765B70 /* Time.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Time.entitlements; sourceTree = "<group>"; };
 		AC76C30D1ECE89C00090A3FE /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AC76C30F1ECE952B0090A3FE /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				ACD84EF51F2586F800E4FB22 /* NavController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
 				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
+				AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				ACAF590E1EF70D5D00B8D113 /* Project Cells */,
 				AC8B8BE91EF45A7C00072031 /* CategoryView */,
@@ -586,6 +589,7 @@
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */,
 				AC35D2691F1FF24B00B63F84 /* Break.swift in Sources */,
+				AC3E03091F2A5B53001C6213 /* ViewAnimations.swift in Sources */,
 				AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

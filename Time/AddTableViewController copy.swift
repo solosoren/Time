@@ -9,31 +9,16 @@
 import UIKit
 
 class AddTableViewController: UITableViewController, UITextFieldDelegate {
- 
     
-    @IBOutlet var categoryButton: UIButton!
-    @IBOutlet var deadlineButton: UIButton!
-    
-    @IBOutlet var categoryTextField: UITextField!
-    @IBOutlet var deadlineDatePicker: UIDatePicker!
     @IBOutlet var nameTextField: UITextField!
-    @IBOutlet var deadlineLabel: UILabel!
-    
-    @IBOutlet var minorButton: UIButton!
-    @IBOutlet var averageButton: UIButton!
-    @IBOutlet var majorButton: UIButton!
-    
-    @IBOutlet var startNowButton: UIButton!
-    
-    @IBOutlet var categoryLeftContraint: NSLayoutConstraint!
-    @IBOutlet var categoryCenterConstraint: NSLayoutConstraint!
-    
-    @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
-    @IBOutlet var deadlineCenterConstraint: NSLayoutConstraint!
-    
     @IBOutlet var nameUnderline: UIView!
     @IBOutlet var nameUnderlineLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var nameUnderlineTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var categoryButton: UIButton!
+    @IBOutlet var categoryTextField: UITextField!
+    @IBOutlet var categoryLeftContraint: NSLayoutConstraint!
+    @IBOutlet var categoryCenterConstraint: NSLayoutConstraint!
     
     @IBOutlet var categoryUnderline: UIView!
     @IBOutlet var categoryUnderlineTrailingConstraintToTextField: NSLayoutConstraint!
@@ -41,6 +26,27 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var categoryUnderlineLeadingConstraintToButton: NSLayoutConstraint!
     @IBOutlet var categoryUnderlineTrailingConstraintToButton: NSLayoutConstraint!
     
+    @IBOutlet var deadlineButton: UIButton!
+    @IBOutlet var deadlineDatePicker: UIDatePicker!
+    @IBOutlet var deadlineLabel: UILabel!
+    @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
+    @IBOutlet var deadlineCenterConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var sessionButton: UIButton!
+    @IBOutlet var sessionDatePicker: UIDatePicker!
+    @IBOutlet var sessionLabel: UILabel!
+    @IBOutlet var sessionButtonHorizontalConstraint: NSLayoutConstraint!
+    @IBOutlet var sessionButtonLeftConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var averageButton: UIButton!
+    @IBOutlet var minorButton: UIButton!
+    @IBOutlet var minorButtonHorizontalConstraint: NSLayoutConstraint!
+    @IBOutlet var minorButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet var majorButton: UIButton!
+    @IBOutlet var majorButtonHorizontalConstraint: NSLayoutConstraint!
+    @IBOutlet var majorButtonRightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var startNowButton: UIButton!
     
     let regBlue = UIColor.init(red: 0.3, green: 0.57, blue: 0.89, alpha: 1.0)
     let regGray = UIColor(red:0.59, green:0.59, blue:0.59, alpha:1.0)
@@ -48,6 +54,16 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     let projectController = ProjectController.sharedInstance
     var weight = 0.0
     
+    override func viewWillAppear(_ animated: Bool) {}
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        deadlineDatePicker.setValue(regGray, forKeyPath: "textColor")
+        deadlineDatePicker.minimumDate = Date.init()
+        sessionDatePicker.setValue(regGray, forKey: "textColor")
+        categoryTextField.isEnabled = false
+        startNowButton.titleLabel?.textAlignment = .center
+    }
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -56,7 +72,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isEqual(nameTextField) {
             categoryWasFirstResponder()
-            setUpDatePickerLabel()
+            setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+            setUp(datePicker: sessionDatePicker, label: sessionLabel)
             
             nameUnderlineLeadingConstraint.constant = -10
             nameUnderlineTrailingConstraint.constant = 10
@@ -66,16 +83,6 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
                 self.view.layoutIfNeeded()
             })
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {}
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        deadlineDatePicker.setValue(regGray, forKeyPath: "textColor")
-        deadlineDatePicker.minimumDate = Date.init()
-        categoryTextField.isEnabled = false
-        startNowButton.titleLabel?.textAlignment = .center
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -135,7 +142,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
-        setUpDatePickerLabel()
+        setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
         
     }
     
@@ -178,11 +186,9 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         categoryTextField.becomeFirstResponder()
-        
         categoryButton.setTitleColor(regBlue, for: .normal)
-        setUpDatePickerLabel()
-        
-        
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel)
     }
 
     @IBAction func deadlineButtonPressed(_ sender: Any) {
@@ -200,23 +206,58 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
+        setUp(datePicker: sessionDatePicker, label: sessionLabel)
         
         if !(deadlineLabel.text?.isEmpty)! {
             deadlineLabel.text = ""
-        } else {
-            
-            self.deadlineCenterConstraint.isActive = false
-            self.deadlineLeftConstraint.isActive = true
-
-            UIView.animate(withDuration: 0.3, animations: {
-                self.deadlineLeftConstraint.constant = 20
-                self.view.layoutIfNeeded()
-                self.deadlineDatePicker.isHidden = false
-            })
         }
-        deadlineButton.setTitleColor(regBlue, for: .normal)
-
+        
+        if deadlineDatePicker.isHidden == true {
+            ViewAnimations.sharedInstance.animate(oldConstraints: [deadlineCenterConstraint], for: [deadlineLeftConstraint], withDuration: 0.3, on: self.view)
+            
+            self.deadlineDatePicker.isHidden = false
+            
+            deadlineButton.setTitleColor(regBlue, for: .normal)
+        } else {
+            setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        }
     }
+    
+    @IBAction func sessionButtonPressed(_ sender: Any) {
+        if nameTextField.isFirstResponder {
+            nameTextField.resignFirstResponder()
+            if nameTextField.hasText == false {
+                nameUnderlineLeadingConstraint.constant = 40
+                nameUnderlineTrailingConstraint.constant = -40
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.nameUnderline.isHidden = true
+                    self.view.layoutIfNeeded()
+                })
+            }
+        } else if categoryTextField.isFirstResponder {
+            categoryWasFirstResponder()
+        }
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        
+        if !(sessionLabel.text?.isEmpty)! {
+            sessionLabel.text = ""
+        }
+        if sessionDatePicker.isHidden == true {
+            ViewAnimations.sharedInstance.animate(oldConstraints: [sessionButtonHorizontalConstraint], for: [sessionButtonLeftConstraint], withDuration: 0.3, on: self.view)
+            
+            if (sessionDatePicker.countDownDuration > 5400) {
+                self.sessionDatePicker.countDownDuration = 60.0; //Defaults to 1 minute
+            }
+            
+            self.sessionDatePicker.isHidden = false
+            sessionButton.setTitleColor(regBlue, for: .normal)
+        } else {
+            setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        }
+        
+    }
+    
     
 // Weight Buttons
     
@@ -226,8 +267,16 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func averageButtonPressed(_ sender: Any) {
-        weightButtonPressed(button: averageButton)
-        self.weight = 0.5
+        if averageButton.titleLabel?.text == "Weight" {
+            averageButton.setTitle("Average", for: .normal)
+            minorButton.isHidden = false
+            majorButton.isHidden = false
+            ViewAnimations.sharedInstance.animate(oldConstraints: [minorButtonHorizontalConstraint, majorButtonHorizontalConstraint], for: [minorButtonLeftConstraint, majorButtonRightConstraint], withDuration: 0.3, on: self.view)
+            
+        } else {
+            weightButtonPressed(button: averageButton)
+            self.weight = 0.5
+        }
     }
     
     @IBAction func majorButtonPressed(_ sender: Any) {
@@ -237,7 +286,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     
 // Start buttons
     @IBAction func startNowButtonPressed(_ sender: Any) {
-        setUpDatePickerLabel()
+        setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
         
         //TODO: notify the user that a timer is already rolling
         //TODO: fix. Notify user no name?
@@ -296,36 +346,42 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // Sets up the date picker when done picking time
-    func setUpDatePickerLabel() {
-        if !deadlineDatePicker.isHidden {
-            deadlineDatePicker.isHidden = true
+    func setUp(datePicker: UIDatePicker, label: UILabel) {
+        
+        if !datePicker.isHidden {
+            datePicker.isHidden = true
             
-            let timeInterval = deadlineDatePicker.date.timeIntervalSinceNow
+            var timeInterval = datePicker.date.timeIntervalSinceNow
             
-            UIView.animate(withDuration: 0.3, animations: { 
-                self.deadlineLabel.text = self.projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true)
-            })
-    
+            if datePicker == sessionDatePicker {
+                timeInterval = datePicker.countDownDuration
+            }
+            
+            label.text = self.projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true, seconds: false)
+            
             //TODO: fix. Want the text to turn red and notify
-            if (deadlineLabel.text == "0M") || (deadlineLabel.text!.contains("-")) {
-                deadlineLabel.text?.removeAll()
+            if (label.text == "0M") || (label.text!.contains("-")) {
+                label.text?.removeAll()
             }
         }
-        if deadlineLabel.text == "" {
-            self.deadlineLeftConstraint.isActive = false
-            self.deadlineCenterConstraint.isActive = true
-            
-            UIView.animate(withDuration: 0.3) {
-
-                self.view.layoutIfNeeded()
+        
+        if datePicker == deadlineDatePicker {
+            deadlineButton.setTitleColor(regGray, for: .normal)
+            if label.text == "" {
+                ViewAnimations.sharedInstance.animate(oldConstraints: [deadlineLeftConstraint], for: [deadlineCenterConstraint], withDuration: 0.3, on: self.view)
+            }
+        } else if datePicker == sessionDatePicker {
+            sessionButton.setTitleColor(regGray, for: .normal)
+            if label.text == "" {
+                ViewAnimations.sharedInstance.animate(oldConstraints: [sessionButtonLeftConstraint], for: [sessionButtonHorizontalConstraint], withDuration: 0.3, on: self.view)
             }
         }
-        deadlineButton.setTitleColor(regGray, for: .normal)
     }
     
     // Sets up weight buttons
     func weightButtonPressed(button: UIButton) {
-        setUpDatePickerLabel()
+        setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
         if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
