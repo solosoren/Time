@@ -26,7 +26,7 @@ class ProjectController {
     ///   - deadline: the deadline date for the new Project
     ///   - weight: the weight of the new Project, as a double
     /// - Returns: a new Project
-    func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double) -> Project {
+    func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double, presetSessionLength: Double?) -> Project {
         var cName = categoryName
         if cName == nil {
             cName = "Random"
@@ -39,7 +39,7 @@ class ProjectController {
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, presetSessionLength: presetSessionLength, newProject: true)
         project.activeTimer = timer
         
         currentProject = project
@@ -111,9 +111,9 @@ class ProjectController {
     ///   - deadline: The deadline date for the timer
     ///   - newProject: Whether it is a new project or not
     /// - Returns: A new Project Timer
-    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
+    func newTimer(project: Project, weight: Double, deadline: Date?, presetSessionLength: Double?, newProject: Bool) -> ProjectTimer {
         var proj = project
-        let timer = ProjectTimer.init(deadline: deadline, weight: weight)
+        let timer = ProjectTimer.init(deadline: deadline, weight: weight, presetSessionLength: presetSessionLength)
         
         if currentProject != nil {
            SessionController.sharedInstance.endSession(projectIsDone: false)

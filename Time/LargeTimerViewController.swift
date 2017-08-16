@@ -198,7 +198,7 @@ class LargeTimerViewController: UIViewController {
             }
         } else {
             guard let project = project else { return }
-            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, newProject: false)
+            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, presetSessionLength: nil, newProject: false)
             running = true
             self.project = ProjectController.sharedInstance.currentProject
             if SessionController.sharedInstance.onBreak {

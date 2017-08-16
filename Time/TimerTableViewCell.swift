@@ -58,6 +58,8 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             minuteLabel.isHidden = false
             hourLabel.isHidden = false
             secondLabel.isHidden = false
+            breakButton.isHidden = false
+            doneButton.isHidden = false
             
             
             // Timer Name Text Field
@@ -142,14 +144,11 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             minuteLabel.isHidden = true
             hourLabel.isHidden = true
             
-            breakButton.setTitle("Schedule", for: .normal)
-            endSessionButton.setTitle("Start Timer", for: .normal)
-            doneButton.setTitle("Goal", for: .normal)
+            breakButton.isHidden = true
+            endSessionButton.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+            doneButton.isHidden = true
+
         }
-        
-        doneButton.titleLabel?.textAlignment =       .center
-        endSessionButton.titleLabel?.textAlignment = .center
-        breakButton.titleLabel?.textAlignment =      .center
         
     }
 
@@ -199,7 +198,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             
         // No Running Timer
         } else {
-            CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil)
+            CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil, presetSessionLength: nil)
             delegate?.updateTableView()
         }
     }

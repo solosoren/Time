@@ -95,7 +95,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			if ProjectController.sharedInstance.currentProject != nil || SessionController.sharedInstance.onBreak {
 				return 260
 			} else {
-				return 90
+				return 70
 			}
 			
         } else if indexPath.row == 1 {

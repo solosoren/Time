@@ -23,13 +23,13 @@ class CategoryContoller {
     ///   - projectName: the anem of the Project being created
     ///   - weight: the weight of the Project, as a double
     ///   - deadline: the deadline of the project
-    func newCategory(name: String?, projectName: String?, weight: Double, deadline: Date?) {
+    func newCategory(name: String?, projectName: String?, weight: Double, deadline: Date?, presetSessionLength: Double?) {
         
         var category: Category
         if let name = name {
             
             if let category = self.getCategoryFromRef(ref: name) {
-                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight)
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: name, deadline: deadline, weight: weight, presetSessionLength: presetSessionLength)
                 newProjectInExistingCategory(category: category, project: project)
                 return
                 
@@ -40,7 +40,7 @@ class CategoryContoller {
             
             // if random category already exists
             if let category = self.getCategoryFromRef(ref: "Random") {
-                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: "Random", deadline: deadline, weight: weight)
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: "Random", deadline: deadline, weight: weight, presetSessionLength: presetSessionLength)
                 newProjectInExistingCategory(category: category, project: project)
                 return
                 
@@ -50,7 +50,7 @@ class CategoryContoller {
             
         }
         
-        let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: category.name, deadline: deadline, weight: weight)
+        let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: category.name, deadline: deadline, weight: weight, presetSessionLength: presetSessionLength)
         
         category.projects.append(project)
         category.projectRefs.append(project.firebaseRef!.key)

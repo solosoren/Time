@@ -247,7 +247,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             ViewAnimations.sharedInstance.animate(oldConstraints: [sessionButtonHorizontalConstraint], for: [sessionButtonLeftConstraint], withDuration: 0.3, on: self.view)
             
             if (sessionDatePicker.countDownDuration > 5400) {
-                self.sessionDatePicker.countDownDuration = 60.0; //Defaults to 1 minute
+                self.sessionDatePicker.countDownDuration = 1800; //Defaults to 30 minutes
             }
             
             self.sessionDatePicker.isHidden = false
@@ -307,14 +307,23 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             categoryText = "Random"
         }
         
+        let presetSessionLength: TimeInterval?
+        if (sessionLabel.text != "") || (sessionButton.currentTitleColor == regBlue && sessionDatePicker.countDownDuration > 0) {
+            presetSessionLength = sessionDatePicker.countDownDuration
+        } else {
+            presetSessionLength = nil
+        }
+        
+        
+        
         if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryText) {
 //            newProjectExistingCategory
             
-            let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryText, deadline: deadline, weight: self.weight)
+            let project = projectController.newProject(name: nameTextField.text!, categoryName: categoryText, deadline: deadline, weight: self.weight, presetSessionLength: presetSessionLength)
             CategoryContoller.sharedInstance.newProjectInExistingCategory(category: category, project: project)
             
         } else {
-            CategoryContoller.sharedInstance.newCategory(name: categoryText, projectName: nameTextField.text!, weight: self.weight, deadline: deadline)
+            CategoryContoller.sharedInstance.newCategory(name: categoryText, projectName: nameTextField.text!, weight: self.weight, deadline: deadline, presetSessionLength: presetSessionLength)
             
         }
         
