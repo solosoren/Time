@@ -77,8 +77,6 @@ struct ProjectTimer {
         if let deadline = deadline {
             let stringDeadline: NSString = String(describing: deadline) as NSString
             
-            
-            
             if let presetSessionLength = presetSessionLength {
                 
                 let sessionlength = presetSessionLength as NSNumber

@@ -39,6 +39,7 @@
 		ACD703CA1EF707CC0075D912 /* CategoryProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */; };
 		ACD84EF61F2586F800E4FB22 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD84EF51F2586F800E4FB22 /* NavController.swift */; };
 		ACEA96B81ECAD247002C2334 /* LargeTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA96B71ECAD247002C2334 /* LargeTimerViewController.swift */; };
+		ACEDCFF21F4B8AD900B0B32D /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEDCFF11F4B8AD900B0B32D /* NotificationController.swift */; };
 		D9223D89E3708EE628611970 /* Pods_TimeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79400ED8229FF127A82E9958 /* Pods_TimeTests.framework */; };
 		FFD470F73937CD8A371F5A90 /* Pods_TimeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D30D569AC65A21C595C926 /* Pods_TimeUITests.framework */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		ACD703C91EF707CC0075D912 /* CategoryProjectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryProjectsViewController.swift; sourceTree = "<group>"; };
 		ACD84EF51F2586F800E4FB22 /* NavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavController.swift; sourceTree = "<group>"; };
 		ACEA96B71ECAD247002C2334 /* LargeTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTimerViewController.swift; sourceTree = "<group>"; };
+		ACEDCFF11F4B8AD900B0B32D /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		B7022EDDC8331C7CCEAC3ECA /* Pods-TimeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTests/Pods-TimeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BED5F404D01003B35CC4B40A /* Pods-Time.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Time.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Time/Pods-Time.debug.xcconfig"; sourceTree = "<group>"; };
 		D4A8F02873D7EBB47813ECCB /* Pods-Time.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Time.release.xcconfig"; path = "Pods/Target Support Files/Pods-Time/Pods-Time.release.xcconfig"; sourceTree = "<group>"; };
@@ -194,10 +196,8 @@
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				ACAF590E1EF70D5D00B8D113 /* Project Cells */,
 				AC8B8BE91EF45A7C00072031 /* CategoryView */,
-				AC8B8BE51EF4566B00072031 /* User */,
-				AC8B8BE61EF4568100072031 /* Category */,
-				AC16DC071ECA3316000A0D02 /* Project */,
-				AC16DC0E1ECA75F8000A0D02 /* Timer */,
+				ACEDCFF31F4B8B9500B0B32D /* Objects */,
+				ACEDCFF11F4B8AD900B0B32D /* NotificationController.swift */,
 				AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */,
 				AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */,
 				AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */,
@@ -289,6 +289,17 @@
 				AC16DBF91EC96E0B000A0D02 /* TimerTableViewCell.swift */,
 			);
 			name = "Project Cells";
+			sourceTree = "<group>";
+		};
+		ACEDCFF31F4B8B9500B0B32D /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				AC8B8BE61EF4568100072031 /* Category */,
+				AC16DC071ECA3316000A0D02 /* Project */,
+				AC16DC0E1ECA75F8000A0D02 /* Timer */,
+				AC8B8BE51EF4566B00072031 /* User */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -586,6 +597,7 @@
 				AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */,
 				AC76C3101ECE952B0090A3FE /* Category.swift in Sources */,
 				AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */,
+				ACEDCFF21F4B8AD900B0B32D /* NotificationController.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */,
 				AC35D2691F1FF24B00B63F84 /* Break.swift in Sources */,

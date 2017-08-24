@@ -16,6 +16,7 @@ class ProjectController {
     var currentProject: Project?
     var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
+    var projectTimer: Timer!
     
     /// Creates a brand new project.
     /// - Check to see if their is a category prior to calling
@@ -128,6 +129,12 @@ class ProjectController {
         currentProject = proj
         currentProject?.activeTimer = timer
         
+        // Send notification
+        if let presetSessionLength = currentProject?.activeTimer?.presetSessionLength {
+            NotificationController.sharedInstance.sessionNotification(ends: presetSessionLength, projectID: (project.firebaseRef?.key)!)
+            
+        }
+        
         var updateKeys: [String : Any]
         let uid = FIRAuth.auth()?.currentUser?.uid
         
@@ -163,6 +170,21 @@ class ProjectController {
             seshLength = _seshLength
         }
         return length + seshLength
+    }
+    
+    func snoozeSessionTimer() {
+        
+        guard let seshLength = currentProject?.activeTimer?.presetSessionLength,
+                let key = currentProject?.firebaseRef?.key else { return }
+        
+        currentProject?.activeTimer?.presetSessionLength = seshLength + 180
+        let updateKeys =  ["/projects/\(key)": currentProject?.toAnyObject() as! [String: Any]]
+        
+        FIRDatabase.database().reference().updateChildValues(updateKeys) { (error, ref) in
+            if let error = error {
+                print(error)
+            }
+        }
     }
     
     

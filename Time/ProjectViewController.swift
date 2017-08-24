@@ -24,13 +24,16 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user == nil {
 				if !self.signingIn {
+					// move request
+					NotificationController.sharedInstance.requestForPermission()
+					
 					GIDSignIn.sharedInstance().signIn()
 					self.signingIn = true
 				}
 			} else {
 				if !UserController.sharedInstance.fetched  {
 					let _ = UserController.sharedInstance.fetchInitialData()
-
+				
 				}
 			}
 		}
@@ -95,7 +98,7 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			if ProjectController.sharedInstance.currentProject != nil || SessionController.sharedInstance.onBreak {
 				return 260
 			} else {
-				return 70
+				return 85
 			}
 			
         } else if indexPath.row == 1 {
@@ -127,6 +130,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	
 	func updateTableView() {
 		tableView.reloadData()
+	}
+	
+	func presentAlert(alert: UIAlertController) {
+		self.present(alert, animated: true, completion: nil)
 	}
 	
 	func resumeBreak() {

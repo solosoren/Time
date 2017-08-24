@@ -22,7 +22,7 @@ struct Break {
         if let _totalBreakLength = _totalBreakLength {
             totalBreakLength = _totalBreakLength
         } else {
-            totalBreakLength = 15 * 60
+            totalBreakLength = 5 * 60
         }
         
         lengthLeft = totalBreakLength

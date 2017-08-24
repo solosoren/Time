@@ -10,6 +10,7 @@ import UIKit
 
 protocol TimerCellUpdater {
     func updateTableView()
+    func presentAlert(alert:UIAlertController)
 }
 
 class TimerTableViewCell: UITableViewCell, BreakUpdater {
@@ -24,9 +25,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     @IBOutlet var deadline:         UILabel!
     
     @IBOutlet var timerNameTextField: UITextField!
-    
     var breakTime: String?
-    var timer: Timer!
     
 //Buttons
     // Done/Goal
@@ -39,8 +38,6 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     let projectController = ProjectController.sharedInstance
     let sessionController = SessionController.sharedInstance
     var delegate:           TimerCellUpdater?
-    
-    
     
     func setUpCell() {
         let project =  projectController.currentProject
@@ -102,6 +99,8 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             timerName.isHidden = false
             time.isHidden = false
             timerNameTextField.isHidden = true
+            breakButton.isHidden = false
+            doneButton.isHidden = false
             
             
             if let previousProject = sessionController.currentBreak?.previousProjectRef {
@@ -128,7 +127,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             hourLabel.text = "M"
             
             doneButton.setImage(#imageLiteral(resourceName: "Resume"), for: .normal)
-            endSessionButton.setImage(#imageLiteral(resourceName: "Stop"), for: .normal)
+            endSessionButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
             breakButton.setImage(#imageLiteral(resourceName: "Snooze"), for: .normal)
 
             
@@ -158,7 +157,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     ///
     /// - Done: Running Timer
     /// - Schedule: No Running Timer
-    /// - Resume Project: Break
+    /// - Resume Project: On Break
     ///
     /// - Parameter sender: Right Button
     @IBAction func doneButtonPressed(_ sender: Any) {
@@ -216,11 +215,12 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         } else if sessionController.onBreak == true {
             sessionController.snooze()
         }
+        delegate?.updateTableView()
         
     }
     
     func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        projectController.projectTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer() {
@@ -228,24 +228,87 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         if let project = projectController.currentProject {
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
+            
+            if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == project.activeTimer?.presetSessionLength {
+                timerCompleted(true)
+            }
+            
             if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
                 setUpCell()
             }
             
         } else {
-            timer.invalidate()
+            projectController.projectTimer.invalidate()
         }
         
     }
-    
     
     func breakUpdate(length: String) {
         delegate?.updateTableView()
         breakTime = length
     }
     
-    func timerCompleted() {
+    func timerCompleted(_ timer: Bool) {
         delegate?.updateTableView()
+        
+        if timer {
+            // notify user
+            DispatchQueue.main.async(execute: {
+                let alert = UIAlertController(title: "Your session is complete", message: "Time for a break", preferredStyle: .alert)
+                let breakAction = UIAlertAction(title: "Start Break", style: .default, handler: { (action) in
+                    self.sessionController.delegate = self
+                    self.sessionController.startBreak(previousProjectRef: self.projectController.currentProject?.firebaseRef?.key)
+                    ProjectController.sharedInstance.projectTimer.invalidate()
+                    self.delegate?.updateTableView()
+                })
+                let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action) in
+                    self.projectController.snoozeSessionTimer()
+                    self.delegate?.updateTableView()
+                    //snooze
+                })
+                let projectCompleted = UIAlertAction(title: "Project Complete", style: .default, handler: { (action) in
+                    // project complete
+                    ProjectController.sharedInstance.projectTimer.invalidate()
+                    ProjectController.sharedInstance.endTimer(project: ProjectController.sharedInstance.currentProject!)
+                    self.delegate?.updateTableView()
+                    
+                })
+                
+                alert.addAction(breakAction)
+                alert.addAction(snooze)
+                alert.addAction(projectCompleted)
+                
+                self.delegate?.presentAlert(alert: alert)
+            })
+        } else {
+            DispatchQueue.main.async(execute: {
+                let alert = UIAlertController(title: "Break time is up", message: "Get back to work", preferredStyle: .alert)
+                
+                if let ref = self.sessionController.currentBreak?.previousProjectRef {
+                    for project in self.projectController.activeProjects {
+                        if ref == project.firebaseRef?.key {
+                            let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
+                                self.sessionController.startSession(p: project)
+
+                            })
+                            alert.addAction(resumeAction)
+                        }
+                    }
+                }
+                
+                let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action) in
+                    self.sessionController.snooze()
+                })
+                let okay = UIAlertAction(title: "Okay", style: .cancel , handler: nil)
+                
+                
+                alert.addAction(snooze)
+                alert.addAction(okay)
+                
+                self.delegate?.presentAlert(alert: alert)
+            })
+        }
+        
     }
 
 }
