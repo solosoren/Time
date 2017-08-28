@@ -55,9 +55,10 @@ class CategoryContoller {
         category.projects.append(project)
         category.projectRefs.append(project.firebaseRef!.key)
         
-        categories.append(category)
         let uid = FIRAuth.auth()?.currentUser?.uid
         category.firebaseRef = UserController.sharedInstance.userRef?.child("categories").childByAutoId()
+        
+        categories.append(category)
         
         let updateKeys = ["/users/\(uid ?? "UID")/categories/\(category.firebaseRef!.key)": category.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)

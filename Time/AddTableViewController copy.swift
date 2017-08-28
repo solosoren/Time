@@ -32,6 +32,11 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var deadlineLeftConstraint: NSLayoutConstraint!
     @IBOutlet var deadlineCenterConstraint: NSLayoutConstraint!
     
+    @IBOutlet var cancelDeadlinePickerButton: UIButton!
+    
+    @IBOutlet var regularSessionButton: UIButton!
+    
+    @IBOutlet var cancelSessionLengthButton: UIButton!
     @IBOutlet var sessionButton: UIButton!
     @IBOutlet var sessionDatePicker: UIDatePicker!
     @IBOutlet var sessionLabel: UILabel!
@@ -72,8 +77,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isEqual(nameTextField) {
             categoryWasFirstResponder()
-            setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
-            setUp(datePicker: sessionDatePicker, label: sessionLabel)
+            setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
+            setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
             
             nameUnderlineLeadingConstraint.constant = -10
             nameUnderlineTrailingConstraint.constant = 10
@@ -142,20 +147,13 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
-        setUp(datePicker: sessionDatePicker, label: sessionLabel)
-        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
         
     }
     
     @IBAction func categoryButtonPressed(_ sender: Any) {
         
-//        let timeInt = TimeInterval.init(0.3)
-//        let animator = UIViewPropertyAnimator(duration: timeInt, dampingRatio: 0.6) {
-//            self.categoryLeftContraint.constant = 20
-//            self.categoryRightConstraint.constant = 20
-//            self.view.layoutIfNeeded()
-//        }
-//        animator.startAnimation()
         categoryUnderline.isHidden = false
         self.view.layoutIfNeeded()
         
@@ -187,8 +185,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         }
         categoryTextField.becomeFirstResponder()
         categoryButton.setTitleColor(regBlue, for: .normal)
-        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
-        setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
     }
 
     @IBAction func deadlineButtonPressed(_ sender: Any) {
@@ -206,7 +204,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
-        setUp(datePicker: sessionDatePicker, label: sessionLabel)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
         
         if !(deadlineLabel.text?.isEmpty)! {
             deadlineLabel.text = ""
@@ -218,9 +216,37 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             self.deadlineDatePicker.isHidden = false
             
             deadlineButton.setTitleColor(regBlue, for: .normal)
+            cancelDeadlinePickerButton.isHidden = false
         } else {
-            setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+            setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
         }
+    }
+    
+    @IBAction func cancelDeadlinePickerButtonPressed(_ sender: Any) {
+        deadlineLabel.text = ""
+        cancelDeadlinePickerButton.isHidden = true
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: true)
+    }
+    
+    
+    @IBAction func regularButtonPressed(_ sender: Any) {
+        if nameTextField.isFirstResponder {
+            nameTextField.resignFirstResponder()
+            if nameTextField.hasText == false {
+                nameUnderlineLeadingConstraint.constant = 40
+                nameUnderlineTrailingConstraint.constant = -40
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.nameUnderline.isHidden = true
+                    self.view.layoutIfNeeded()
+                })
+            }
+        } else if categoryTextField.isFirstResponder {
+            categoryWasFirstResponder()
+        }
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
+        
+        regularSessionButton.setTitleColor(regBlue, for: .normal)
     }
     
     @IBAction func sessionButtonPressed(_ sender: Any) {
@@ -238,7 +264,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }
-        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
         
         if !(sessionLabel.text?.isEmpty)! {
             sessionLabel.text = ""
@@ -252,11 +278,24 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
             
             self.sessionDatePicker.isHidden = false
             sessionButton.setTitleColor(regBlue, for: .normal)
+            
+            regularSessionButton.isHidden = true
+            regularSessionButton.setTitleColor(regGray, for: .normal)
+            cancelSessionLengthButton.isHidden = false
         } else {
-            setUp(datePicker: sessionDatePicker, label: sessionLabel)
+            setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
         }
         
     }
+    
+    @IBAction func cancelSessionLengthButtonPressed(_ sender: Any) {
+        sessionLabel.text = ""
+        regularSessionButton.isHidden = false
+        regularSessionButton.setTitleColor(regBlue, for: .normal)
+        cancelSessionLengthButton.isHidden = true
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: true)
+    }
+    
     
     
 // Weight Buttons
@@ -267,7 +306,7 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func averageButtonPressed(_ sender: Any) {
-        if averageButton.titleLabel?.text == "Weight" {
+        if averageButton.titleLabel?.text == "Priority" {
             averageButton.setTitle("Average", for: .normal)
             minorButton.isHidden = false
             majorButton.isHidden = false
@@ -286,8 +325,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     
 // Start buttons
     @IBAction func startNowButtonPressed(_ sender: Any) {
-        setUp(datePicker: sessionDatePicker, label: sessionLabel)
-        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
         
         //TODO: notify the user that a timer is already rolling
         //TODO: fix. Notify user no name?
@@ -313,8 +352,6 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
         } else {
             presetSessionLength = nil
         }
-        
-        
         
         if let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: categoryText) {
 //            newProjectExistingCategory
@@ -355,22 +392,29 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // Sets up the date picker when done picking time
-    func setUp(datePicker: UIDatePicker, label: UILabel) {
+    func setUp(datePicker: UIDatePicker, label: UILabel, cancel: Bool) {
         
         if !datePicker.isHidden {
             datePicker.isHidden = true
             
-            var timeInterval = datePicker.date.timeIntervalSinceNow
-            
-            if datePicker == sessionDatePicker {
-                timeInterval = datePicker.countDownDuration
-            }
-            
-            label.text = self.projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true, seconds: false)
-            
-            //TODO: fix. Want the text to turn red and notify
-            if (label.text == "0M") || (label.text!.contains("-")) {
-                label.text?.removeAll()
+            if cancel == false {
+                var timeInterval = datePicker.date.timeIntervalSinceNow
+                
+                if datePicker == sessionDatePicker {
+                    timeInterval = datePicker.countDownDuration
+                }
+                
+                label.text = self.projectController.hourMinuteStringFromTimeInterval(interval: timeInterval, bigVersion: false, deadline: true, seconds: false)
+                
+                //TODO: fix. Want the text to turn red and notify
+                if (label.text == "0M") || (label.text!.contains("-")) {
+                    label.text?.removeAll()
+                    if datePicker == deadlineDatePicker {
+                        cancelDeadlinePickerButton.isHidden = true
+                    } else {
+                        cancelSessionLengthButton.isHidden = true
+                    }
+                }
             }
         }
         
@@ -389,8 +433,8 @@ class AddTableViewController: UITableViewController, UITextFieldDelegate {
     
     // Sets up weight buttons
     func weightButtonPressed(button: UIButton) {
-        setUp(datePicker: sessionDatePicker, label: sessionLabel)
-        setUp(datePicker: deadlineDatePicker, label: deadlineLabel)
+        setUp(datePicker: sessionDatePicker, label: sessionLabel, cancel: false)
+        setUp(datePicker: deadlineDatePicker, label: deadlineLabel, cancel: false)
         if categoryTextField.isFirstResponder {
             categoryWasFirstResponder()
         }

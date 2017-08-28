@@ -40,7 +40,7 @@ class NotificationController {
             if let error = error {
                 print("Error: \(error)")
             } else {
-                print("Sent notification for \(trigger.dateComponents.minute ?? 00)")
+//                print("Sent notification for \(trigger.dateComponents.minute ?? 00)")
             }
         }
     }
@@ -74,6 +74,16 @@ class NotificationController {
     
     func sessionRunningTooLong() {
         
+    }
+    
+    func scrubNotificationWith(identifier: String) {
+        let center = UNUserNotificationCenter.current()
+        center.getDeliveredNotifications { (notifications) in
+            for notification in notifications {
+                print(notification.date)
+            }
+        }
+        center.removePendingNotificationRequests(withIdentifiers: [identifier])
     }
     
 }

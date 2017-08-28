@@ -16,9 +16,8 @@ struct ProjectTimer {
     var deadline: Date?
     var weight: Double
     var breaks = [TimeInterval]()
-    var presetSessionLength: TimeInterval?
     
-    init(deadline: Date?, weight: Double?, presetSessionLength: Double?) {
+    init(deadline: Date?, weight: Double?, customizedSessionLength: TimeInterval?) {
         
         if let weight = weight {
             self.weight = weight
@@ -30,13 +29,11 @@ struct ProjectTimer {
         if let deadline = deadline {
             self.deadline = deadline
         }
-        
-        if let presetSessionLength = presetSessionLength {
-            self.presetSessionLength = presetSessionLength
-        }
-        
+
         self.totalLength = 0
-        sessions.append(Session.init(startTime: Date.init()))
+        let session = Session.init(startTime: Date.init(), customizedSessionLength: customizedSessionLength)
+        sessions.append(session)
+        SessionController.sharedInstance.currentSession = session
     }
     
     init(dict: NSDictionary) {
@@ -57,11 +54,6 @@ struct ProjectTimer {
         for sesh in sessionArray {
             sessions.append(Session.init(dict: sesh))
         }
-        
-        if let presetSessionLength = dict["Preset Session Length"] as? Double {
-            self.presetSessionLength = presetSessionLength
-        }
-    
     }
     
     func toAnyObject() -> Any {
@@ -77,44 +69,20 @@ struct ProjectTimer {
         if let deadline = deadline {
             let stringDeadline: NSString = String(describing: deadline) as NSString
             
-            if let presetSessionLength = presetSessionLength {
-                
-                let sessionlength = presetSessionLength as NSNumber
-                
-                return ["Weight": weight,
-                        "Deadline": stringDeadline,
-                        "Timer Length": totalLength,
-                        "Preset Session Length": sessionlength,
-                        "Sessions": anySessions]
-            } else {
-                return ["Weight": weight,
-                        "Deadline": stringDeadline,
-                        "Timer Length": totalLength,
-                        "Sessions": anySessions]
-                
-            }
+            return ["Weight": weight,
+                    "Deadline": stringDeadline,
+                    "Timer Length": totalLength,
+                    "Sessions": anySessions]
         }
         
         let string: NSString = ""
-        if let presetSessionLength = presetSessionLength {
-            
-            let sessionlength = presetSessionLength as NSNumber
-            
-            return ["Weight": weight,
-                    "Deadline": string,
-                    "Timer Length": totalLength,
-                    "Preset Session Length": sessionlength,
-                    "Sessions": anySessions]
-        } else {
-            return ["Weight": weight,
-                    "Deadline": string,
-                    "Timer Length": totalLength,
-                    "Sessions": anySessions]
-        }
-        
+        return ["Weight": weight,
+                "Deadline": string,
+                "Timer Length": totalLength,
+                "Sessions": anySessions]
     }
     
-    
+
 }
 
 

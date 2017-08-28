@@ -189,14 +189,14 @@ class LargeTimerViewController: UIViewController {
             isActive = true
         } else if isActive {
             guard let project = project else { return }
-            SessionController.sharedInstance.startSession(p: project)
+            SessionController.sharedInstance.startSession(p: project, customizedSessionLength: project.presetSessionLength)
             running = true
             if SessionController.sharedInstance.onBreak {
                 SessionController.sharedInstance.endBreak()
             }
         } else {
             guard let project = project else { return }
-            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, presetSessionLength: nil, newProject: false)
+            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil,  newProject: false)
             running = true
             self.project = ProjectController.sharedInstance.currentProject
             if SessionController.sharedInstance.onBreak {
@@ -286,7 +286,7 @@ class LargeTimerViewController: UIViewController {
                     for project in ProjectController.sharedInstance.activeProjects {
                         if ref == project.firebaseRef?.key {
                             let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-                                SessionController.sharedInstance.startSession(p: project)
+                                SessionController.sharedInstance.startSession(p: project, customizedSessionLength: project.presetSessionLength)
                                 
                             })
                             alert.addAction(resumeAction)

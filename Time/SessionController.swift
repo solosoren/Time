@@ -22,15 +22,16 @@ class SessionController {
     var breakTimer: Timer!
     var onBreak = false
     var currentBreak: Break?
+    var currentSession: Session?
     
     /// Starts a new session on an active timer.
     ///
     /// - Parameter project: The project to be resumed
-    func startSession(p: Project) {
+    func startSession(p: Project, customizedSessionLength: TimeInterval?) {
         
         var project = p
         
-        let session = Session.init(startTime: Date.init())
+        let session = Session.init(startTime: Date.init(), customizedSessionLength: customizedSessionLength)
         project.activeTimer?.sessions.append(session)
         
         var index = 0
@@ -46,6 +47,8 @@ class SessionController {
             self.endSession(projectIsDone: false)
         }
         ProjectController.sharedInstance.currentProject = project
+        
+        self.currentSession = session
         
         let updateKeys = ["/projects/\(project.firebaseRef?.key ?? "REF")": project.toAnyObject(),
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": project.firebaseRef?.key ?? "REF",
@@ -87,6 +90,11 @@ class SessionController {
         }
         
         ProjectController.sharedInstance.currentProject = nil
+        currentSession = nil
+        
+        if let key = project?.firebaseRef?.key {
+            NotificationController.sharedInstance.scrubNotificationWith(identifier: key)
+        }
         
         let updateKeys = ["/projects/\(project!.firebaseRef!.key)": project!.toAnyObject(),
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": ProjectController.sharedInstance.activeProjectsRefs,
@@ -149,6 +157,9 @@ class SessionController {
     func endBreak() {
         
         breakTimer.invalidate()
+        
+        NotificationController.sharedInstance.scrubNotificationWith(identifier: "BREAK FOR \(UserController.sharedInstance.userRef?.key ?? currentBreak?.previousProjectRef ?? "")")
+        
         currentBreak = nil
         onBreak = false
         let uid = FIRAuth.auth()?.currentUser?.uid

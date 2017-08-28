@@ -16,6 +16,7 @@ struct Project {
     var weight: Double
     var numberOfTimers: Double?
     var estimatedLength: TimeInterval
+    var presetSessionLength: TimeInterval?
     var timers = [ProjectTimer]()
     var activeTimer: ProjectTimer?
     var firebaseRef: FIRDatabaseReference?
@@ -23,7 +24,7 @@ struct Project {
     //TODO: figure out how to do customized break length
     var customizedBreakLength: TimeInterval?
     
-    init(name: String?, category: String?, weight: Double, numberOfTimers: Double?) {
+    init(name: String?, category: String?, weight: Double, numberOfTimers: Double?, presetSessionLength: Double?) {
         self.name = name
         self.categoryRef = category
         self.estimatedLength = 0
@@ -33,6 +34,10 @@ struct Project {
         } else {
             self.numberOfTimers = 1
         }
+        
+        if let presetSessionLength = presetSessionLength {
+            self.presetSessionLength = presetSessionLength
+        }
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -41,6 +46,7 @@ struct Project {
         self.weight = value?["Weight"] as? Double ?? 0
         self.categoryRef = value?["Category Name"] as? String ?? ""
         self.numberOfTimers = value?["Number Of Timers"] as? Double
+        self.presetSessionLength = value?["Preset Session Length"] as? Double
         
         let avg = value?["Estimated Length"] as? Double ?? 0
         self.estimatedLength = TimeInterval.init(avg)
@@ -54,6 +60,7 @@ struct Project {
         if let pt = value?["Active Timer"] as? NSDictionary {
             self.activeTimer = ProjectTimer.init(dict: pt)
         }
+        
     }
     
     func isEqual(rhs: Project) -> Bool {
@@ -77,6 +84,18 @@ struct Project {
         }
         
         if let activeTimer = activeTimer {
+            if let presetSessionLength = presetSessionLength {
+                let sessionLength = presetSessionLength as NSNumber
+                
+                return ["Project Name": name,
+                        "Category Name": categoryRef,
+                        "Weight": weight as NSNumber,
+                        "Number Of Timers": numberOfTimers!,
+                        "Timers": anyTimers,
+                        "Estimated Length": estimatedLength,
+                        "Preset Session Length": sessionLength,
+                        "Active Timer": activeTimer.toAnyObject()]
+            }
             return ["Project Name": name,
                     "Category Name": categoryRef,
                     "Weight": weight as NSNumber,
@@ -86,6 +105,18 @@ struct Project {
                     "Active Timer": activeTimer.toAnyObject()]
         }
         
+        if let presetSessionLength = presetSessionLength {
+            let sessionLength = presetSessionLength as NSNumber
+        
+            return ["Project Name": name,
+                    "Category Name": categoryRef,
+                    "Weight": weight as NSNumber,
+                    "Number Of Timers": numberOfTimers!,
+                    "Timers": anyTimers,
+                    "Estimated Length": estimatedLength,
+                    "Preset Session Length": sessionLength,
+                    "Active Timer": ""]
+        }
         return ["Project Name": name,
                 "Category Name": categoryRef,
                 "Weight": weight as NSNumber,

@@ -14,9 +14,11 @@ struct Session {
 
     var startTime: Date
     var totalLength: TimeInterval?
+    var customizedSessionLength:TimeInterval?
     
-    init(startTime: Date) {
+    init(startTime: Date, customizedSessionLength: TimeInterval?) {
         self.startTime = startTime
+        self.customizedSessionLength = customizedSessionLength
     }
     
     init(dict: NSDictionary) {
@@ -25,6 +27,11 @@ struct Session {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
         self.startTime = formatter.date(from: start!)!
         self.totalLength = dict["Session Length"] as? TimeInterval
+        self.customizedSessionLength = dict["Customized Session Length"] as? TimeInterval
+    }
+    
+    mutating func snooze() {
+        self.customizedSessionLength = (customizedSessionLength ?? 0) + 180
     }
     
     func toAnyObject() -> Any {
@@ -32,8 +39,20 @@ struct Session {
         if let totalLength = totalLength {
             let length = totalLength as NSNumber
             
+            if let customizedSessionLength = customizedSessionLength {
+                let presetSessionLength = customizedSessionLength
+                return ["Start Time": start,
+                        "Session Length": length,
+                        "Customized Session Length": presetSessionLength]
+            }
             return ["Start Time": start,
                     "Session Length": length]
+        }
+        if let customizedSessionLength = customizedSessionLength {
+            let presetSessionLength = customizedSessionLength
+            return ["Start Time": start,
+                    "Session Length": 0 as NSNumber,
+                    "Customized Session Length": presetSessionLength]
         }
         return ["Start Time": start,
                 "Session Length": 0 as NSNumber]

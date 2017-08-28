@@ -32,7 +32,7 @@ class ProjectController {
         if cName == nil {
             cName = "Random"
         }
-        var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil)
+        var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil, presetSessionLength: presetSessionLength)
         
         let projectRef = FIRDatabase.database().reference().child("projects")
         
@@ -40,7 +40,7 @@ class ProjectController {
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, presetSessionLength: presetSessionLength, newProject: true)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
         project.activeTimer = timer
         
         currentProject = project
@@ -112,9 +112,9 @@ class ProjectController {
     ///   - deadline: The deadline date for the timer
     ///   - newProject: Whether it is a new project or not
     /// - Returns: A new Project Timer
-    func newTimer(project: Project, weight: Double, deadline: Date?, presetSessionLength: Double?, newProject: Bool) -> ProjectTimer {
+    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
         var proj = project
-        let timer = ProjectTimer.init(deadline: deadline, weight: weight, presetSessionLength: presetSessionLength)
+        let timer = ProjectTimer.init(deadline: deadline, weight: weight, customizedSessionLength: project.presetSessionLength)
         
         if currentProject != nil {
            SessionController.sharedInstance.endSession(projectIsDone: false)
@@ -130,7 +130,7 @@ class ProjectController {
         currentProject?.activeTimer = timer
         
         // Send notification
-        if let presetSessionLength = currentProject?.activeTimer?.presetSessionLength {
+        if let presetSessionLength = currentProject?.presetSessionLength {
             NotificationController.sharedInstance.sessionNotification(ends: presetSessionLength, projectID: (project.firebaseRef?.key)!)
             
         }
@@ -172,13 +172,19 @@ class ProjectController {
         return length + seshLength
     }
     
+    
     func snoozeSessionTimer() {
         
-        guard let seshLength = currentProject?.activeTimer?.presetSessionLength,
+        guard let seshLength = SessionController.sharedInstance.currentSession?.customizedSessionLength,
                 let key = currentProject?.firebaseRef?.key else { return }
         
-        currentProject?.activeTimer?.presetSessionLength = seshLength + 180
+        currentProject?.activeTimer?.sessions.removeLast()
+        SessionController.sharedInstance.currentSession?.customizedSessionLength = seshLength + 180
+        currentProject?.activeTimer?.sessions.append( SessionController.sharedInstance.currentSession!)
+        
         let updateKeys =  ["/projects/\(key)": currentProject?.toAnyObject() as! [String: Any]]
+        
+        // Throw notification
         
         FIRDatabase.database().reference().updateChildValues(updateKeys) { (error, ref) in
             if let error = error {

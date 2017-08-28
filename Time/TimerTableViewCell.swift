@@ -23,6 +23,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     @IBOutlet var secondLabel:      UILabel!
     @IBOutlet var categoryName:     UILabel!
     @IBOutlet var deadline:         UILabel!
+    @IBOutlet var sessionLength:    UILabel!
     
     @IBOutlet var timerNameTextField: UITextField!
     var breakTime: String?
@@ -76,6 +77,13 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             } else {
                 deadline.text = "Deadline: -"
             }
+            
+            if let presetSessionLength = SessionController.sharedInstance.currentSession?.customizedSessionLength {
+                sessionLength.text = "Session Length: \(projectController.hourMinuteStringFromTimeInterval(interval: presetSessionLength, bigVersion: true, deadline: false, seconds: false))"
+            } else {
+                sessionLength.text = ""
+            }
+            
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
             if abs(Int((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!)) < 3600 {
@@ -165,11 +173,12 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         if let currentProject = projectController.currentProject {
             projectController.endTimer(project: currentProject)
             delegate?.updateTableView()
+            
         } else if sessionController.onBreak {
             if let ref = sessionController.currentBreak?.previousProjectRef {
                 for project in projectController.activeProjects {
                     if ref == project.firebaseRef?.key {
-                        sessionController.startSession(p: project)
+                        sessionController.startSession(p: project, customizedSessionLength: project.presetSessionLength)
                     }
                 }
             }
@@ -204,6 +213,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
     
     /// Button in the left is pressed
     ///
+    /// - Running: Start Break
     /// - Snooze: On Break
     ///
     /// - Parameter sender: Left Button
@@ -212,6 +222,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         if sessionController.onBreak == false {
             sessionController.delegate = self
             sessionController.startBreak(previousProjectRef: projectController.currentProject?.firebaseRef?.key)
+            
         } else if sessionController.onBreak == true {
             sessionController.snooze()
         }
@@ -229,7 +240,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             time.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
             
-            if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == project.activeTimer?.presetSessionLength {
+            if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == SessionController.sharedInstance.currentSession?.customizedSessionLength {
                 timerCompleted(true)
             }
             
@@ -240,7 +251,6 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         } else {
             projectController.projectTimer.invalidate()
         }
-        
     }
     
     func breakUpdate(length: String) {
@@ -288,7 +298,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                     for project in self.projectController.activeProjects {
                         if ref == project.firebaseRef?.key {
                             let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-                                self.sessionController.startSession(p: project)
+                                self.sessionController.startSession(p: project, customizedSessionLength: project.presetSessionLength)
 
                             })
                             alert.addAction(resumeAction)
