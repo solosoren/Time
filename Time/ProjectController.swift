@@ -180,7 +180,9 @@ class ProjectController {
         
         currentProject?.activeTimer?.sessions.removeLast()
         SessionController.sharedInstance.currentSession?.customizedSessionLength = seshLength + 180
-        currentProject?.activeTimer?.sessions.append( SessionController.sharedInstance.currentSession!)
+        currentProject?.activeTimer?.sessions.append(SessionController.sharedInstance.currentSession!)
+        
+        NotificationController.sharedInstance.sessionNotification(ends: 180, projectID: (currentProject?.firebaseRef?.key)!)
         
         let updateKeys =  ["/projects/\(key)": currentProject?.toAnyObject() as! [String: Any]]
         

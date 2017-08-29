@@ -43,6 +43,7 @@ class UserController {
                     var project = Project.init(snapshot: snapshot)
                     project.firebaseRef = snapshot.ref
                     ProjectController.sharedInstance.currentProject = project
+                    SessionController.sharedInstance.currentSession = project.activeTimer?.sessions.last
                     self.finishedLoading()
                 })
             } else {

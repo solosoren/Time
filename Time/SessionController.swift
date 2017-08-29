@@ -50,6 +50,12 @@ class SessionController {
         
         self.currentSession = session
         
+        if let customizedSessionLength = customizedSessionLength {
+            // TODO: Fix for no firebase key
+            NotificationController.sharedInstance.sessionNotification(ends: customizedSessionLength, projectID: project.firebaseRef?.key ?? "")
+
+        }
+        
         let updateKeys = ["/projects/\(project.firebaseRef?.key ?? "REF")": project.toAnyObject(),
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/current project": project.firebaseRef?.key ?? "REF",
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": ProjectController.sharedInstance.activeProjectsRefs] as [String: Any]

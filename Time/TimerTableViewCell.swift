@@ -127,6 +127,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                 }
             }
             
+            sessionLength.text = ""
             timerName.text = "Break"
             time.text = breakTime
             minuteLabel.isHidden = true
@@ -142,6 +143,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
         // No running timer
         } else {
         
+            sessionLength.text = ""
             timerName.isHidden =    true
             time.isHidden =          true
             categoryName.isHidden = true
