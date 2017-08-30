@@ -20,7 +20,7 @@
 		AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */; };
 		AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC011EC96EBA000A0D02 /* Project.swift */; };
 		AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */; };
-		AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */; };
+		AC16DC061EC96EEE000A0D02 /* AddViewController copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC051EC96EEE000A0D02 /* AddViewController copy.swift */; };
 		AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DC081ECA3381000A0D02 /* SessionController.swift */; };
 		AC16DC0C1ECA73C2000A0D02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DC0A1ECA73C2000A0D02 /* Main.storyboard */; };
 		AC1E537D1ECBED6E00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
@@ -28,6 +28,13 @@
 		AC1E537F1ECBED8A00C2BF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */; };
 		AC35D2691F1FF24B00B63F84 /* Break.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35D2681F1FF24B00B63F84 /* Break.swift */; };
 		AC3E03091F2A5B53001C6213 /* ViewAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */; };
+		AC7036341F5614B800265FAD /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7036331F5614B800265FAD /* PickerView.swift */; };
+		AC7036371F5651D000265FAD /* TimerNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7036361F5651D000265FAD /* TimerNameTableViewCell.swift */; };
+		AC7036391F5651DE00265FAD /* CategoryNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7036381F5651DE00265FAD /* CategoryNameTableViewCell.swift */; };
+		AC70363B1F5651EC00265FAD /* DeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC70363A1F5651EC00265FAD /* DeadlineTableViewCell.swift */; };
+		AC70363D1F5651FA00265FAD /* SessionLengthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC70363C1F5651FA00265FAD /* SessionLengthTableViewCell.swift */; };
+		AC70363F1F56520800265FAD /* PriorityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC70363E1F56520800265FAD /* PriorityTableViewCell.swift */; };
+		AC7036411F56522300265FAD /* StartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7036401F56522300265FAD /* StartTableViewCell.swift */; };
 		AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30D1ECE89C00090A3FE /* TabBarController.swift */; };
 		AC76C3101ECE952B0090A3FE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C30F1ECE952B0090A3FE /* Category.swift */; };
 		AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */; };
@@ -86,13 +93,20 @@
 		AC16DBFF1EC96EA4000A0D02 /* ProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
 		AC16DC011EC96EBA000A0D02 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		AC16DC031EC96ED9000A0D02 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AddTableViewController copy.swift"; sourceTree = "<group>"; };
+		AC16DC051EC96EEE000A0D02 /* AddViewController copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AddViewController copy.swift"; sourceTree = "<group>"; };
 		AC16DC081ECA3381000A0D02 /* SessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		AC16DC0B1ECA73C2000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC1E537C1ECBED6E00C2BF54 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC35D2681F1FF24B00B63F84 /* Break.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Break.swift; sourceTree = "<group>"; };
 		AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAnimations.swift; sourceTree = "<group>"; };
 		AC503EEB1F0B43C400765B70 /* Time.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Time.entitlements; sourceTree = "<group>"; };
+		AC7036331F5614B800265FAD /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		AC7036361F5651D000265FAD /* TimerNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerNameTableViewCell.swift; sourceTree = "<group>"; };
+		AC7036381F5651DE00265FAD /* CategoryNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNameTableViewCell.swift; sourceTree = "<group>"; };
+		AC70363A1F5651EC00265FAD /* DeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadlineTableViewCell.swift; sourceTree = "<group>"; };
+		AC70363C1F5651FA00265FAD /* SessionLengthTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionLengthTableViewCell.swift; sourceTree = "<group>"; };
+		AC70363E1F56520800265FAD /* PriorityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityTableViewCell.swift; sourceTree = "<group>"; };
+		AC7036401F56522300265FAD /* StartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTableViewCell.swift; sourceTree = "<group>"; };
 		AC76C30D1ECE89C00090A3FE /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AC76C30F1ECE952B0090A3FE /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		AC76C3111ECE9A6C0090A3FE /* CategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
@@ -191,7 +205,7 @@
 				AC76C30D1ECE89C00090A3FE /* TabBarController.swift */,
 				ACD84EF51F2586F800E4FB22 /* NavController.swift */,
 				AC83731F1ECD4188000CD47B /* SignInViewController.swift */,
-				AC16DC051EC96EEE000A0D02 /* AddTableViewController copy.swift */,
+				AC7036351F56368E00265FAD /* Add Project */,
 				AC3E03081F2A5B53001C6213 /* ViewAnimations.swift */,
 				AC16DC0D1ECA75E7000A0D02 /* ProjectView */,
 				ACAF590E1EF70D5D00B8D113 /* Project Cells */,
@@ -252,6 +266,21 @@
 				AC35D2681F1FF24B00B63F84 /* Break.swift */,
 			);
 			name = Timer;
+			sourceTree = "<group>";
+		};
+		AC7036351F56368E00265FAD /* Add Project */ = {
+			isa = PBXGroup;
+			children = (
+				AC16DC051EC96EEE000A0D02 /* AddViewController copy.swift */,
+				AC7036361F5651D000265FAD /* TimerNameTableViewCell.swift */,
+				AC7036381F5651DE00265FAD /* CategoryNameTableViewCell.swift */,
+				AC70363A1F5651EC00265FAD /* DeadlineTableViewCell.swift */,
+				AC70363C1F5651FA00265FAD /* SessionLengthTableViewCell.swift */,
+				AC70363E1F56520800265FAD /* PriorityTableViewCell.swift */,
+				AC7036401F56522300265FAD /* StartTableViewCell.swift */,
+				AC7036331F5614B800265FAD /* PickerView.swift */,
+			);
+			name = "Add Project";
 			sourceTree = "<group>";
 		};
 		AC8B8BE51EF4566B00072031 /* User */ = {
@@ -582,26 +611,33 @@
 				AC16DBFA1EC96E0B000A0D02 /* Session.swift in Sources */,
 				AC16DBF61EC96DCB000A0D02 /* ProjectViewController.swift in Sources */,
 				ACEA96B81ECAD247002C2334 /* LargeTimerViewController.swift in Sources */,
+				AC7036391F5651DE00265FAD /* CategoryNameTableViewCell.swift in Sources */,
 				ACD703CA1EF707CC0075D912 /* CategoryProjectsViewController.swift in Sources */,
 				AC16DC001EC96EA4000A0D02 /* ProjectController.swift in Sources */,
 				ACD84EF61F2586F800E4FB22 /* NavController.swift in Sources */,
+				AC70363F1F56520800265FAD /* PriorityTableViewCell.swift in Sources */,
 				AC8373261ECD4E39000CD47B /* UserController.swift in Sources */,
 				AC76C3121ECE9A6C0090A3FE /* CategoryController.swift in Sources */,
 				AC05B7011EDD2748008B6D56 /* ActiveProjectTableViewCell.swift in Sources */,
+				AC70363D1F5651FA00265FAD /* SessionLengthTableViewCell.swift in Sources */,
 				AC16DC041EC96ED9000A0D02 /* AppDelegate.swift in Sources */,
 				AC8373201ECD4188000CD47B /* SignInViewController.swift in Sources */,
 				AC16DC091ECA3381000A0D02 /* SessionController.swift in Sources */,
 				AC8B8BE81EF45A7800072031 /* CategoryCollectionViewCell.swift in Sources */,
-				AC16DC061EC96EEE000A0D02 /* AddTableViewController copy.swift in Sources */,
+				AC16DC061EC96EEE000A0D02 /* AddViewController copy.swift in Sources */,
+				AC7036411F56522300265FAD /* StartTableViewCell.swift in Sources */,
+				AC70363B1F5651EC00265FAD /* DeadlineTableViewCell.swift in Sources */,
 				AC83731E1ECD35D9000CD47B /* User.swift in Sources */,
 				AC16DBFE1EC96E7D000A0D02 /* ProjectTimer.swift in Sources */,
 				AC76C3101ECE952B0090A3FE /* Category.swift in Sources */,
 				AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */,
+				AC7036371F5651D000265FAD /* TimerNameTableViewCell.swift in Sources */,
 				ACEDCFF21F4B8AD900B0B32D /* NotificationController.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */,
 				AC35D2691F1FF24B00B63F84 /* Break.swift in Sources */,
 				AC3E03091F2A5B53001C6213 /* ViewAnimations.swift in Sources */,
+				AC7036341F5614B800265FAD /* PickerView.swift in Sources */,
 				AC16DC021EC96EBA000A0D02 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

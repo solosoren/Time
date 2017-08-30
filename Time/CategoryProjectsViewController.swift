@@ -20,6 +20,8 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         
         guard  let category = category else { return }
         
+        self.navigationController?.title = category.name
+        
         // TODO: Spinner Wheel
         if category.projectRefs.count > 0 {
             DispatchQueue.main.async(execute: {
