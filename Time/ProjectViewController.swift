@@ -109,8 +109,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let cell = tableView.cellForRow(at: indexPath)
 		
 		 if indexPath.row == 0 && ProjectController.sharedInstance.currentProject != nil {
 			selectedProject = ProjectController.sharedInstance.currentProject
@@ -121,9 +119,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			performSegue(withIdentifier: "projectSegue", sender: self)
 			
 		}
-//		else {
-//			cell?.selectionStyle = UITableViewCellSelectionStyle.none
-//		}
 		
         tableView.deselectRow(at: indexPath, animated: true)
     }

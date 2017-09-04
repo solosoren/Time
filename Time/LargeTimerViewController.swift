@@ -12,37 +12,18 @@ protocol LargeTimerUpdater {
     func updateTableView()
 }
 
-class LargeTimerViewController: UIViewController {
-
-    // Labels
-    @IBOutlet var timerName:         UILabel!
-    @IBOutlet var categoryName:      UILabel!
-    @IBOutlet var activeLabel:       UILabel!
-    @IBOutlet var timeLabel:         UILabel!
+class LargeTimerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var deadlineTimeLabel: UILabel!
-    // Active: Last Session || Inactive: Last Timer
-    @IBOutlet var totalTimeLabel:    UILabel!
-    @IBOutlet var totalLabel: UILabel!
-    @IBOutlet var averageTimeLabel:  UILabel!
-    // TODO: Fix
-    @IBOutlet var weightNameLabel:   UILabel!
-    @IBOutlet var numberOfSessionsButton: UIButton!
     
-// Buttons
-    //Current & Active:cancel timer || inactive:Make Repeating
-    @IBOutlet var cancelTimerButton: UIButton!
-    @IBOutlet var updateButton: UIButton!
-    @IBOutlet var notesButton: UIButton!
-    //Current:Break || Active & Inactive:Delete Project
-    @IBOutlet var breakButton: UIButton!
-    //Current:End Session || Active:Start Session || Inactive:Start
-    @IBOutlet var endSessionButton: UIButton!
-    //Current & Active:Done || Inactive:New
-    @IBOutlet var doneButton: UIButton!
+    @IBOutlet var tableview: UITableView!
+    var largeTimerCell: LargeTimerTableViewCell?
+    var infoCell: LargeTimerInfoTableViewCell?
+    var sessionCell: LargeTimerSessionInfoTableViewCell?
+    var buttonCell: LargeTimerButtonTableViewCell?
     
     var running = false
     var isActive = false
+    var activeState = "Inactive"
     var delegate: LargeTimerUpdater?
     var breakUpdater: BreakUpdater?
     var project:  Project?
@@ -51,11 +32,16 @@ class LargeTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationItem.title = project?.name
         setUp()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    @IBAction func dismissButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setUp() {
@@ -64,164 +50,118 @@ class LargeTimerViewController: UIViewController {
             let projectController = ProjectController.sharedInstance
             
             // TODO: tap to add name or some shit
-            if project.name != nil && project.name != ""  {
-                timerName.text = project.name
-            } else {
-                timerName.text = "-"
-            }
+//            if project.name != nil && project.name != ""  {
+//                timerName.text = project.name
+//            } else {
+//                timerName.text = "-"
+//            }
             
-            if project.categoryRef != nil && project.categoryRef != "" {
-                categoryName.text = project.categoryRef
-            } else {
-                self.categoryName.text = "-"
-            }
-            
-            averageTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: project.estimatedLength, bigVersion: false, deadline: false, seconds: true)
-            
-            let seshes = project.activeTimer?.sessions.count ?? 1
-            numberOfSessionsButton.setTitle("\(seshes)", for: .normal)
+//            if project.categoryRef != nil && project.categoryRef != "" {
+//                categoryName.text = project.categoryRef
+//            } else {
+//                self.categoryName.text = "-"
+//            }
 
             if projectController.currentProject != nil && (projectController.currentProject?.isEqual(rhs: project))! {
                 running = true
+                activeState = "Running"
+//                if abs((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!) < 3600.0 {
+//                    
+//                }
                 
-                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: (project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
-                
-                if abs((project.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!) < 3600.0 {
-                    
-                }
-                
-                weightNameLabel.text = projectController.weightString(weight: (project.activeTimer?.weight)!)
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: projectController.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
-                activeLabel.text = "Running"
                 runTimer()
                 
             } else if isActive {
-                
-                totalLabel.text = "Last Session:"
-                let lastSesh = project.activeTimer?.sessions.last?.totalLength ?? 0
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false, seconds: true)
-                
-                let total = project.activeTimer?.totalLength ?? 0
-                timeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false, seconds: true)
-                
-                
-                weightNameLabel.text = projectController.weightString(weight: project.weight)
-                
-                breakButton.setTitle("Delete Project", for: .normal)
-                endSessionButton.setTitle("Start Session", for: .normal)
-
+                activeState = "Active"
             } else {
-                
-                activeLabel.text = "Inactive"
-                timeLabel.text = "-"
-                numberOfSessionsButton.setTitle("-", for: .normal)
-                
-                self.totalLabel.text = "Last Timer:"
-                //TODO: Check timers
-                totalTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: project.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
-                
-                //TODO: Fix Name
-                cancelTimerButton.setTitle("Make Repeating", for: .normal)
-                breakButton.setTitle("Delete Project", for: .normal)
-                endSessionButton.setTitle("Start", for: .normal)
-                doneButton.setTitle("New", for: .normal)
+                activeState = "Inactive"
+
             }
             
-            if let deadline = project.activeTimer?.deadline {
-                deadlineTimeLabel.text = projectController.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false)
-                if (deadlineTimeLabel.text?.contains("-"))! {
-                    // TODO: Fix Color
-                    //  self.deadlineTimeLabel.textColor = UIColor.red
-                }
-            } else {
-                deadlineTimeLabel.text = "-"
-            }
         }
         
-        breakButton.titleLabel?.textAlignment = .center
-        cancelTimerButton.titleLabel?.textAlignment = .center
-        endSessionButton.titleLabel?.textAlignment = .center
-        
+        tableview.reloadData()
         // TODO: Add Typical time. Check Sketch
     }
     
-    // Running & Active: Cancel
-    // Inactive: Make Repeating
-    @IBAction func cancelTimer(_ sender: Any) {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            
+            largeTimerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimer", for: indexPath) as? LargeTimerTableViewCell
+            largeTimerCell?.tableview = self
+            largeTimerCell?.setUpCell()
+            return largeTimerCell!
+            
+        } else if indexPath.row <= 4 || indexPath.row == 6 {
+            
+            infoCell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as? LargeTimerInfoTableViewCell
+            infoCell?.tableview = self
+            infoCell?.state = indexPath.row
+            infoCell?.setUpCell()
+            
+            return infoCell!
+            
+        } else if indexPath.row == 5 {
+            
+            sessionCell = tableView.dequeueReusableCell(withIdentifier: "SessionInfoCell", for: indexPath) as? LargeTimerSessionInfoTableViewCell
+            sessionCell?.tableview = self
+            sessionCell?.setUpCell()
+            return sessionCell!
+            
+        } else {
+            
+            buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as? LargeTimerButtonTableViewCell
+            buttonCell?.tableview = self
+            buttonCell?.state = indexPath.row
+            buttonCell?.setUpCell()
+            return buttonCell!
+            
+        }
     }
     
-    @IBAction func updateTimer(_ sender: Any) {
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 9
     }
     
-    @IBAction func notesButtonPressed(_ sender: Any) {
-        
-    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-    // TODO: Running: Break
-    // Active & Inactive: Delete Timer
-    @IBAction func breakButtonPressed(_ sender: Any) {
+        if tableView.frame.height < 600 {
+            if indexPath.row == 0 {
+                
+                return tableView.frame.height - (45 * 6) - 180
+                
+            } else if indexPath.row <= 6 {
+                return 45
+                
+            } else {
+                return 90
+            }
         
-        if running {
-            SessionController.sharedInstance.delegate = breakUpdater
-            SessionController.sharedInstance.startBreak(previousProjectRef: self.project?.firebaseRef?.key)
-            self.running = false
-            self.isActive = false
+        } else if view.frame.height < 700 {
+            if indexPath.row == 0 {
+                return tableView.frame.height - (55 * 6) - 180
+                
+            } else if indexPath.row <= 6 {
+                return 53
+                
+            } else {
+                return 90
+            }
             
         } else {
-            guard let project = project else { return }
-            ProjectController.sharedInstance.deleteProject(project: project, active: isActive, running: false)
-            
-        }
-        
-        setUp()
-        delegate?.updateTableView()
-    }
-    
-    // Running: end session
-    // Active: start session
-    // TODO: Inactive: start
-    @IBAction func endSessionPressed(_ sender: Any) {
-        if running {
-            SessionController.sharedInstance.endSession(projectIsDone: false)
-            running = false
-            isActive = true
-        } else if isActive {
-            guard let project = project else { return }
-            SessionController.sharedInstance.startSession(p: project, customizedSessionLength: project.presetSessionLength)
-            running = true
-            if SessionController.sharedInstance.onBreak {
-                SessionController.sharedInstance.endBreak()
-            }
-        } else {
-            guard let project = project else { return }
-            let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil,  newProject: false)
-            running = true
-            self.project = ProjectController.sharedInstance.currentProject
-            if SessionController.sharedInstance.onBreak {
-                SessionController.sharedInstance.endBreak()
+            if indexPath.row == 0 {
+                return tableView.frame.height - (55 * 6) - 220
+                
+            } else if indexPath.row <= 6 {
+                return 55
+                
+            } else {
+                return 100
             }
         }
-        setUp()
-        delegate?.updateTableView()
     }
     
-    // Running & Active: Done
-    // TODO: Inactive: New
-    @IBAction func doneButtonPressed(_ sender: Any) {
-        if isActive || running {
-            ProjectController.sharedInstance.endTimer(project: project!)
-            delegate?.updateTableView()
-            self.running = false
-            self.isActive = false
-            setUp()
-        }
-    }
     
-    @IBAction func dismissButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     func runTimer() {
         ProjectController.sharedInstance.projectTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
@@ -230,7 +170,7 @@ class LargeTimerViewController: UIViewController {
     @objc func update() {
         
         if let project = ProjectController.sharedInstance.currentProject {
-            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
+            largeTimerCell?.timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
             
             
             if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == SessionController.sharedInstance.currentSession?.customizedSessionLength {
