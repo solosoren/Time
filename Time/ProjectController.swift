@@ -27,7 +27,7 @@ class ProjectController {
     ///   - deadline: the deadline date for the new Project
     ///   - weight: the weight of the new Project, as a double
     /// - Returns: a new Project
-    func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double, presetSessionLength: Double?) -> Project {
+    func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double, presetSessionLength: Double?, scheduledDate: Date?) -> Project {
         var cName = categoryName
         if cName == nil {
             cName = "Random"
@@ -40,10 +40,12 @@ class ProjectController {
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
-        let timer = newTimer(project: project, weight: weight, deadline: deadline, newProject: true)
+        let timer = newTimer(project: project, weight: weight, deadline: deadline, scheduledDate: scheduledDate, newProject: true)
         project.activeTimer = timer
         
-        currentProject = project
+        if scheduledDate == nil {
+            currentProject = project
+        }
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
         FIRDatabase.database().reference().updateChildValues(updateKeys)
@@ -112,11 +114,11 @@ class ProjectController {
     ///   - deadline: The deadline date for the timer
     ///   - newProject: Whether it is a new project or not
     /// - Returns: A new Project Timer
-    func newTimer(project: Project, weight: Double, deadline: Date?, newProject: Bool) -> ProjectTimer {
+    func newTimer(project: Project, weight: Double, deadline: Date?, scheduledDate:Date?, newProject: Bool) -> ProjectTimer {
         var proj = project
-        let timer = ProjectTimer.init(deadline: deadline, weight: weight, customizedSessionLength: project.presetSessionLength)
+        let timer = ProjectTimer.init(deadline: deadline, weight: weight, customizedSessionLength: project.presetSessionLength, scheduledDate:scheduledDate)
         
-        if currentProject != nil {
+        if currentProject != nil && (scheduledDate == nil) {
            SessionController.sharedInstance.endSession(projectIsDone: false)
         }
         
@@ -126,25 +128,36 @@ class ProjectController {
             proj.numberOfTimers = 1
         }
         
-        currentProject = proj
-        currentProject?.activeTimer = timer
+        if scheduledDate == nil {
+            currentProject = proj
+            currentProject?.activeTimer = timer
+        } else {
+            proj.activeTimer = timer
+        }
         
         // Send notification
-        if let presetSessionLength = currentProject?.presetSessionLength {
-            NotificationController.sharedInstance.sessionNotification(ends: presetSessionLength, projectID: (project.firebaseRef?.key)!)
+        if ((currentProject?.presetSessionLength) != nil) && scheduledDate == nil {
+            NotificationController.sharedInstance.sessionNotification(ends: (currentProject?.presetSessionLength!)!, projectID: (project.firebaseRef?.key)!)
             
+        } else if scheduledDate != nil {
+            NotificationController.sharedInstance.scheduleSessionNotification(starts: scheduledDate!, projectID: (project.firebaseRef?.key)!)
         }
         
         var updateKeys: [String : Any]
         let uid = FIRAuth.auth()?.currentUser?.uid
         
         // if the project is not new
-            if !newProject {
+            if !newProject && scheduledDate == nil {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
             
+        
+            } else if scheduledDate != nil {
+                updateKeys = ["/users/\(uid ?? "UID")/Scheduled Projects": proj.firebaseRef!.key,
+                              "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
+                
         // if the project is new then save the current project and active projects. The active timer will be saved when you create the new project.
-        } else {
+            } else {
             updateKeys = ["/users/\(uid ?? "UID")/current project": proj.firebaseRef!.key,
                           "/users/\(uid ?? "UID")/active projects": self.activeProjectsRefs]
         }

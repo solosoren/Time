@@ -9,10 +9,15 @@
 import Foundation
 import UserNotifications
 
+protocol PermissionDelegate {
+    func requestGranted()
+}
+
 class NotificationController {
     
     static let sharedInstance = NotificationController()
     var allowsNotifications: Bool = false
+    var delegate: PermissionDelegate?
     
     func requestForPermission() {
         let center = UNUserNotificationCenter.current()
@@ -20,6 +25,7 @@ class NotificationController {
             // adjust code if they accept vs don't
             if granted {
                 // TODO: Set up Categories
+                self.delegate?.requestGranted()
             }
         }
     }
@@ -65,6 +71,37 @@ class NotificationController {
         let identifier = "BREAK FOR \(UserController.sharedInstance.userRef?.key ?? projectID ?? "")"
         
         timeUpNotification(ends: ends, identifier: identifier, content: content)
+    }
+    
+    
+    func scheduleSessionNotification(starts: Date, projectID: String) {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You scheduled a session for right now"
+        content.body = "Let's get started"
+        
+        let identifier = "\(projectID) NOTIFICATION"
+        
+        let currentDate = Date.init()
+        let sendDate = currentDate.addingTimeInterval(starts.timeIntervalSinceNow)
+        let comp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sendDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comp, repeats: false)
+        
+        let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
+        
+//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+                //                print("Sent notification for \(trigger.dateComponents.minute ?? 00)")
+            }
+        }
+        
+//        timeUpNotification(ends: ends, identifier: identifier, content: content)
+        
     }
     
     func deadline() {

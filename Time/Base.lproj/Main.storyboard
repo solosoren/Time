@@ -363,8 +363,37 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="127"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ar7-ey-BQF">
+                                                    <rect key="frame" x="242" y="12" width="102" height="102"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="51"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Tem-dE-f8k">
+                                                    <rect key="frame" x="243" y="13" width="100" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="91g-er-gym"/>
+                                                        <constraint firstAttribute="height" constant="100" id="qEJ-5d-IHB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                                    <state key="normal" title="Schedule">
+                                                        <color key="titleColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="50"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="scheduleButtonPressed:" destination="86g-69-p2T" eventType="touchUpInside" id="ScK-L6-Ded"/>
+                                                    </connections>
+                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRq-Sc-dUR">
-                                                    <rect key="frame" x="156" y="12" width="102" height="102"/>
+                                                    <rect key="frame" x="70" y="12" width="102" height="102"/>
                                                     <color key="backgroundColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -373,7 +402,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Bfa-7H-ZuH">
-                                                    <rect key="frame" x="157" y="13" width="100" height="100"/>
+                                                    <rect key="frame" x="71" y="13" width="100" height="100"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="p4T-t0-bKo"/>
@@ -395,14 +424,21 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bRq-Sc-dUR" firstAttribute="trailing" secondItem="Bfa-7H-ZuH" secondAttribute="trailing" constant="1" id="B5r-Gu-47Z"/>
+                                                <constraint firstItem="Ar7-ey-BQF" firstAttribute="top" secondItem="Tem-dE-f8k" secondAttribute="top" constant="-1" id="Jng-5o-sex"/>
+                                                <constraint firstItem="Tem-dE-f8k" firstAttribute="centerY" secondItem="Bfa-7H-ZuH" secondAttribute="centerY" id="JpC-Hg-yb0"/>
+                                                <constraint firstItem="Tem-dE-f8k" firstAttribute="centerX" secondItem="yJ8-vj-i5l" secondAttribute="centerX" constant="86" id="Od6-Rl-feI"/>
+                                                <constraint firstItem="Ar7-ey-BQF" firstAttribute="leading" secondItem="Tem-dE-f8k" secondAttribute="leading" constant="-1" id="Xpq-yc-tcU"/>
+                                                <constraint firstItem="Ar7-ey-BQF" firstAttribute="trailing" secondItem="Tem-dE-f8k" secondAttribute="trailing" constant="1" id="Yhh-B0-8Xy"/>
+                                                <constraint firstItem="Ar7-ey-BQF" firstAttribute="bottom" secondItem="Tem-dE-f8k" secondAttribute="bottom" constant="1" id="aec-Lt-jCo"/>
                                                 <constraint firstItem="bRq-Sc-dUR" firstAttribute="leading" secondItem="Bfa-7H-ZuH" secondAttribute="leading" constant="-1" id="bPf-FP-XTp"/>
                                                 <constraint firstItem="bRq-Sc-dUR" firstAttribute="top" secondItem="Bfa-7H-ZuH" secondAttribute="top" constant="-1" id="eoK-cc-7NF"/>
                                                 <constraint firstItem="bRq-Sc-dUR" firstAttribute="bottom" secondItem="Bfa-7H-ZuH" secondAttribute="bottom" constant="1" id="fBx-TZ-4DP"/>
                                                 <constraint firstItem="Bfa-7H-ZuH" firstAttribute="centerY" secondItem="yJ8-vj-i5l" secondAttribute="centerY" id="fUv-5A-H61"/>
-                                                <constraint firstItem="Bfa-7H-ZuH" firstAttribute="centerX" secondItem="yJ8-vj-i5l" secondAttribute="centerX" id="uXL-a9-XZc"/>
+                                                <constraint firstItem="Bfa-7H-ZuH" firstAttribute="centerX" secondItem="yJ8-vj-i5l" secondAttribute="centerX" constant="-86" id="uXL-a9-XZc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="scheduleButton" destination="Tem-dE-f8k" id="Yuv-dN-hUA"/>
                                             <outlet property="startNowButton" destination="Bfa-7H-ZuH" id="2dF-bX-iQT"/>
                                         </connections>
                                     </tableViewCell>
@@ -438,11 +474,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0x3-4g-3cl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="ROU-tu-J3I" customClass="PickerView" customModule="Time" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="290" height="192"/>
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="192"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ij-ud-CZa">
-                            <rect key="frame" x="0.0" y="46" width="290" height="100"/>
+                            <rect key="frame" x="0.0" y="46" width="300" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="Ybo-u8-52T"/>
                             </constraints>
@@ -451,7 +487,7 @@
                             </date>
                         </datePicker>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Kq-9r-QrQ">
-                            <rect key="frame" x="123.66666666666666" y="15" width="42.999999999999972" height="23.666666666666664"/>
+                            <rect key="frame" x="128" y="15" width="43" height="23.666666666666664"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                             <color key="textColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -465,7 +501,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="329-57-xJE">
-                            <rect key="frame" x="127" y="154" width="37" height="33"/>
+                            <rect key="frame" x="131" y="154" width="37" height="33"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                             <state key="normal" title="Done">
                                 <color key="titleColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -609,7 +645,7 @@
                                                         <constraint firstAttribute="width" constant="229" id="HOO-X9-v3U"/>
                                                         <constraint firstAttribute="height" constant="22" id="gNR-EB-apW"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                                     <color key="textColor" red="0.30196078430000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -618,7 +654,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="ven-On-gQJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                     <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -628,7 +664,7 @@
                                                         <constraint firstAttribute="width" priority="750" constant="156" id="MPs-yJ-gkN"/>
                                                         <constraint firstAttribute="height" constant="21" id="yNP-fv-oOn"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                     <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -638,7 +674,7 @@
                                                         <constraint firstAttribute="width" priority="750" constant="147" id="Tbb-am-af4"/>
                                                         <constraint firstAttribute="height" constant="21" id="WNc-OE-EjF"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                     <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1289,7 +1325,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="RSO-dV-qse">
             <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="R6p-J3-w4I" customClass="SignInViewController" customModule="Time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInView" id="R6p-J3-w4I" customClass="SignInViewController" customModule="Time" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CJo-18-GfD"/>
                         <viewControllerLayoutGuide type="bottom" id="NSW-s7-zLh"/>
@@ -1321,7 +1357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kop-wU-2kz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-815" y="-623"/>
+            <point key="canvasLocation" x="133" y="-1154"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gPJ-mo-W9W">

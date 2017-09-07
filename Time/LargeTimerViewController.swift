@@ -227,7 +227,7 @@ class LargeTimerViewController: UIViewController, UITableViewDataSource, UITable
                     for project in ProjectController.sharedInstance.activeProjects {
                         if ref == project.firebaseRef?.key {
                             let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-                                SessionController.sharedInstance.startSession(p: project, customizedSessionLength: project.presetSessionLength)
+                                SessionController.sharedInstance.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
                                 
                             })
                             alert.addAction(resumeAction)

@@ -10,12 +10,17 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
+protocol SignInDelegate {
+	func finishedSigningIn()
+}
+
 class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerUpdater, InitialDataUpdater, UITextFieldDelegate {
     
     @IBOutlet var tableView: UITableView!
 	var selectedProject: Project?
 	var timerCell: TimerTableViewCell?
 	var signingIn = false
+	var signInDelegate: SignInDelegate?
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
@@ -24,11 +29,9 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
 			if user == nil {
 				if !self.signingIn {
-					// move request
-					NotificationController.sharedInstance.requestForPermission()
 					
-					GIDSignIn.sharedInstance().signIn()
 					self.signingIn = true
+					self.performSegue(withIdentifier: "SignIn", sender: self)
 				}
 			} else {
 				if !UserController.sharedInstance.fetched  {
@@ -125,6 +128,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	
 	func updateTableView() {
 		tableView.reloadData()
+		if signingIn {
+			self.signingIn = false
+			signInDelegate?.finishedSigningIn()
+		}
 	}
 	
 	func presentAlert(alert: UIAlertController) {
@@ -156,6 +163,11 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 	
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "SignIn" {
+			let destination = segue.destination as! SignInViewController
+			destination.homeVC = self
+		}
+		
 		if segue.identifier == "projectSegue" {
 			let destination = segue.destination as! LargeTimerViewController
 			destination.delegate = self

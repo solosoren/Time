@@ -17,7 +17,7 @@ struct ProjectTimer {
     var weight: Double
     var breaks = [TimeInterval]()
     
-    init(deadline: Date?, weight: Double?, customizedSessionLength: TimeInterval?) {
+    init(deadline: Date?, weight: Double?, customizedSessionLength: TimeInterval?, scheduledDate:Date?) {
         
         if let weight = weight {
             self.weight = weight
@@ -29,9 +29,17 @@ struct ProjectTimer {
         if let deadline = deadline {
             self.deadline = deadline
         }
+        
+        var scheduled: Date
+        if let scheduledDate = scheduledDate {
+            scheduled = scheduledDate
+        } else {
+            scheduled = Date.init()
+        }
+        
 
         self.totalLength = 0
-        let session = Session.init(startTime: Date.init(), customizedSessionLength: customizedSessionLength)
+        let session = Session.init(startTime: scheduled, customizedSessionLength: customizedSessionLength)
         sessions.append(session)
         SessionController.sharedInstance.currentSession = session
     }

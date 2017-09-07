@@ -13,7 +13,8 @@ class PickerView: UIView {
     @IBOutlet var pickerLabel: UILabel!
     @IBOutlet var datePicker: UIDatePicker!
     var darkView: UIView?
-    var deadline:Bool?
+    var deadline:Bool = false
+    var schedule:Bool = false
     var addTableView: AddViewController?
     
     let regBlue = UIColor.init(red: 0.3, green: 0.57, blue: 0.89, alpha: 1.0)
@@ -22,6 +23,12 @@ class PickerView: UIView {
     func setUp(deadline: Bool) {
         if deadline {
             pickerLabel.text = "Deadline"
+            datePicker.setValue(regGray, forKeyPath: "textColor")
+            datePicker.minimumDate = Date.init()
+            datePicker.datePickerMode = .dateAndTime
+            datePicker.minuteInterval = 15
+        } else if schedule {
+            pickerLabel.text = "Schedule"
             datePicker.setValue(regGray, forKeyPath: "textColor")
             datePicker.minimumDate = Date.init()
             datePicker.datePickerMode = .dateAndTime
@@ -56,8 +63,10 @@ class PickerView: UIView {
             return
         }
         
-        if deadline! {
+        if deadline {
             addTableView?.deadlineCell?.donePickingTime(text, deadline:datePicker.date)
+        } else if schedule {
+            addTableView?.startCell?.schedule(text, for: datePicker.date)
         } else {
             addTableView?.sessionCell?.donePickingTime(text, sessionLength: datePicker.countDownDuration)
         }

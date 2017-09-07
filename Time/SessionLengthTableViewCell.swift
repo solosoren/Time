@@ -30,7 +30,7 @@ class SessionLengthTableViewCell: UITableViewCell {
     @IBAction func sessionButtonPressed(_ sender: Any) {
         tableview?.nameCell?.nameTextFieldWasFirstResponder()
         tableview?.categoryCell?.categoryWasFirstResponder()
-        tableview?.presentPickerView(deadline: false)
+        tableview?.presentPickerView(deadline: false, schedule: false)
     }
     
     @IBAction func cancelSessionLengthButtonPressed(_ sender: Any) {

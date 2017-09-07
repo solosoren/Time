@@ -111,7 +111,7 @@ class LargeTimerButtonTableViewCell: UITableViewCell {
                 
             } else if tableview?.activeState == "Active" {
                 guard let project = tableview?.project else { return }
-                SessionController.sharedInstance.startSession(p: project, customizedSessionLength: project.presetSessionLength)
+                SessionController.sharedInstance.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
                 tableview?.running = true
                 tableview?.activeState = "Running"
                 if SessionController.sharedInstance.onBreak {
@@ -119,7 +119,7 @@ class LargeTimerButtonTableViewCell: UITableViewCell {
                 }
             } else {
                 guard let project = tableview?.project else { return }
-                let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil,  newProject: false)
+                let _ = ProjectController.sharedInstance.newTimer(project: project, weight: project.weight, deadline: nil, scheduledDate: nil,  newProject: false)
                 tableview?.running = true
                 tableview?.activeState = "Running"
                 tableview?.project = ProjectController.sharedInstance.currentProject

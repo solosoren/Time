@@ -21,7 +21,7 @@ class DeadlineTableViewCell: UITableViewCell {
     @IBAction func deadlineButtonPressed(_ sender: Any) {
         tableview?.nameCell?.nameTextFieldWasFirstResponder()
         tableview?.categoryCell?.categoryWasFirstResponder()
-        tableview?.presentPickerView(deadline: true)
+        tableview?.presentPickerView(deadline: true, schedule: false)
     }
     
     @IBAction func cancelDeadlinePickerButtonPressed(_ sender: Any) {

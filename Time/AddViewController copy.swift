@@ -126,7 +126,7 @@ class AddViewController: UIViewController, UITextFieldDelegate, UITableViewDataS
  
     
 //MARK: Date Picker
-    func presentPickerView(deadline: Bool) {
+    func presentPickerView(deadline: Bool, schedule: Bool) {
         let darkView = UIView()
         darkView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         darkView.backgroundColor = UIColor.black
@@ -135,6 +135,8 @@ class AddViewController: UIViewController, UITextFieldDelegate, UITableViewDataS
         
         pickerView.darkView = darkView
         pickerView.deadline = deadline
+        pickerView.schedule = schedule
+        
         pickerView.addTableView = self
         pickerView.center = CGPoint.init(x: view.center.x, y: view.center.y - 50)
         pickerView.setUp(deadline: deadline)

@@ -10,23 +10,33 @@ import UIKit
 import GoogleSignIn
 import Firebase
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, SignInDelegate, PermissionDelegate {
     
     @IBOutlet weak var signInButton: GIDSignInButton!
+    var homeVC: ProjectViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //		signInButton.colorScheme = .dark
-        //		signInButton.style = .wide
+        signInButton.colorScheme = .dark
+        signInButton.style = .wide
+        homeVC?.signInDelegate = self
         
     }
     
     @IBAction func googleSignInPressed(_ sender: Any) {
-//        self.dismiss(animated: true) { 
         
-//        }
-        
+    }
+    
+    func finishedSigningIn() {
+        NotificationController.sharedInstance.delegate = self
+        NotificationController.sharedInstance.requestForPermission()
+    }
+    
+    func requestGranted() {
+        DispatchQueue.main.async { 
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     

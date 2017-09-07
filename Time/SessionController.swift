@@ -27,7 +27,7 @@ class SessionController {
     /// Starts a new session on an active timer.
     ///
     /// - Parameter project: The project to be resumed
-    func startSession(p: Project, customizedSessionLength: TimeInterval?) {
+    func startSessionNow(p: Project, customizedSessionLength: TimeInterval?) {
         
         var project = p
         

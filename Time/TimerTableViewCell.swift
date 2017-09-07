@@ -180,7 +180,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             if let ref = sessionController.currentBreak?.previousProjectRef {
                 for project in projectController.activeProjects {
                     if ref == project.firebaseRef?.key {
-                        sessionController.startSession(p: project, customizedSessionLength: project.presetSessionLength)
+                        sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
                     }
                 }
             }
@@ -208,7 +208,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             
         // No Running Timer
         } else {
-            CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil, presetSessionLength: nil)
+            CategoryContoller.sharedInstance.newCategory(name: nil, projectName: nil, weight: 0.5, deadline: nil, presetSessionLength: nil, scheduledDate: nil)
             delegate?.updateTableView()
         }
     }
@@ -300,7 +300,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                     for project in self.projectController.activeProjects {
                         if ref == project.firebaseRef?.key {
                             let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-                                self.sessionController.startSession(p: project, customizedSessionLength: project.presetSessionLength)
+                                self.sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
 
                             })
                             alert.addAction(resumeAction)
