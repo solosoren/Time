@@ -27,7 +27,7 @@ class StartTableViewCell: UITableViewCell {
         if tableview?.categoryCell?.categoryTextField.text != nil && tableview?.categoryCell?.categoryTextField.text != "" {
             categoryText = (tableview?.categoryCell?.categoryTextField.text!)!
         } else {
-            categoryText = "Random"
+            categoryText = "Other"
         }
         
         var weight = tableview?.weight
@@ -68,7 +68,7 @@ class StartTableViewCell: UITableViewCell {
         if tableview?.categoryCell?.categoryTextField.text != nil && tableview?.categoryCell?.categoryTextField.text != "" {
             categoryText = (tableview?.categoryCell?.categoryTextField.text!)!
         } else {
-            categoryText = "Random"
+            categoryText = "Other"
         }
         
         var weight = tableview?.weight

@@ -143,7 +143,7 @@ class UserController {
         var project = project
         if let sessions = project.activeTimer?.sessions {
             var count = 0
-            for session in sessions {
+            for _ in sessions {
                 count = count + 1
 //                if session.scheduled && session.startTime.timeIntervalSinceNow.isLess(than: 0.0) {
 //                    scheduledProjects.remove(at: index)

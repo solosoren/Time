@@ -14,7 +14,7 @@ protocol SignInDelegate {
 	func finishedSigningIn()
 }
 
-class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeTimerUpdater, InitialDataUpdater, UITextFieldDelegate {
+class ProjectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GIDSignInUIDelegate, TimerCellUpdater, LargeProjectUpdater, RunningProjectUpdater, InitialDataUpdater, UITextFieldDelegate {
     
     @IBOutlet var tableView: UITableView!
 	var selectedProject: Project?
@@ -190,7 +190,6 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		if segue.identifier == "projectSegue" {
 			let navController = segue.destination as! UINavigationController
 			let destination = navController.topViewController as! LargeTimerViewController
-			destination.delegate = self
 			destination.project = selectedProject
 			destination.isActive = true
 		}
@@ -199,11 +198,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 			let navController = segue.destination as! UINavigationController
 			let destination = navController.topViewController as! RunningProjectViewController
 			destination.delegate = self
-			destination.project = ProjectController.sharedInstance.currentProject
 			destination.breakUpdater = timerCell
 		}
-		
-		
 	}
 
 }

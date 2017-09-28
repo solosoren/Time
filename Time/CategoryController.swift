@@ -38,14 +38,14 @@ class CategoryContoller {
             }
         } else {
             
-            // if random category already exists
-            if let category = self.getCategoryFromRef(ref: "Random") {
-                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: "Random", deadline: deadline, weight: weight, presetSessionLength: presetSessionLength, scheduledDate: scheduledDate)
+            // if Other category already exists
+            if let category = self.getCategoryFromRef(ref: "Other") {
+                let project = ProjectController.sharedInstance.newProject(name: projectName, categoryName: "Other", deadline: deadline, weight: weight, presetSessionLength: presetSessionLength, scheduledDate: scheduledDate)
                 newProjectInExistingCategory(category: category, project: project)
                 return
                 
             } else {
-                category = Category.init(name: "Random")
+                category = Category.init(name: "Other")
             }
             
         }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LargeTimerUpdater {
+protocol LargeProjectUpdater {
     func updateTableView()
 }
 
@@ -23,7 +23,7 @@ class LargeTimerViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var buttonView: LargeTimerButtonView!
     
     var isActive = false
-    var delegate: LargeTimerUpdater?
+    var delegate: LargeProjectUpdater?
     var breakUpdater: BreakUpdater?
     var project:  Project?
     var category: Category?
@@ -114,94 +114,7 @@ class LargeTimerViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    
-    
-//    func runTimer() {
-//        ProjectController.sharedInstance.projectTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-//    }
-//
-//    @objc func update() {
-//
-//        if let project = ProjectController.sharedInstance.currentProject {
-//            largeTimerCell?.timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
-//
-//
-//            if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == SessionController.sharedInstance.currentSession?.customizedSessionLength {
-//                timerCompleted(true)
-//            }
-//
-//
-//            if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
-//                setUp()
-//            }
-//
-//        } else {
-//            ProjectController.sharedInstance.projectTimer.invalidate()
-//        }
-//
-//    }
-//
-//    func timerCompleted(_ timer: Bool) {
-//        delegate?.updateTableView()
-//
-//        if timer {
-//            DispatchQueue.main.async(execute: {
-//                let alert = UIAlertController(title: "Your session is complete.", message: "Time for a break.", preferredStyle: .alert)
-//                let breakAction = UIAlertAction(title: "Start Break", style: .default, handler: { (action) in
-//                    SessionController.sharedInstance.delegate = self.breakUpdater
-//                    SessionController.sharedInstance.startBreak(previousProjectRef: ProjectController.sharedInstance.currentProject?.firebaseRef?.key)
-//
-//                    self.running = false
-//                    self.isActive = false
-//                    self.delegate?.updateTableView()
-//                    ProjectController.sharedInstance.projectTimer.invalidate()
-//                })
-//                let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action) in
-//                    ProjectController.sharedInstance.snoozeSessionTimer()
-//                    self.delegate?.updateTableView()
-//                })
-//                let projectCompleted = UIAlertAction(title: "Project Completed", style: .default, handler: { (action) in
-//                    ProjectController.sharedInstance.projectTimer.invalidate()
-//                    ProjectController.sharedInstance.endTimer(project: ProjectController.sharedInstance.currentProject!)
-//                    self.delegate?.updateTableView()
-//                })
-//
-//                alert.addAction(breakAction)
-//                alert.addAction(snooze)
-//                alert.addAction(projectCompleted)
-//
-//                self.present(alert, animated: true, completion: nil)
-//            })
-//        } else {
-//            DispatchQueue.main.async(execute: {
-//                let alert = UIAlertController(title: "Break time is up", message: "Get back to work", preferredStyle: .alert)
-//
-//                if let ref = SessionController.sharedInstance.currentBreak?.previousProjectRef {
-//                    for project in ProjectController.sharedInstance.activeProjects {
-//                        if ref == project.firebaseRef?.key {
-//                            let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-//                                SessionController.sharedInstance.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength, scheduled: false)
-//
-//                            })
-//                            alert.addAction(resumeAction)
-//                        }
-//                    }
-//                }
-//
-//                let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action) in
-//                    SessionController.sharedInstance.snooze()
-//                })
-//                let okay = UIAlertAction(title: "Okay", style: .cancel , handler: nil)
-//
-//
-//                alert.addAction(snooze)
-//                alert.addAction(okay)
-//
-//                self.present(alert, animated: true, completion: nil)
-//            })
-//        }
-//
-//    }
+
 }
 
 

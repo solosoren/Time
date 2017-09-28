@@ -12,6 +12,8 @@
 		AC0AAED71F7C92EB000B5143 /* LargeTimerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AAED61F7C92EB000B5143 /* LargeTimerButtonView.swift */; };
 		AC0AAED91F7CBBF0000B5143 /* RunningProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AAED81F7CBBF0000B5143 /* RunningProjectViewController.swift */; };
 		AC0AAEE01F7CBDEB000B5143 /* RunningProjectButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AAEDF1F7CBDEB000B5143 /* RunningProjectButtonView.swift */; };
+		AC1643601F7D9EAD00E7CC2A /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16435F1F7D9EAD00E7CC2A /* ProgressTableViewCell.swift */; };
+		AC1643621F7DA1B800E7CC2A /* RunningProjectInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1643611F7DA1B800E7CC2A /* RunningProjectInfoTableViewCell.swift */; };
 		AC16DBC51EC96CF8000A0D02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */; };
 		AC16DBC81EC96CF8000A0D02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC16DBC61EC96CF8000A0D02 /* LaunchScreen.storyboard */; };
 		AC16DBD31EC96CF8000A0D02 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC16DBD21EC96CF8000A0D02 /* TimeTests.swift */; };
@@ -86,6 +88,8 @@
 		AC0AAED61F7C92EB000B5143 /* LargeTimerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeTimerButtonView.swift; sourceTree = "<group>"; };
 		AC0AAED81F7CBBF0000B5143 /* RunningProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningProjectViewController.swift; sourceTree = "<group>"; };
 		AC0AAEDF1F7CBDEB000B5143 /* RunningProjectButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningProjectButtonView.swift; sourceTree = "<group>"; };
+		AC16435F1F7D9EAD00E7CC2A /* ProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTableViewCell.swift; sourceTree = "<group>"; };
+		AC1643611F7DA1B800E7CC2A /* RunningProjectInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningProjectInfoTableViewCell.swift; sourceTree = "<group>"; };
 		AC16DBBA1EC96CF8000A0D02 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC16DBC41EC96CF8000A0D02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC16DBC71EC96CF8000A0D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -193,8 +197,10 @@
 			isa = PBXGroup;
 			children = (
 				AC0AAED81F7CBBF0000B5143 /* RunningProjectViewController.swift */,
-				AC0AAEDF1F7CBDEB000B5143 /* RunningProjectButtonView.swift */,
 				AC7036441F5CBDD700265FAD /* LargeTimerTableViewCell.swift */,
+				AC16435F1F7D9EAD00E7CC2A /* ProgressTableViewCell.swift */,
+				AC1643611F7DA1B800E7CC2A /* RunningProjectInfoTableViewCell.swift */,
+				AC0AAEDF1F7CBDEB000B5143 /* RunningProjectButtonView.swift */,
 			);
 			name = "Running Project";
 			sourceTree = "<group>";
@@ -666,6 +672,8 @@
 				AC76C3101ECE952B0090A3FE /* Category.swift in Sources */,
 				AC76C30E1ECE89C00090A3FE /* TabBarController.swift in Sources */,
 				AC7036371F5651D000265FAD /* TimerNameTableViewCell.swift in Sources */,
+				AC1643601F7D9EAD00E7CC2A /* ProgressTableViewCell.swift in Sources */,
+				AC1643621F7DA1B800E7CC2A /* RunningProjectInfoTableViewCell.swift in Sources */,
 				ACEDCFF21F4B8AD900B0B32D /* NotificationController.swift in Sources */,
 				AC16DBFC1EC96E0B000A0D02 /* TimerTableViewCell.swift in Sources */,
 				AC8B8BE41EF4565000072031 /* CategoryViewController.swift in Sources */,

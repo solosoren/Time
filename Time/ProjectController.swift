@@ -33,7 +33,7 @@ class ProjectController {
     func newProject(name: String?, categoryName: String?, deadline: Date?, weight: Double, presetSessionLength: Double?, scheduledDate: Date?) -> Project {
         var cName = categoryName
         if cName == nil {
-            cName = "Random"
+            cName = "Other"
         }
         var project = Project.init(name: name, category: categoryName, weight: weight, numberOfTimers: nil, presetSessionLength: presetSessionLength)
         

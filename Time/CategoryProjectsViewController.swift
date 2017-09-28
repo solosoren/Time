@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryProjectsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LargeTimerUpdater {
+class CategoryProjectsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LargeProjectUpdater {
 
     @IBOutlet var tableview: UITableView!
     
@@ -86,7 +86,7 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
             
             let navController = segue.destination as! UINavigationController
             let destination = navController.topViewController as! LargeTimerViewController
-            destination.delegate = self
+
             for p in ProjectController.sharedInstance.activeProjects {
                 if p.isEqual(rhs: selectedProject) {
                     destination.isActive = true

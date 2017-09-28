@@ -11,23 +11,29 @@ import UIKit
 class LargeTimerTableViewCell: UITableViewCell {
     
     @IBOutlet var timeLabel: UILabel!
-    var tableview: LargeTimerViewController?
-
+    @IBOutlet var rightLabel: UILabel!
+    @IBOutlet var leftLabel: UILabel!
+    
+    var tableview: RunningProjectViewController?
+    
     func setUpCell() {
-        
-//        if tableview?.activeState == "Inactive" {
-//            timeLabel.text = "-"
-//        } else if tableview?.activeState == "Running" {
-//            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: ProjectController.sharedInstance.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
-//        } else {
-//            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: tableview?.project?.activeTimer?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
-//        }
+
+        if ProjectController.sharedInstance.getRunningTimerTotalLength() < 3600 {
+            leftLabel.text = "M"
+            rightLabel.text = "S"
+        }
+        timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: ProjectController.sharedInstance.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBAction func breakButtonPressed(_ sender: Any) {
+        SessionController.sharedInstance.delegate = tableview?.breakUpdater
+        SessionController.sharedInstance.startBreak(previousProjectRef: tableview?.project?.firebaseRef?.key)
+    }
+    
+    @IBAction func endSessionButtonPressed(_ sender: Any) {
+        
+        SessionController.sharedInstance.endSession(projectIsDone: false)
+        tableview?.delegate?.updateTableView()
     }
 
 }
