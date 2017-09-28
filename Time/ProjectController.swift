@@ -380,7 +380,7 @@ class ProjectController {
         let secText = "S"
         
         
-        // 00 : 00 : 00
+        // 00 : 00 : 00 || // 00 : 00
         if bigVersion {
             var secondsString = "\(abs(secs))"
             var minutesString = "\(abs(minutes))"
@@ -397,11 +397,12 @@ class ProjectController {
             
             if hours == 0 {
                 return "\(minutesString) : \(secondsString)"
-            } else {
+            } else if seconds {
                 return "\(hoursString) : \(minutesString) : \(secondsString)"
+            } else {
+                return "\(hoursString) : \(minutesString)"
             }
         }
-        
         
         if hours == 0 && seconds {
             return "\(abs(minutes))" + minText + " \(abs(secs))" + secText
@@ -427,7 +428,6 @@ class ProjectController {
         } else {
             return "\(abs(hours))" + hourText +  " \(abs(minutes))" + minText
         }
-        
         
     }
     

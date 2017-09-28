@@ -24,9 +24,14 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        runTimer()
     }
     
+    @IBAction func dismissButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
@@ -42,6 +47,7 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
         
         if indexPath.row == 1 {
             largeTimerCell = tableView.dequeueReusableCell(withIdentifier: "LargeTimer", for: indexPath) as? LargeTimerTableViewCell
+            largeTimerCell?.tableview = self
             largeTimerCell!.setUpCell()
             return largeTimerCell!
         }
@@ -50,40 +56,40 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProgressCell", for: indexPath) as! ProgressTableViewCell
             
             if let seshLength = SessionController.sharedInstance.currentSession?.customizedSessionLength {
-                cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: seshLength, bigVersion: false, deadline: false, seconds: true)
+                cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: seshLength, bigVersion: false, deadline: false, seconds: false)
             } else {
                 if let total = project?.activeTimer?.totalLength, let count = project?.activeTimer?.sessions.count {
-                    cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total / Double(count), bigVersion: false, deadline: false, seconds: true)
+                    cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total / Double(count), bigVersion: false, deadline: false, seconds: false)
                 }
             }
             return cell
         }
-        
+    
         let cell = tableView.dequeueReusableCell(withIdentifier: "RunningProjectInfoCell", for: indexPath) as! RunningProjectInfoTableViewCell
         if let total = project?.activeTimer?.totalLength {
             cell.projectTotalTimeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total, bigVersion: false, deadline: false, seconds: false)
         } else {
             cell.projectTotalTimeLabel.text = "--"
         }
-        
-//        if let deadline = project?.activeTimer?.deadline {
-//            cell.deadlineLabel.text = ProjectController.sharedInstance.dateString(deadline)
-//        } else {
-//            cell.deadlineLabel.text = "None"
-//        }
-        
+
+        if let deadline = project?.activeTimer?.deadline {
+            cell.deadlineLabel.text = ProjectController.sharedInstance.dateString(deadline)
+        } else {
+            cell.deadlineLabel.text = "None"
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 75 + 100
+            return 75 + 25
         }
         if indexPath.row == 1 {
-            return 75 + 100
+            return 75 + 120
         }
         if indexPath.row == 2 {
-            return 15 + 85
+            return 15 + 120
         }
             return 90 + 90
     }
@@ -95,13 +101,11 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
     @objc func update() {
         
         if let project = project {
-            largeTimerCell?.timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
-            
+            largeTimerCell?.timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: false)
             
             if Double(abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!))) == SessionController.sharedInstance.currentSession?.customizedSessionLength {
                 timerCompleted(true)
             }
-            
             
             if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
                 tableview.reloadData()

@@ -1,5 +1,5 @@
 //
-//  RunnningProjectInfoTableViewCell.swift
+//  RunningProjectInfoTableViewCell.swift
 //  Time
 //
 //  Created by Soren Nelson on 9/28/17.
@@ -10,8 +10,8 @@ import UIKit
 
 class RunningProjectInfoTableViewCell: UITableViewCell {
 
-    @IBOutlet var projectTotalTimeLabel: UILabel!
-
+    @IBOutlet var deadlineLabel: UILabel!
     
-
+    @IBOutlet var projectTotalTimeLabel: UILabel!
+    
 }

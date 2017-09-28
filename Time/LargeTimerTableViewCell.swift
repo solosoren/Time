@@ -22,7 +22,12 @@ class LargeTimerTableViewCell: UITableViewCell {
             leftLabel.text = "M"
             rightLabel.text = "S"
         }
-        timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: ProjectController.sharedInstance.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
+        
+        if let seshLength = tableview?.project?.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow {
+            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: seshLength, bigVersion: true, deadline: false, seconds: false)
+        } else {
+            timeLabel.text = "--"
+        }
     }
     
     @IBAction func breakButtonPressed(_ sender: Any) {

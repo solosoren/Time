@@ -49,9 +49,9 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
         tabBarController?.delegate = UIApplication.shared.delegate as? UITabBarControllerDelegate
 		
-		if #available(iOS 11.0, *) {
-			navigationController?.navigationBar.prefersLargeTitles = true
-		}
+//		if #available(iOS 11.0, *) {
+//			navigationController?.navigationBar.prefersLargeTitles = true
+//		}
 		
 //		GIDSignIn.sharedInstance().signOut()
 //		

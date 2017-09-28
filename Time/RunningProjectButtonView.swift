@@ -10,10 +10,6 @@ import UIKit
 
 class RunningProjectButtonView: UIView {
 
-    
-    @IBOutlet var leftButton: UIButton!
-    @IBOutlet var centerButton: UIButton!
-    @IBOutlet var rightButton: UIButton!
     var tableview: RunningProjectViewController?
     
     override func draw(_ rect: CGRect) {
