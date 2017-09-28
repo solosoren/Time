@@ -74,13 +74,13 @@ class NotificationController {
     }
     
     
-    func scheduleSessionNotification(starts: Date, projectID: String) {
+    func scheduleSessionNotification(starts: Date, project: Project) {
         
         let content = UNMutableNotificationContent()
-        content.title = "You scheduled a session for right now"
+        content.title = "You scheduled a session for \(project.name ?? "") right now"
         content.body = "Let's get started"
         
-        let identifier = "\(projectID) NOTIFICATION"
+        let identifier = "\((project.firebaseRef?.key)!) SCHEDULED NOTIFICATION"
         
         let currentDate = Date.init()
         let sendDate = currentDate.addingTimeInterval(starts.timeIntervalSinceNow)
@@ -88,9 +88,7 @@ class NotificationController {
         let trigger = UNCalendarNotificationTrigger(dateMatching: comp, repeats: false)
         
         let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
-        
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
+                
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error) in
             if let error = error {

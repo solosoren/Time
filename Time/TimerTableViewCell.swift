@@ -71,7 +71,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             
             // Label text
             timerName.text =    project.name
-            categoryName.text = project.categoryRef
+            categoryName.text = project.categoryName
             if let timerDeadline = project.activeTimer!.deadline {
                 deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false))"
             } else {
@@ -97,7 +97,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             runTimer()
             
         // Button Titles
-            doneButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+            doneButton.setImage(#imageLiteral(resourceName: "White Checked"), for: .normal)
             endSessionButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
             breakButton.setImage(#imageLiteral(resourceName: "Coffee"), for: .normal)
             
@@ -180,7 +180,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             if let ref = sessionController.currentBreak?.previousProjectRef {
                 for project in projectController.activeProjects {
                     if ref == project.firebaseRef?.key {
-                        sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
+                        sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength, scheduled: false)
                     }
                 }
             }
@@ -300,7 +300,7 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
                     for project in self.projectController.activeProjects {
                         if ref == project.firebaseRef?.key {
                             let resumeAction = UIAlertAction(title: "Resume Project", style: .default, handler: { (action) in
-                                self.sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength)
+                                self.sessionController.startSessionNow(p: project, customizedSessionLength: project.presetSessionLength, scheduled: false)
 
                             })
                             alert.addAction(resumeAction)

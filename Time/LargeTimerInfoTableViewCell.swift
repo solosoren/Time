@@ -10,8 +10,24 @@ import UIKit
 
 class LargeTimerInfoTableViewCell: UITableViewCell {
     
-    @IBOutlet var leftLabel: UILabel!
-    @IBOutlet var rightLabel: UILabel!
+    @IBOutlet var leftView: UIView!
+    @IBOutlet var leftButton: UIButton!
+    @IBOutlet var leftButtonTitle: UILabel!
+    @IBOutlet var leftButtonInfo: UILabel!
+    @IBOutlet var leftButtonMoreImage: UIImageView!
+    
+    @IBOutlet var rightView: UIView!
+    @IBOutlet var rightButton: UIButton!
+    @IBOutlet var rightButtonTitle: UILabel!
+    @IBOutlet var rightButtonInfo: UILabel!
+    @IBOutlet var rightButtonMoreImage: UIImageView!
+    
+    @IBAction func leftButtonPressed(_ sender: Any) {
+    }
+    
+    @IBAction func rightButtonPressed(_ sender: Any) {
+    }
+    
     var state = 0
     var tableview: LargeTimerViewController?
 
@@ -21,69 +37,101 @@ class LargeTimerInfoTableViewCell: UITableViewCell {
         
         switch state {
         case 1:
-            if let categoryName = tableview?.category?.name {
-                leftLabel.text = categoryName
+            
+            rightButtonTitle.text = "Priority"
+            
+            if let priority = tableview?.project!.activeTimer?.weight {
+                 rightButtonInfo.text = ProjectController.sharedInstance.weightString(weight: priority)
             } else {
-                leftLabel.text = "Random"
+                rightButtonInfo.text = "None"
+// FIXME: rightButtonInfo color
             }
+            rightButtonMoreImage.isHidden = true
 
-            rightLabel.text = tableview?.activeState
+            if tableview?.isActive == true {
+                leftButtonTitle.text = "Total"
+                guard let total = tableview?.project?.activeTimer?.totalLength else {
+                    leftButtonInfo.text = "None"
+                    break
+                }
+                
+                leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total, bigVersion: false, deadline: false, seconds: false)
+                
+            } else {
+                // TODO: Figure out the Total box
+                leftButtonTitle.text = "Total"
+                leftButtonInfo.text = "--"
+            }
             
         case 2:
-            leftLabel.text = "Deadline:"
-            if let deadline = tableview?.project?.activeTimer?.deadline {
-                
-                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: deadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false)
+            
+            leftButtonTitle.text = "Avg"
+            if let average = tableview?.project?.average {
+                if average == 0 {
+                    leftButtonInfo.text = "--"
+                } else {
+                    leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: average, bigVersion: false, deadline: false, seconds: true)
+                }
             } else {
-                rightLabel.text = "-"
+                leftButtonInfo.text = "--"
             }
+            leftButtonMoreImage.isHidden = true
+            
+            rightButtonTitle.text = "Schedule"
+            rightButtonInfo.text = "None"
             
         case 3:
-            leftLabel.text = "Total:"
             
-            if tableview?.activeState == "Running" {
-                leftLabel.text = "Total:"
-                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: ProjectController.sharedInstance.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
-                
-            } else if tableview?.activeState == "Active" {
-                leftLabel.text = "Last Session:"
-                let lastSesh = tableview?.project?.activeTimer?.sessions.last?.totalLength ?? 0
-                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: lastSesh, bigVersion: true, deadline: false, seconds: true)
-                    
-            } else {
-                
-                leftLabel.text = "Last Timer:"
-                //TODO: Check timers
-                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: tableview?.project?.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
-            }
+            leftButtonTitle.text = "Longest"
+//            FIXME: Longest timer
+            leftButtonInfo.text = "--"
             
-//            let total = tableview?.project?.activeTimer?.totalLength ?? 0
-//            rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total, bigVersion: true, deadline: false, seconds: true)
+            rightButtonTitle.text = "Optimal T.O.D."
+            rightButtonInfo.text = "Not Ready"
             
-        case 4:
-            leftLabel.text = "Average:"
+//            leftLabel.text = "Deadline:"
+//            if let deadline = tableview?.project?.activeTimer?.deadline {
+//
+//                rightLabel.text = ProjectController.sharedInstance.dateString(deadline)
+//            } else {
+//                rightLabel.text = ""
+//            }
+//                leftLabel.text = "Last Timer:"
+//                //TODO: Check timers
+//                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: tableview?.project?.timers.last?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
             
-            if let estimatedLength = tableview?.project?.estimatedLength {
-                rightLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: estimatedLength, bigVersion: false, deadline: false, seconds: true)
-            }
             
         case 6:
-            leftLabel.text = "Priority"
-            if tableview?.activeState == "Running" {
-                rightLabel.text = ProjectController.sharedInstance.weightString(weight: (tableview?.project!.activeTimer?.weight)!)
+
+            leftButtonTitle.text = "Avg Session"
+            if let total = tableview?.project?.activeTimer?.totalLength, let count = tableview?.project?.activeTimer?.sessions.count {
+                let avg = total / Double(count)
+                leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: avg, bigVersion: false, deadline: false, seconds: false)
             } else {
-                rightLabel.text = ProjectController.sharedInstance.weightString(weight: (tableview?.project?.weight)!)
+                leftButtonInfo.text = "None"
             }
             
+            rightButtonMoreImage.isHidden = true
             
+            if tableview?.isActive == true {
+                rightButtonTitle.text = "Deadline"
+                
+                if let deadline = tableview?.project?.activeTimer?.deadline {
+                    rightButtonInfo.text = ProjectController.sharedInstance.dateString(deadline)
+                } else {
+                    rightButtonInfo.text = "None"
+                }
+            } else {
+                rightButtonTitle.text = "Completion Time"
+                if let total = tableview?.project?.timers.last?.totalLength {
+                    
+                    rightButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total, bigVersion: false, deadline: false, seconds: false)
+                }
+                
+            }
+
         default: break
         }
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

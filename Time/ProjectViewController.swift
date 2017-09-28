@@ -49,6 +49,10 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
         tabBarController?.delegate = UIApplication.shared.delegate as? UITabBarControllerDelegate
 		
+		if #available(iOS 11.0, *) {
+			navigationController?.navigationBar.prefersLargeTitles = true
+		}
+		
 //		GIDSignIn.sharedInstance().signOut()
 //		
 //		do {
@@ -70,12 +74,18 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
             let segmentedCell = tableView.dequeueReusableCell(withIdentifier: "SegmentedCell", for: indexPath)
             return segmentedCell
 			
-		// because I am going to return a full tableview regardless of the amount of projects. Check if their are projects before calling setUpCell()
-        } else if indexPath.row <= ProjectController.sharedInstance.activeProjects.count + 1 {
+		} else if indexPath.row <= ProjectController.sharedInstance.scheduledProjects.count + 1 {
+			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
+			
+			projectsCell.setUpCell(project: ProjectController.sharedInstance.scheduledProjects[indexPath.row - 2], active: false, scheduled:true)
+			
+			return projectsCell
+			
+		} else if indexPath.row <= ProjectController.sharedInstance.activeProjects.count + ProjectController.sharedInstance.scheduledProjects.count + 1 {
 			
 			let projectsCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsCell", for: indexPath) as! ActiveProjectTableViewCell
 			
-			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - 2], active: true)
+			projectsCell.setUpCell(project: ProjectController.sharedInstance.activeProjects[indexPath.row - ProjectController.sharedInstance.scheduledProjects.count - 2], active: true, scheduled:false)
             return projectsCell
 		} else {
 			
@@ -88,7 +98,9 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		if ProjectController.sharedInstance.activeProjects.count > 0 {
-			return ProjectController.sharedInstance.activeProjects.count + 2
+			return ProjectController.sharedInstance.activeProjects.count + 2 + ProjectController.sharedInstance.activeProjects.count
+		} else if ProjectController.sharedInstance.scheduledProjects.count > 0 {
+			return 2 + ProjectController.sharedInstance.activeProjects.count
 		}
 		
         return 9
@@ -115,10 +127,17 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		 if indexPath.row == 0 && ProjectController.sharedInstance.currentProject != nil {
 			selectedProject = ProjectController.sharedInstance.currentProject
+			performSegue(withIdentifier: "RunningProjectSegue", sender: self)
+			
+		} else if indexPath.row > 1 && ProjectController.sharedInstance.scheduledProjects.count > 0 && indexPath.row <= ProjectController.sharedInstance.scheduledProjects.count + 1 {
+			
+			selectedProject = ProjectController.sharedInstance.scheduledProjects[indexPath.row - 2]
 			performSegue(withIdentifier: "projectSegue", sender: self)
 			
-		} else if indexPath.row > 1 && ProjectController.sharedInstance.activeProjects.count > indexPath.row - 2 {
-			selectedProject = ProjectController.sharedInstance.activeProjects[indexPath.row - 2]
+			
+		} else if indexPath.row > 1 && indexPath.row <= ProjectController.sharedInstance.activeProjects.count + ProjectController.sharedInstance.scheduledProjects.count + 1 {
+			
+			selectedProject = ProjectController.sharedInstance.activeProjects[indexPath.row - 2 - ProjectController.sharedInstance.scheduledProjects.count]
 			performSegue(withIdentifier: "projectSegue", sender: self)
 			
 		}
@@ -169,12 +188,22 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		}
 		
 		if segue.identifier == "projectSegue" {
-			let destination = segue.destination as! LargeTimerViewController
+			let navController = segue.destination as! UINavigationController
+			let destination = navController.topViewController as! LargeTimerViewController
 			destination.delegate = self
 			destination.project = selectedProject
 			destination.isActive = true
+		}
+		
+		if segue.identifier == "RunningProjectSegue" {
+			let navController = segue.destination as! UINavigationController
+			let destination = navController.topViewController as! RunningProjectViewController
+			destination.delegate = self
+			destination.project = ProjectController.sharedInstance.currentProject
 			destination.breakUpdater = timerCell
 		}
+		
+		
 	}
 
 }

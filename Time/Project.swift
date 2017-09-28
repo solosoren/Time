@@ -12,10 +12,10 @@ import FirebaseDatabase
 struct Project {
     
     var name: String?
-    var categoryRef: String?
+    var categoryName: String?
     var weight: Double
     var numberOfTimers: Double?
-    var estimatedLength: TimeInterval
+    var average: TimeInterval
     var presetSessionLength: TimeInterval?
     var timers = [ProjectTimer]()
     var activeTimer: ProjectTimer?
@@ -26,8 +26,8 @@ struct Project {
     
     init(name: String?, category: String?, weight: Double, numberOfTimers: Double?, presetSessionLength: Double?) {
         self.name = name
-        self.categoryRef = category
-        self.estimatedLength = 0
+        self.categoryName = category
+        self.average = 0
         self.weight = weight
         if let numberOfTimers = numberOfTimers {
             self.numberOfTimers = numberOfTimers
@@ -44,12 +44,12 @@ struct Project {
         let value = snapshot.value as? NSDictionary
         self.name = value?["Project Name"] as? String ?? ""
         self.weight = value?["Weight"] as? Double ?? 0
-        self.categoryRef = value?["Category Name"] as? String ?? ""
+        self.categoryName = value?["Category Name"] as? String ?? ""
         self.numberOfTimers = value?["Number Of Timers"] as? Double
         self.presetSessionLength = value?["Preset Session Length"] as? Double
         
         let avg = value?["Estimated Length"] as? Double ?? 0
-        self.estimatedLength = TimeInterval.init(avg)
+        self.average = TimeInterval.init(avg)
         
         if let timers = value?["Timers"] as? [NSDictionary] {
             for timer in timers {
@@ -73,8 +73,8 @@ struct Project {
     func toAnyObject() -> Any {
         
         let name = self.name as NSString? ?? ""
-        let categoryRef = self.categoryRef as NSString? ?? ""
-        let estimatedLength = self.estimatedLength as NSNumber
+        let categoryRef = self.categoryName as NSString? ?? ""
+        let estimatedLength = self.average as NSNumber
         
         var anyTimers = [NSDictionary]()
         if timers.count > 0 {

@@ -27,11 +27,11 @@ class SessionController {
     /// Starts a new session on an active timer.
     ///
     /// - Parameter project: The project to be resumed
-    func startSessionNow(p: Project, customizedSessionLength: TimeInterval?) {
+    func startSessionNow(p: Project, customizedSessionLength: TimeInterval?, scheduled: Bool) {
         
         var project = p
         
-        let session = Session.init(startTime: Date.init(), customizedSessionLength: customizedSessionLength)
+        let session = Session.init(startTime: Date.init(), customizedSessionLength: customizedSessionLength, scheduled: false)
         project.activeTimer?.sessions.append(session)
         
         var index = 0
@@ -41,8 +41,12 @@ class SessionController {
             }
             index += 1
         }
-        ProjectController.sharedInstance.activeProjects.remove(at: index)
-        ProjectController.sharedInstance.activeProjectsRefs.remove(at: index)
+        
+        if !scheduled {
+            ProjectController.sharedInstance.activeProjects.remove(at: index)
+            ProjectController.sharedInstance.activeProjectsRefs.remove(at: index)
+        }
+        
         if ProjectController.sharedInstance.currentProject != nil {
             self.endSession(projectIsDone: false)
         }
@@ -89,7 +93,7 @@ class SessionController {
                 total += timer.totalLength
             }
             
-            project?.estimatedLength = total / Double((project?.timers.count)!)
+            project?.average = total / Double((project?.timers.count)!)
             
             
             project?.activeTimer = nil

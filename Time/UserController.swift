@@ -50,6 +50,34 @@ class UserController {
                 self.finishedLoading()
             }
             
+            let firebaseScheduledProjects = value?["Scheduled Projects"] as? [String]
+            if let scheduledProjectChecker = firebaseScheduledProjects {
+                var scheduledProjects = scheduledProjectChecker
+                if scheduledProjects.count > 0 {
+                    
+                    let originalScheduledCount = scheduledProjects.count
+                    var count = 0
+                    for ref in scheduledProjects {
+                        count += 1
+                        FIRDatabase.database().reference().child("projects").child(ref).observeSingleEvent(of: .value, with: { (snapshot) in
+                            let project = Project.init(snapshot: snapshot)
+                            scheduledProjects = self.checkIfSchedulingExpired(project: project, index: count - 1, firebaseScheduledProjects: scheduledProjects, snapshot: snapshot, ref: ref)
+                            
+                            if count == originalScheduledCount {
+                                if originalScheduledCount != scheduledProjects.count {
+                                    self.userRef?.updateChildValues(["Scheduled Projects": scheduledProjects] as [String: Any])
+                                }
+                                self.finishedLoading()
+                            }
+                        })
+                    }
+                } else {
+                    self.finishedLoading()
+                }
+            } else {
+                self.finishedLoading()
+            }
+            
             
             if value?["break"] != nil {
                 self.delegate?.resumeBreak()
@@ -98,7 +126,7 @@ class UserController {
     
     /// Helper method to know when the fetchInitialData() is finished loading.
     func finishedLoading() {
-        if loadingInt == 2 {
+        if loadingInt == 3 {
             DispatchQueue.main.async {
                 self.delegate?.updateTableView()
             }
@@ -106,6 +134,31 @@ class UserController {
         } else {
             loadingInt += 1
         }
+    }
+    
+    private func checkIfSchedulingExpired(project: Project, index: Int, firebaseScheduledProjects: [String], snapshot: FIRDataSnapshot, ref: String) -> [String] {
+        
+        var scheduledProjects = firebaseScheduledProjects
+        
+        var project = project
+        if let sessions = project.activeTimer?.sessions {
+            var count = 0
+            for session in sessions {
+                count = count + 1
+//                if session.scheduled && session.startTime.timeIntervalSinceNow.isLess(than: 0.0) {
+//                    scheduledProjects.remove(at: index)
+//                    break
+//                } else
+                if count == sessions.count {
+                    project.firebaseRef = snapshot.ref
+                    ProjectController.sharedInstance.scheduledProjects.append(project)
+                    ProjectController.sharedInstance.scheduledProjectRefs.append(ref)
+                }
+                
+            }
+        }
+        
+        return scheduledProjects
     }
     
     

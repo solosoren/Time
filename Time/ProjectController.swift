@@ -16,7 +16,10 @@ class ProjectController {
     var currentProject: Project?
     var activeProjectsRefs = [String]()
     var activeProjects = [Project]()
+    var scheduledProjects = [Project]()
+    var scheduledProjectRefs = [String]()
     var projectTimer: Timer!
+    
     
     /// Creates a brand new project.
     /// - Check to see if their is a category prior to calling
@@ -36,7 +39,6 @@ class ProjectController {
         
         let projectRef = FIRDatabase.database().reference().child("projects")
         
-        
         let autoID = projectRef.childByAutoId()
         project.firebaseRef = autoID
         
@@ -45,6 +47,8 @@ class ProjectController {
         
         if scheduledDate == nil {
             currentProject = project
+        } else {
+            scheduledProjects.append(project)
         }
         
         let updateKeys = ["/projects/\(autoID.key)": project.toAnyObject() as! [String: Any]]
@@ -64,7 +68,7 @@ class ProjectController {
     func updateProject(project: Project, name: String?, categoryName: String?) -> Project? {
         var p = project
         
-        let oldCategory = p.categoryRef
+        let oldCategory = p.categoryName
         p.name = name
 
         guard let ref = p.firebaseRef else { return nil }
@@ -73,7 +77,7 @@ class ProjectController {
         
         if let categoryName = categoryName {
             
-            p.categoryRef = categoryName
+            p.categoryName = categoryName
             
             if let oldCategory = oldCategory {
                 CategoryContoller.sharedInstance.removeProjectFromCategory(categoryName: oldCategory, project: p)
@@ -140,7 +144,7 @@ class ProjectController {
             NotificationController.sharedInstance.sessionNotification(ends: (currentProject?.presetSessionLength!)!, projectID: (project.firebaseRef?.key)!)
             
         } else if scheduledDate != nil {
-            NotificationController.sharedInstance.scheduleSessionNotification(starts: scheduledDate!, projectID: (project.firebaseRef?.key)!)
+            NotificationController.sharedInstance.scheduleSessionNotification(starts: scheduledDate!, project: project)
         }
         
         var updateKeys: [String : Any]
@@ -153,7 +157,8 @@ class ProjectController {
             
         
             } else if scheduledDate != nil {
-                updateKeys = ["/users/\(uid ?? "UID")/Scheduled Projects": proj.firebaseRef!.key,
+                scheduledProjectRefs.append((proj.firebaseRef?.key)!)
+                updateKeys = ["/users/\(uid ?? "UID")/Scheduled Projects": scheduledProjectRefs,
                               "/projects/\(proj.firebaseRef!.key)/Active Timer": timer.toAnyObject()]
                 
         // if the project is new then save the current project and active projects. The active timer will be saved when you create the new project.
@@ -184,7 +189,6 @@ class ProjectController {
         }
         return length + seshLength
     }
-    
     
     func snoozeSessionTimer() {
         
@@ -232,7 +236,7 @@ class ProjectController {
                     total += timer.totalLength
                 }
                 
-                proj.estimatedLength = total / Double(proj.timers.count)
+                proj.average = total / Double(proj.timers.count)
                 
             }
             
@@ -285,7 +289,7 @@ class ProjectController {
     
     func removeProjectFromCategory(project: Project) {
         
-        guard let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: project.categoryRef!) else { return }
+        guard let category = CategoryContoller.sharedInstance.getCategoryFromRef(ref: project.categoryName!) else { return }
         
         var c = category
         
@@ -328,6 +332,30 @@ class ProjectController {
             return "Average"
         }
         return "Minor"
+        
+    }
+    
+    func dateString(_ date:Date) -> String {
+        
+//        let interval = date.timeIntervalSinceNow
+        
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateStyle = .medium
+        
+        dateformatter.timeStyle = .short
+    
+        let format = dateformatter.string(from: date)
+        
+//        let calendar = Calendar.current
+//        
+//        let month = calendar.component(.month, from: date)
+//        let weekday = calendar.component(.weekday, from: date)
+//        let day = calendar.component(.day, from: date)
+//        let hour = calendar.component(.hour, from: date)
+//        let minute = calendar.component(.minute, from: date)
+        
+        return "\(format)"
         
     }
     

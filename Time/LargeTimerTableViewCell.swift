@@ -15,11 +15,13 @@ class LargeTimerTableViewCell: UITableViewCell {
 
     func setUpCell() {
         
-        if tableview?.activeState == "Inactive" {
-            timeLabel.text = "-"
-        } else {
-            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: (tableview?.project?.activeTimer?.sessions.last?.startTime.timeIntervalSinceNow)!, bigVersion: true, deadline: false, seconds: true)
-        }
+//        if tableview?.activeState == "Inactive" {
+//            timeLabel.text = "-"
+//        } else if tableview?.activeState == "Running" {
+//            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: ProjectController.sharedInstance.getRunningTimerTotalLength(), bigVersion: true, deadline: false, seconds: true)
+//        } else {
+//            timeLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: tableview?.project?.activeTimer?.totalLength ?? 0, bigVersion: true, deadline: false, seconds: true)
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

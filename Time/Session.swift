@@ -15,10 +15,12 @@ struct Session {
     var startTime: Date
     var totalLength: TimeInterval?
     var customizedSessionLength:TimeInterval?
+    var scheduled: Bool
     
-    init(startTime: Date, customizedSessionLength: TimeInterval?) {
+    init(startTime: Date, customizedSessionLength: TimeInterval?, scheduled: Bool) {
         self.startTime = startTime
         self.customizedSessionLength = customizedSessionLength
+        self.scheduled = scheduled
     }
     
     init(dict: NSDictionary) {
@@ -28,6 +30,12 @@ struct Session {
         self.startTime = formatter.date(from: start!)!
         self.totalLength = dict["Session Length"] as? TimeInterval
         self.customizedSessionLength = dict["Customized Session Length"] as? TimeInterval
+        let scheduledInt = dict["Scheduled"] as? Int ?? 0
+        if scheduledInt == 0 {
+            scheduled = false
+        } else {
+            scheduled = true
+        }
     }
     
     mutating func snooze() {
@@ -36,6 +44,11 @@ struct Session {
     
     func toAnyObject() -> Any {
         let start: NSString = String(describing: self.startTime) as NSString
+        var scheduledDouble = 0.0 as NSNumber
+        if scheduled == true {
+            scheduledDouble = 1.0
+        }
+        
         if let totalLength = totalLength {
             let length = totalLength as NSNumber
             
@@ -43,19 +56,23 @@ struct Session {
                 let presetSessionLength = customizedSessionLength
                 return ["Start Time": start,
                         "Session Length": length,
-                        "Customized Session Length": presetSessionLength]
+                        "Customized Session Length": presetSessionLength,
+                        "Scheduled": scheduledDouble]
             }
             return ["Start Time": start,
-                    "Session Length": length]
+                    "Session Length": length,
+                    "Scheduled": scheduledDouble]
         }
         if let customizedSessionLength = customizedSessionLength {
             let presetSessionLength = customizedSessionLength
             return ["Start Time": start,
                     "Session Length": 0 as NSNumber,
-                    "Customized Session Length": presetSessionLength]
+                    "Customized Session Length": presetSessionLength,
+                    "Scheduled": scheduledDouble]
         }
         return ["Start Time": start,
-                "Session Length": 0 as NSNumber]
+                "Session Length": 0 as NSNumber,
+                "Scheduled": scheduledDouble]
     }
 
 

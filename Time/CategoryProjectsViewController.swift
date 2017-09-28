@@ -19,7 +19,7 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         super.viewDidLoad()
         
         guard  let category = category else { return }
-        
+                
         self.navigationController?.title = category.name
         
         // TODO: Spinner Wheel
@@ -52,9 +52,9 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
         guard let _ = category?.projects else { return cell }
         
         if (category?.projects[indexPath.row].activeTimer) != nil {
-            cell.setUpCell(project: (category?.projects[indexPath.row])!, active: true)
+            cell.setUpCell(project: (category?.projects[indexPath.row])!, active: true, scheduled: false)
         } else {
-            cell.setUpCell(project: (category?.projects[indexPath.row])!, active:  false)
+            cell.setUpCell(project: (category?.projects[indexPath.row])!, active: false, scheduled: false)
         }
     
         return cell
@@ -84,7 +84,8 @@ class CategoryProjectsViewController: UIViewController, UITableViewDataSource, U
             
             guard let selectedProject = selectedProject else { return }
             
-            let destination = segue.destination as! LargeTimerViewController
+            let navController = segue.destination as! UINavigationController
+            let destination = navController.topViewController as! LargeTimerViewController
             destination.delegate = self
             for p in ProjectController.sharedInstance.activeProjects {
                 if p.isEqual(rhs: selectedProject) {

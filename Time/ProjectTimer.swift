@@ -31,15 +31,18 @@ struct ProjectTimer {
         }
         
         var scheduled: Date
+        var isScheduled = false
+        
         if let scheduledDate = scheduledDate {
             scheduled = scheduledDate
+            isScheduled = true
         } else {
             scheduled = Date.init()
         }
         
 
         self.totalLength = 0
-        let session = Session.init(startTime: scheduled, customizedSessionLength: customizedSessionLength)
+        let session = Session.init(startTime: scheduled, customizedSessionLength: customizedSessionLength, scheduled: isScheduled)
         sessions.append(session)
         SessionController.sharedInstance.currentSession = session
     }
