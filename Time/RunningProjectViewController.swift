@@ -20,6 +20,7 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
     var breakUpdater: BreakUpdater?
     var project = ProjectController.sharedInstance.currentProject
     var largeTimerCell: LargeTimerTableViewCell?
+    var progressCell: ProgressTableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,16 +54,8 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         if indexPath.row == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProgressCell", for: indexPath) as! ProgressTableViewCell
-            
-            if let seshLength = SessionController.sharedInstance.currentSession?.customizedSessionLength {
-                cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: seshLength, bigVersion: false, deadline: false, seconds: false)
-            } else {
-                if let total = project?.activeTimer?.totalLength, let count = project?.activeTimer?.sessions.count {
-                    cell.sessionLengthLabel.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total / Double(count), bigVersion: false, deadline: false, seconds: false)
-                }
-            }
-            return cell
+            progressCell = tableView.dequeueReusableCell(withIdentifier: "ProgressCell", for: indexPath) as? ProgressTableViewCell
+            return progressCell!
         }
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "RunningProjectInfoCell", for: indexPath) as! RunningProjectInfoTableViewCell
@@ -89,7 +82,7 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
             return 75 + 120
         }
         if indexPath.row == 2 {
-            return 15 + 120
+            return 15 + 110
         }
             return 90 + 90
     }
@@ -110,6 +103,8 @@ class RunningProjectViewController: UIViewController, UITableViewDataSource, UIT
             if abs(Int((project.activeTimer!.sessions.last?.startTime.timeIntervalSinceNow)!)) == 3600 {
                 tableview.reloadData()
             }
+            
+            progressCell?.updateProgress()
             
         } else {
             ProjectController.sharedInstance.projectTimer.invalidate()

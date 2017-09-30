@@ -35,7 +35,7 @@ class RunningProjectButtonView: UIView {
     // Active: Finish
     @IBAction func rightButtonPressed(_ sender: Any) {
         
-        ProjectController.sharedInstance.endTimer(project: (tableview?.project!)!)
+        ProjectController.sharedInstance.endTimer(project: ProjectController.sharedInstance.currentProject!)
         
         tableview?.delegate?.updateTableView()
         tableview?.dismiss(animated: true, completion: nil)

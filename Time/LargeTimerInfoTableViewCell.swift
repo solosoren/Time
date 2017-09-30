@@ -102,18 +102,20 @@ class LargeTimerInfoTableViewCell: UITableViewCell {
             
             
         case 6:
-
-            leftButtonTitle.text = "Avg Session"
-            if let total = tableview?.project?.activeTimer?.totalLength, let count = tableview?.project?.activeTimer?.sessions.count {
-                let avg = total / Double(count)
-                leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: avg, bigVersion: false, deadline: false, seconds: false)
-            } else {
-                leftButtonInfo.text = "None"
-            }
             
-            rightButtonMoreImage.isHidden = true
+            leftButtonTitle.text = "Avg Session"
             
             if tableview?.isActive == true {
+                if let total = tableview?.project?.activeTimer?.totalLength, let count = tableview?.project?.activeTimer?.sessions.count {
+                    let avg = total / Double(count)
+                    leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: avg, bigVersion: false, deadline: false, seconds: false)
+                } else {
+                    leftButtonInfo.text = "None"
+                }
+                
+                rightButtonMoreImage.isHidden = true
+                
+                
                 rightButtonTitle.text = "Deadline"
                 
                 if let deadline = tableview?.project?.activeTimer?.deadline {
@@ -122,10 +124,17 @@ class LargeTimerInfoTableViewCell: UITableViewCell {
                     rightButtonInfo.text = "None"
                 }
             } else {
-                rightButtonTitle.text = "Completion Time"
+                rightButtonTitle.text = "Complete"
                 if let total = tableview?.project?.timers.last?.totalLength {
                     
                     rightButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: total, bigVersion: false, deadline: false, seconds: false)
+                }
+                
+                if let total = tableview?.project?.timers.last?.totalLength, let count = tableview?.project?.timers.last?.sessions.count {
+                    let avg = total / Double(count)
+                    leftButtonInfo.text = ProjectController.sharedInstance.hourMinuteStringFromTimeInterval(interval: avg, bigVersion: false, deadline: false, seconds: false)
+                } else {
+                    leftButtonInfo.text = "None"
                 }
                 
             }
