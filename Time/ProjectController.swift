@@ -124,6 +124,8 @@ class ProjectController {
         
         if currentProject != nil && (scheduledDate == nil) {
            SessionController.sharedInstance.endSession(projectIsDone: false)
+        } else if SessionController.sharedInstance.onBreak {
+            SessionController.sharedInstance.endBreak()
         }
         
         if project.numberOfTimers != nil {
@@ -141,10 +143,14 @@ class ProjectController {
         
         // Send notification
         if ((currentProject?.presetSessionLength) != nil) && scheduledDate == nil {
-            NotificationController.sharedInstance.sessionNotification(ends: (currentProject?.presetSessionLength!)!, projectID: (project.firebaseRef?.key)!)
+            NotificationController.sharedInstance.sessionNotification(ends: (currentProject?.presetSessionLength!)!, with: (project.firebaseRef?.key)!)
             
         } else if scheduledDate != nil {
-            NotificationController.sharedInstance.scheduleSessionNotification(starts: scheduledDate!, project: project)
+            NotificationController.sharedInstance.scheduleSessionNotification(starts: scheduledDate!, with: project)
+        }
+        
+        if let deadline = deadline {
+            NotificationController.sharedInstance.deadlineNotification(deadline, for: proj)
         }
         
         var updateKeys: [String : Any]
@@ -199,7 +205,7 @@ class ProjectController {
         SessionController.sharedInstance.currentSession?.customizedSessionLength = seshLength + 180
         currentProject?.activeTimer?.sessions.append(SessionController.sharedInstance.currentSession!)
         
-        NotificationController.sharedInstance.sessionNotification(ends: 180, projectID: (currentProject?.firebaseRef?.key)!)
+        NotificationController.sharedInstance.sessionNotification(ends: 180, with: (currentProject?.firebaseRef?.key)!)
         
         let updateKeys =  ["/projects/\(key)": currentProject?.toAnyObject() as! [String: Any]]
         
@@ -249,6 +255,13 @@ class ProjectController {
             }
             activeProjects.remove(at: index)
             activeProjectsRefs.remove(at: index)
+            
+            if let key = proj.firebaseRef?.key {
+                NotificationController.sharedInstance.scrubNotificationWith(identifier: "\(key) NOTIFICATION")
+                if let _ = proj.timers.last?.deadline {
+                    NotificationController.sharedInstance.scrubNotificationWith(identifier: "\(key) DEADLINE NOTIFICATION")
+                }
+            }
             
             updateKeys = ["/projects/\(project.firebaseRef!.key)": proj.toAnyObject() as! [String: Any],
                           "/users/\(FIRAuth.auth()?.currentUser?.uid ?? "UID")/active projects": activeProjectsRefs]

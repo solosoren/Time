@@ -49,6 +49,8 @@ class SessionController {
         
         if ProjectController.sharedInstance.currentProject != nil {
             self.endSession(projectIsDone: false)
+        } else if onBreak {
+            endBreak()
         }
         ProjectController.sharedInstance.currentProject = project
         
@@ -56,7 +58,7 @@ class SessionController {
         
         if let customizedSessionLength = customizedSessionLength {
             // TODO: Fix for no firebase key
-            NotificationController.sharedInstance.sessionNotification(ends: customizedSessionLength, projectID: project.firebaseRef?.key ?? "")
+            NotificationController.sharedInstance.sessionNotification(ends: customizedSessionLength, with: project.firebaseRef?.key ?? "")
 
         }
         
@@ -103,7 +105,7 @@ class SessionController {
         currentSession = nil
         
         if let key = project?.firebaseRef?.key {
-            NotificationController.sharedInstance.scrubNotificationWith(identifier: key)
+            NotificationController.sharedInstance.scrubNotificationWith(identifier: "\(key) NOTIFICATION")
         }
         
         let updateKeys = ["/projects/\(project!.firebaseRef!.key)": project!.toAnyObject(),
@@ -129,7 +131,7 @@ class SessionController {
         
         SessionController.sharedInstance.endSession(projectIsDone: false)
         
-        NotificationController.sharedInstance.breakNotification(ends: (5*60), projectID: project?.firebaseRef?.key)
+        NotificationController.sharedInstance.breakNotification(ends: (5*60), with: project?.firebaseRef?.key)
         
         let uid = FIRAuth.auth()?.currentUser?.uid
         let updateKeys = ["/users/\(uid ?? "UID")/break": currentBreak?.toAnyObject() as! [String: Any]]

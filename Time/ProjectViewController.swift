@@ -49,9 +49,8 @@ class ProjectViewController: UIViewController, UITableViewDataSource, UITableVie
 		
         tabBarController?.delegate = UIApplication.shared.delegate as? UITabBarControllerDelegate
 		
-//		if #available(iOS 11.0, *) {
-//			navigationController?.navigationBar.prefersLargeTitles = true
-//		}
+		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+		navigationController?.navigationBar.shadowImage = UIImage()
 		
 //		GIDSignIn.sharedInstance().signOut()
 //		

@@ -21,16 +21,18 @@ class NotificationController {
     
     func requestForPermission() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .badge, .alert]) { (granted, error) in
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             // adjust code if they accept vs don't
             if granted {
                 // TODO: Set up Categories
                 self.delegate?.requestGranted()
+            } else {
+                
             }
         }
     }
     
-    private func timeUpNotification(ends: TimeInterval, identifier: String, content: UNMutableNotificationContent) {
+    private func timeUpNotificationThatEndsOn(_ ends: TimeInterval, with identifier: String, and content: UNMutableNotificationContent) {
         
         let currentDate = Date.init()
         let sendDate = currentDate.addingTimeInterval(ends)
@@ -38,8 +40,6 @@ class NotificationController {
         let trigger = UNCalendarNotificationTrigger(dateMatching: comp, repeats: false)
         
         let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error) in
@@ -51,7 +51,7 @@ class NotificationController {
         }
     }
     
-    func sessionNotification(ends: TimeInterval, projectID:String) {
+    func sessionNotification(ends: TimeInterval, with projectID:String) {
         
         let content = UNMutableNotificationContent()
         content.title = "Your Session Is Over"
@@ -59,10 +59,10 @@ class NotificationController {
         
         let identifier = "\(projectID) NOTIFICATION"
         
-        timeUpNotification(ends: ends, identifier: identifier, content: content)
+        timeUpNotificationThatEndsOn(ends, with: identifier, and: content)
     }
     
-    func breakNotification(ends: TimeInterval, projectID: String?) {
+    func breakNotification(ends: TimeInterval, with projectID: String?) {
         
         let content = UNMutableNotificationContent()
         content.title = "Your Break is Over"
@@ -70,7 +70,7 @@ class NotificationController {
         
         let identifier = "BREAK FOR \(UserController.sharedInstance.userRef?.key ?? projectID ?? "")"
         
-        timeUpNotification(ends: ends, identifier: identifier, content: content)
+        timeUpNotificationThatEndsOn(ends, with: identifier, and: content)
     }
     
     
@@ -82,9 +82,7 @@ class NotificationController {
         
         let identifier = "\((project.firebaseRef?.key)!) SCHEDULED NOTIFICATION"
         
-        let currentDate = Date.init()
-        let sendDate = currentDate.addingTimeInterval(starts.timeIntervalSinceNow)
-        let comp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sendDate)
+        let comp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: starts)
         let trigger = UNCalendarNotificationTrigger(dateMatching: comp, repeats: false)
         
         let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
@@ -94,18 +92,43 @@ class NotificationController {
             if let error = error {
                 print("Error: \(error)")
             } else {
-                //                print("Sent notification for \(trigger.dateComponents.minute ?? 00)")
+// TODO: Completion block for error scheduling
             }
         }
         
-//        timeUpNotification(ends: ends, identifier: identifier, content: content)
+// timeUpNotification(ends: ends, identifier: identifier, content: content)
         
     }
     
-    func deadline() {
+    func deadlineNotification(_ deadline: Date, for project: Project) {
+        let content = UNMutableNotificationContent()
+        content.title = "Upcoming Deadline"
+        content.body = "If you haven't finished \(project.name ?? ""), you should get started now to finish by your deadline."
         
+        let identifier = "\((project.firebaseRef?.key)!) DEADLINE NOTIFICATION"
+        
+        var timeLeft: TimeInterval
+        if let totalLength = project.activeTimer?.totalLength {
+            timeLeft = 0 + totalLength - project.average
+        } else {
+            timeLeft = 0 - project.average
+        }
+        
+        let sendDate = deadline.addingTimeInterval(timeLeft)
+        let comp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sendDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comp, repeats: false)
+        
+        let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+// TODO: Completion block for error scheduling
+            }
+        }
     }
-    
     
     func sessionRunningTooLong() {
         

@@ -73,13 +73,13 @@ class TimerTableViewCell: UITableViewCell, BreakUpdater {
             timerName.text =    project.name
             categoryName.text = project.categoryName
             if let timerDeadline = project.activeTimer!.deadline {
-                deadline.text = "Deadline: \(projectController.hourMinuteStringFromTimeInterval(interval: timerDeadline.timeIntervalSinceNow, bigVersion: true, deadline: true, seconds: false))"
+                deadline.text = "Deadline: \(projectController.dateString(timerDeadline))"
             } else {
                 deadline.text = "Deadline: -"
             }
             
             if let presetSessionLength = SessionController.sharedInstance.currentSession?.customizedSessionLength {
-                sessionLength.text = "Session Length: \(projectController.hourMinuteStringFromTimeInterval(interval: presetSessionLength, bigVersion: true, deadline: false, seconds: false))"
+                sessionLength.text = "Session Length: \(projectController.hourMinuteStringFromTimeInterval(interval: presetSessionLength, bigVersion: false, deadline: false, seconds: false))"
             } else {
                 sessionLength.text = ""
             }
